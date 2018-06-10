@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BookingLapang</string>
+    <string name="password_icon">password_icon</string>
+    <string name="email_icon">email_icon</string>
+    <string name="login_icon">login_icon</string>
+    <string name="background">background</string>
+    <string name="log_in">LOG IN</string>
+    <string name="register"><u>Register</u></string>
 </resources>
