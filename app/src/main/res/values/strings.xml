@@ -1,9 +1,16 @@
 <resources>
-    <string name="app_name">BookingLapang</string>
+    <string name="app_name">Booking Lapang</string>
     <string name="password_icon">password_icon</string>
     <string name="email_icon">email_icon</string>
     <string name="login_icon">login_icon</string>
     <string name="background">background</string>
     <string name="log_in">LOG IN</string>
     <string name="register"><u>Register</u></string>
+    <string name="title_bottom_nav_bar_1">home</string>
+    <string name="title_bottom_nav_bar_2">order</string>
+    <string name="title_bottom_nav_bar_3">status</string>
+    <string name="title_bottom_nav_bar_4">status</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
