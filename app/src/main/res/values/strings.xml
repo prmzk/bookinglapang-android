@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Booking Lapang</string>
+    <string name="app_name">Bookinglapang</string>
     <string name="password_icon">password_icon</string>
     <string name="email_icon">email_icon</string>
     <string name="login_icon">login_icon</string>
@@ -13,4 +13,5 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bayar">Bayar</string>
 </resources>
