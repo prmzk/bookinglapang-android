@@ -14,4 +14,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bayar">Bayar</string>
+    <string name="belum_dibayar">Belum Dibayar</string>
+    <string name="belum_verifikasi">Belum Verifikasi</string>
+    <string name="jam_selesai">Jam Selesai</string>
+    <string name="jam_main">Jam Main</string>
+    <string name="tanggal_main">Tanggal Main</string>
+    <string name="pilih_olahraga">Pilih Olahraga</string>
+    <string name="pilih_lapangan">Pilih Lapangan</string>
+    <string name="order_confirmation">Order Confirmation</string>
 </resources>

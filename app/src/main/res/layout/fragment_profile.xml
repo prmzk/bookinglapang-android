@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".profile.view.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:drawableRight="@drawable/resized_triangle_icon"
-            android:background="@drawable/login_button"
+            android:background="@drawable/button_green"
             android:text="@string/bayar"
             android:textColor="#ffffff"
             android:layout_gravity="center_horizontal"

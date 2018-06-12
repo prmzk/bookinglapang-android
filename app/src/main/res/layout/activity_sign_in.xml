@@ -94,7 +94,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/login_button"
+                    android:background="@drawable/button_green"
                     android:textColor="#ffffff"
                     android:text="Log In"
                     android:textSize="14sp"
