@@ -22,4 +22,6 @@
     <string name="pilih_olahraga">Pilih Olahraga</string>
     <string name="pilih_lapangan">Pilih Lapangan</string>
     <string name="order_confirmation">Order Confirmation</string>
+    <string name="status_pemesanan">Status Pemesanan</string>
+    <string name="booked">BOOKED</string>
 </resources>
