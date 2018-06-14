@@ -2,6 +2,8 @@ package com.example.keviniswara.bookinglapang.login.presenter
 
 import android.util.Log
 import com.example.keviniswara.bookinglapang.login.RegisterContract
+import com.example.keviniswara.bookinglapang.model.User
+import com.example.keviniswara.bookinglapang.utils.Database
 
 class RegisterPresenter : RegisterContract.Presenter {
 
@@ -30,6 +32,8 @@ class RegisterPresenter : RegisterContract.Presenter {
                     .addOnCompleteListener({ task ->
                         if (task.isSuccessful) {
                             //Add data to database
+                            val user = User(name!!, email, phoneNumber!!, 1, null, null)
+                            Database.setUsers(user)
                         } else {
                             Log.d("REGISTER", "Gagal")
                         }

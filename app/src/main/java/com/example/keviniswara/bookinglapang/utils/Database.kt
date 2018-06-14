@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang.utils
 import android.util.Log
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.model.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseError
@@ -11,19 +12,18 @@ import com.google.firebase.database.ValueEventListener
 
 
 
-class Database {
+object Database {
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val root: DatabaseReference = database.getReference("")
-
+    val userId = FirebaseAuth.getInstance().currentUser!!.uid
     fun setUsers(user: User) {
-        val email = user.email.replace(".", "")
-        root.child("users").child(email).child("name").setValue(user.name)
-        root.child("users").child(email).child("phoneNumber").setValue(user.phoneNumber)
-        root.child("users").child(email).child("status").setValue(user.status)
-        root.child("users").child(email).child("email").setValue(email)
-        root.child("users").child(email).child("field").setValue(user.field)
-        root.child("users").child(email).child("orders").setValue(user.orders)
+        root.child("users").child(userId).child("name").setValue(user.name)
+        root.child("users").child(userId).child("phoneNumber").setValue(user.phoneNumber)
+        root.child("users").child(userId).child("status").setValue(user.status)
+        root.child("users").child(userId).child("email").setValue(user.email)
+        root.child("users").child(userId).child("field").setValue(user.field)
+        root.child("users").child(userId).child("orders").setValue(user.orders)
     }
 
     fun getUsers() {
