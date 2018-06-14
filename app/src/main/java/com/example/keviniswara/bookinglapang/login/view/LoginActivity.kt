@@ -33,9 +33,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
         })
 
         mBinding.buttonRegister.setOnClickListener(View.OnClickListener {
-            /*val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-            finish()*/
+            finish()
         })
     }
     override fun initPresenter(): LoginContract.Presenter {
