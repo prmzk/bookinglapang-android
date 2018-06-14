@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.TextView
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.ActivityRegisterBinding
 import com.example.keviniswara.bookinglapang.login.RegisterContract
@@ -56,6 +57,10 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     override fun getAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
+    }
+
+    override fun getErrorMessage(): TextView {
+        return mBinding.errorMessage
     }
 
     override fun initPresenter(): RegisterContract.Presenter {

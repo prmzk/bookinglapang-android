@@ -1,11 +1,7 @@
 package com.example.keviniswara.bookinglapang.login.presenter
 
-import android.text.TextUtils
 import android.util.Log
 import com.example.keviniswara.bookinglapang.login.RegisterContract
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
 
 class RegisterPresenter : RegisterContract.Presenter {
 
@@ -13,28 +9,41 @@ class RegisterPresenter : RegisterContract.Presenter {
 
     override fun register() {
         val email = mView?.getEmail()
-//        var name = mView.getName()
-//        var phoneNumber = mView.getPhoneNumber()
+        val name = mView?.getName()
+        val phoneNumber = mView?.getPhoneNumber()
         val password = mView?.getPassword()
-//        var confirmPassword = mView.getPasswordConfirmation()
+        val confirmPassword = mView?.getPasswordConfirmation()
 
-
-        if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            val emailverified = email.toString()
-            val passwordverified = password.toString()
-            mView!!.getAuth().createUserWithEmailAndPassword(emailverified, passwordverified).addOnCompleteListener(OnCompleteListener<AuthResult> {
-                task ->
-                if (task.isSuccessful) {
-                    //Add data to database
-                } else {
-                    Log.d("REGISTER", "Gagal")
-                }
-
-            })
+        when {
+            email.isNullOrEmpty() -> nullErrorMessage("Email")
+            name.isNullOrEmpty() -> nullErrorMessage("Nama")
+            phoneNumber.isNullOrEmpty() -> nullErrorMessage("No. telepon")
+            password.isNullOrEmpty() -> nullErrorMessage("Password")
+            confirmPassword.isNullOrEmpty() -> nullErrorMessage("Confirm password")
+            password != confirmPassword -> confirmPasswordNotMatchErrorMessage()
         }
 
+        if (!email.isNullOrEmpty() && !password.isNullOrEmpty() && !name.isNullOrEmpty() &&
+                !phoneNumber.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() &&
+                password == confirmPassword) {
+            mView!!.getAuth().createUserWithEmailAndPassword(email!!, password!!)
+                    .addOnCompleteListener({ task ->
+                        if (task.isSuccessful) {
+                            //Add data to database
+                        } else {
+                            Log.d("REGISTER", "Gagal")
+                        }
 
+                    })
+        }
+    }
 
+    private fun confirmPasswordNotMatchErrorMessage() {
+        mView!!.getErrorMessage().text = "Password dan confirm password tidak cocok"
+    }
+
+    private fun nullErrorMessage(content: String) {
+        mView!!.getErrorMessage().text = content + " wajib diisi"
     }
 
     override fun bind(view: RegisterContract.View) {
