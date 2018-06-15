@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang.utils
 import android.util.Log
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.model.User
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseError
@@ -13,13 +14,14 @@ import javax.xml.datatype.DatatypeConstants.SECONDS
 
 
 
-class Database {
+object Database {
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val root: DatabaseReference = database.getReference("")
+    val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-    fun setUsers(id: String, user: User) {
-        root.child("users").child(id).setValue(user)
+    fun setUsers(user: User) {
+        root.child("users").child(userId).setValue(user)
     }
 
 /*    fun getUsers(): MutableList<User>? {
@@ -31,8 +33,6 @@ class Database {
 
         root.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                Log.d("KEVIN", "masuk sini ah ah")
 
                 for (userSnapshot in dataSnapshot.children) {
 

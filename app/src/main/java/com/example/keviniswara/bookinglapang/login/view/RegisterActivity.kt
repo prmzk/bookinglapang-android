@@ -4,16 +4,20 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.TextView
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.ActivityRegisterBinding
 import com.example.keviniswara.bookinglapang.login.RegisterContract
 import com.example.keviniswara.bookinglapang.login.presenter.RegisterPresenter
+import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     private lateinit var mPresenter: RegisterContract.Presenter
 
     private lateinit var mBinding: ActivityRegisterBinding
+
+    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -49,6 +53,14 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
 
     override fun getPasswordConfirmation(): String {
         return mBinding.confirmPassword.text.toString()
+    }
+
+    override fun getAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
+
+    override fun getErrorMessage(): TextView {
+        return mBinding.errorMessage
     }
 
     override fun initPresenter(): RegisterContract.Presenter {
