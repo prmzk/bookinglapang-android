@@ -19,7 +19,7 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_order"
+                    android:src="@drawable/ic_lapangan"
                     android:layout_marginRight="5dp"
                     android:layout_marginEnd="5dp" />
                 <LinearLayout
@@ -29,7 +29,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/order_confirmation"
+                        android:text="Cari Lapangan"
                         android:textSize="25sp"
                         android:textStyle="bold"
                         android:textColor="@color/colorPrimary"/>
@@ -50,13 +50,18 @@
                         android:layout_weight="1"
                         android:text="@string/pilih_lapangan"
                         android:textColor="@color/colorPrimary"/>
-
-                    <Spinner
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/form_input_background"
-                        android:layout_weight="3"
-                        android:id="@+id/list_of_field"/>
+                        android:layout_weight="3" />
+                    <!--<Spinner-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@drawable/form_input_background"-->
+                        <!--android:layout_weight="3"-->
+                        <!--android:id="@+id/list_of_field"-->
+                        <!--android:visibility="invisible"/>-->
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
@@ -66,13 +71,18 @@
                         android:layout_weight="1"
                         android:text="@string/pilih_olahraga"
                         android:textColor="@color/colorPrimary"/>
-
-                    <Spinner
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/form_input_background"
-                        android:layout_weight="3"
-                        android:id="@+id/list_of_sports"/>
+                        android:layout_weight="3" />
+                    <!--<Spinner-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@drawable/form_input_background"-->
+                        <!--android:layout_weight="3"-->
+                        <!--android:id="@+id/list_of_sports"-->
+                        <!--android:visibility="invisible"/>-->
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
@@ -124,37 +134,18 @@
                         android:layout_weight="3"
                         android:id="@+id/finish_hour"/>
                 </TableRow>
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_grey"
-                        android:text="@string/belum_verifikasi"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:id="@+id/verify"/>
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="20dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_grey"
-                        android:text="@string/belum_dibayar"
-                        android:textAllCaps="false"
-                        android:textColor="#ffffff"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginStart="5dp"
-                        android:id="@+id/pay"/>
-                </TableRow>
             </TableLayout>
-
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button_green"
+                android:text="Continue"
+                android:textColor="#ffffff"
+                android:layout_gravity="center_horizontal"
+                android:padding="2dp"
+                android:minHeight="20dp">
+            </Button>
         </LinearLayout>
     </ScrollView>
 </layout>
