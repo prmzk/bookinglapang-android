@@ -8,6 +8,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
+import javax.xml.datatype.DatatypeConstants.SECONDS
+
 
 
 
@@ -16,58 +18,67 @@ class Database {
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val root: DatabaseReference = database.getReference("")
 
-    fun setUsers(user: User) {
-        val email = user.email.replace(".", "")
-        root.child("users").child(email).child("name").setValue(user.name)
-        root.child("users").child(email).child("phoneNumber").setValue(user.phoneNumber)
-        root.child("users").child(email).child("status").setValue(user.status)
-        root.child("users").child(email).child("email").setValue(email)
-        root.child("users").child(email).child("field").setValue(user.field)
-        root.child("users").child(email).child("orders").setValue(user.orders)
+    fun setUsers(id: String, user: User) {
+        root.child("users").child(id).setValue(user)
     }
 
-    fun getUsers() {
+/*    fun getUsers(): MutableList<User>? {
         val root: DatabaseReference = database.getReference("users")
+
+        var user: User?
+        var userList: MutableList<User>? = mutableListOf<User>()
+        var finish: Boolean = false
+
         root.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d("KEVIN", dataSnapshot.child("bookinglapang8@gmailcom").toString())
 
-                val user: User?
+                Log.d("KEVIN", "masuk sini ah ah")
 
-                if (dataSnapshot.child("bookinglapang8@gmailcom").hasChild("field") &&
-                        dataSnapshot.child("bookinglapang8@gmailcom").hasChild("orders")) {
-                    user = dataSnapshot.child("bookinglapang8@gmailcom").getValue<User>(User::class.java)
-                } else  {
-                    val name: String = dataSnapshot.child("bookinglapang8@gmailcom").child("name")
+                for (userSnapshot in dataSnapshot.children) {
+
+                    val name: String = userSnapshot.child("name")
                             .getValue<String>(String::class.java) ?: ""
-                    val email: String = dataSnapshot.child("bookinglapang8@gmailcom").child("email")
+                    val email: String = userSnapshot.child("email")
                             .getValue<String>(String::class.java) ?: ""
-                    val status: Int = dataSnapshot.child("bookinglapang8@gmailcom").child("status")
+                    val status: Int = userSnapshot.child("status")
                             .getValue<Int>(Int::class.java) ?: 0
-                    val phoneNumber: String = dataSnapshot.child("bookinglapang8@gmailcom").child("phoneNumber")
+                    val phoneNumber: String = userSnapshot.child("phoneNumber")
                             .getValue<String>(String::class.java) ?: ""
                     val field: String?
-                    val orders: List<Order>?
+                    var orders: MutableList<Order>? = mutableListOf<Order>()
 
-                    if (dataSnapshot.child("bookinglapang8@gmailcom").hasChild("field")) {
-                        field = dataSnapshot.child("bookinglapang8@gmailcom").child("field")
+                    if (userSnapshot.hasChild("field")) {
+                        field = userSnapshot.child("field")
                                 .getValue<String>(String::class.java)
                     } else {
                         field = null
                     }
 
-                    orders = null
+                    if (userSnapshot.hasChild("orders")) {
 
-                    user = User(name, email, phoneNumber, status, field, orders)
+                        for (orderSnapshot in userSnapshot.child("orders").children) {
+
+                            val order = orderSnapshot.getValue<Order>(Order::class.java)
+                            orders!!.add(order!!)
+
+                        }
+
+                    } else {
+                        orders = null
+                    }
+
+                    user = User(email, field, name, orders, phoneNumber, status)
+
+                    userList?.add(user!!)
                 }
-                Log.d("KEVIN", user?.name)
-                Log.d("KEVIN", user?.phoneNumber)
-                Log.d("KEVIN", user?.status.toString())
+                finish = true
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
-                Log.d("KEVIN", "The read failed: " + databaseError.code)
+                userList = null
+                finish = true
             }
         })
-    }
+        return userList
+    }*/
 }
