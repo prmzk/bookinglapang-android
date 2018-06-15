@@ -19,10 +19,6 @@
             android:id="@+id/button_cari_lapangan"
             android:layout_width="215dp"
             android:layout_height="215dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="52dp"
             android:scaleType="fitCenter"
             android:src="@drawable/logo_cari_lapangan" />
 
@@ -30,10 +26,6 @@
             android:id="@+id/button_cari_lawan"
             android:layout_width="215dp"
             android:layout_height="215dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="61dp"
-            android:layout_marginEnd="14dp"
             android:scaleType="fitCenter"
             android:src="@drawable/logo_cari_lawan" />
 
