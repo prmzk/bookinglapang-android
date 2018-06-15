@@ -1,7 +1,11 @@
 package com.example.keviniswara.bookinglapang.login.presenter
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
+import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.login.RegisterContract
+import com.example.keviniswara.bookinglapang.login.view.RegisterActivity
 import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.utils.Database
 
@@ -34,6 +38,7 @@ class RegisterPresenter : RegisterContract.Presenter {
                             //Add data to database
                             val user = User(name!!, email, phoneNumber!!, 1, null, null)
                             Database.setUsers(user)
+                            mView!!.startMainActivity()
                         } else {
                             Log.d("REGISTER", "Gagal")
                         }

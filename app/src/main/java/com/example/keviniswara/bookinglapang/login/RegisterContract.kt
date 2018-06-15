@@ -14,6 +14,7 @@ interface RegisterContract {
         fun getPasswordConfirmation(): String
         fun getAuth(): FirebaseAuth
         fun getErrorMessage(): TextView
+        fun startMainActivity()
     }
     interface Presenter : BasePresenter<View> {
         fun register()

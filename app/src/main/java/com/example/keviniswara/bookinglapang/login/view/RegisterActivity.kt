@@ -1,10 +1,12 @@
 package com.example.keviniswara.bookinglapang.login.view
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.ActivityRegisterBinding
 import com.example.keviniswara.bookinglapang.login.RegisterContract
@@ -66,5 +68,11 @@ class RegisterActivity : AppCompatActivity(), RegisterContract.View {
     override fun initPresenter(): RegisterContract.Presenter {
         val presenter: RegisterPresenter = RegisterPresenter()
         return presenter
+    }
+
+    override fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }
