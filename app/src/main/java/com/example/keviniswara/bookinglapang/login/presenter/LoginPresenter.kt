@@ -5,6 +5,8 @@ import com.example.keviniswara.bookinglapang.login.LoginContract
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 
 class LoginPresenter() : LoginContract.Presenter {
@@ -38,10 +40,22 @@ class LoginPresenter() : LoginContract.Presenter {
                         if (task.isSuccessful) {
                             mView?.startMainActivity()
                         } else {
+                            when {
+                                task.exception is FirebaseAuthInvalidCredentialsException -> invalidPasswordErrorMessage()
+                                task.exception is FirebaseAuthInvalidUserException -> emailNotRegisteredErrorMessage()
+                                else -> mView?.setErrorMessage("Login gagal.")
+                            }
                             Log.d("LOGIN ERROR", task.exception.toString())
-                            mView?.setErrorMessage("Login gagal.")
                         }
                     })
         }
+    }
+
+    private fun invalidPasswordErrorMessage() {
+        mView!!.setErrorMessage("Email dan password tidak cocok.")
+    }
+
+    private fun emailNotRegisteredErrorMessage() {
+        mView!!.setErrorMessage("Email belum terdaftar.")
     }
 }
