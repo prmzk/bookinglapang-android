@@ -82,14 +82,9 @@ class MainActivity : AppCompatActivity() {
             val iconView = menuView.getChildAt(i).findViewById<View>(android.support.design.R.id.icon)
             val layoutParams = iconView.getLayoutParams()
             val displayMetrics = resources.displayMetrics
-            layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, displayMetrics).toInt()
-            layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, displayMetrics).toInt()
+            layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80f, displayMetrics).toInt()
+            layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 80f, displayMetrics).toInt()
             iconView.setLayoutParams(layoutParams)
-
-            // hide title
-            val item = menuView.getChildAt(i) as BottomNavigationItemView
-            item.setShiftingMode(false)
-            item.setChecked(item.itemData.isChecked)
         }
 
         val fragment = HomeFragment()
