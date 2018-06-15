@@ -15,11 +15,12 @@ import com.example.keviniswara.bookinglapang.order.view.OrderFragment
 import com.example.keviniswara.bookinglapang.profile.view.ProfileFragment
 import com.example.keviniswara.bookinglapang.status.view.StatusFragment
 import android.util.TypedValue
-import android.util.DisplayMetrics
-import android.view.ViewGroup
 import android.support.design.internal.BottomNavigationMenuView
 import android.view.View
 import android.support.design.internal.BottomNavigationItemView
+import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
+
+
 
 
 
@@ -71,15 +72,18 @@ class MainActivity : AppCompatActivity() {
 
         val navigation = findViewById(R.id.bottom_nav_bar) as BottomNavigationView
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        val navHelper = BottomNavigationViewHelper()
+        navHelper.removeShiftMode(navigation)
         val menuView = navigation.getChildAt(0) as BottomNavigationMenuView
+
         for (i in 0 until menuView.childCount) {
-            
+
             // change icon size
             val iconView = menuView.getChildAt(i).findViewById<View>(android.support.design.R.id.icon)
             val layoutParams = iconView.getLayoutParams()
             val displayMetrics = resources.displayMetrics
-            layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48f, displayMetrics).toInt()
-            layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48f, displayMetrics).toInt()
+            layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, displayMetrics).toInt()
+            layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60f, displayMetrics).toInt()
             iconView.setLayoutParams(layoutParams)
 
             // hide title
