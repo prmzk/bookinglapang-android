@@ -1,11 +1,10 @@
 package com.example.keviniswara.bookinglapang.home.presenter
 
-import android.widget.ArrayAdapter
 import com.example.keviniswara.bookinglapang.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.model.Field
 import com.google.firebase.database.*
 
-class SearchFieldPresenter: SearchFieldContract.Presenter {
+class SearchFieldPresenter : SearchFieldContract.Presenter {
 
     private var mView: SearchFieldContract.View? = null
 
@@ -23,7 +22,7 @@ class SearchFieldPresenter: SearchFieldContract.Presenter {
 
     override fun retrieveListOfFieldFromFirebase() {
         var listOfField = mutableListOf<String>()
-        fieldReference.addValueEventListener(object : ValueEventListener{
+        fieldReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot?) {
                 fetchDataFieldName(p0, listOfField)
 
@@ -44,7 +43,7 @@ class SearchFieldPresenter: SearchFieldContract.Presenter {
         }
     }
 
-    override fun retrieveListOfSportFromFirebase(fieldName : String) {
+    override fun retrieveListOfSportFromFirebase(fieldName: String) {
         var listOfSport = mutableListOf<String>()
         fieldReference.child(fieldName).child("sports").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot?) {
