@@ -98,7 +98,7 @@
                         android:layout_weight="3"
                         android:clickable="true"
                         android:editable="false"
-                        android:id="@+id/date"/>
+                        android:id="@+id/date" />
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"

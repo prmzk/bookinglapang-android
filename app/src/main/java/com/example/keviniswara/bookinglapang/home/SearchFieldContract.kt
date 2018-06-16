@@ -11,8 +11,11 @@ interface SearchFieldContract {
         fun getStartHour(): String
         fun getFinishHour(): String
         fun initDatePicker()
+        fun initListOfFieldDropdown(listOfField: List<String>)
+        fun initListOfSportDropdown(listOfSport: List<String>)
     }
     interface Presenter: BasePresenter<View> {
-
+        fun retrieveListOfFieldFromFirebase()
+        fun retrieveListOfSportFromFirebase(fieldName : String)
     }
 }

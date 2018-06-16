@@ -13,27 +13,20 @@ import com.example.keviniswara.bookinglapang.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.home.presenter.SearchFieldPresenter
 import java.text.SimpleDateFormat
 import java.util.*
+import android.databinding.adapters.TextViewBindingAdapter.setText
+import android.widget.TimePicker
+import android.app.TimePickerDialog
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+
 
 class SearchFieldFragment : Fragment(), SearchFieldContract.View {
-    override fun initDatePicker() {
-        mCalendar = Calendar.getInstance()
-        val date = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            mCalendar.set(Calendar.YEAR, year)
-            mCalendar.set(Calendar.MONTH, monthOfYear)
-            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateLabel()
-        }
-
-        DatePickerDialog(activity, date, mCalendar
-                .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
-                mCalendar.get(Calendar.DAY_OF_MONTH)).show()
-    }
-
-    private lateinit var mCalendar: Calendar
 
     private lateinit var mPresenter: SearchFieldContract.Presenter
 
     private lateinit var mBinding: FragmentSearchFieldBinding
+
+    private lateinit var mCalendar: Calendar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +44,18 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         mBinding.date.setOnClickListener(View.OnClickListener {
             initDatePicker()
         })
+
+        mPresenter.retrieveListOfFieldFromFirebase()
+
+        mBinding.listOfField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                mPresenter.retrieveListOfSportFromFirebase(p0!!.getItemAtPosition(p2).toString())
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
 
         return mBinding.root
     }
@@ -84,5 +89,31 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         val dateFormat = "dd/MM/yy"
         val sdf = SimpleDateFormat(dateFormat, Locale.US)
         mBinding.date.setText(sdf.format(mCalendar.getTime()))
+    }
+
+    override fun initDatePicker() {
+        mCalendar = Calendar.getInstance()
+        val date = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            mCalendar.set(Calendar.YEAR, year)
+            mCalendar.set(Calendar.MONTH, monthOfYear)
+            mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLabel()
+        }
+
+        DatePickerDialog(activity, date, mCalendar
+                .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
+                mCalendar.get(Calendar.DAY_OF_MONTH)).show()
+    }
+
+    override fun initListOfFieldDropdown(listOfField: List<String>) {
+        val adapter = ArrayAdapter(activity!!.applicationContext, R.layout.spinner_item, listOfField)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        mBinding.listOfField.adapter = adapter
+    }
+
+    override fun initListOfSportDropdown(listOfSport: List<String>) {
+        val adapter = ArrayAdapter(activity!!.applicationContext, R.layout.spinner_item, listOfSport)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        mBinding.listOfSports.adapter = adapter
     }
 }
