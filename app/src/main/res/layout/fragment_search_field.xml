@@ -142,7 +142,8 @@
                 android:textColor="#ffffff"
                 android:layout_gravity="center_horizontal"
                 android:padding="2dp"
-                android:minHeight="20dp">
+                android:minHeight="20dp"
+                android:id="@+id/button_continue">
             </Button>
         </LinearLayout>
     </ScrollView>

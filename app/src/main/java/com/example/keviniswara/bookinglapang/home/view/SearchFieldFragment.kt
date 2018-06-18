@@ -7,17 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentSearchFieldBinding
 import com.example.keviniswara.bookinglapang.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.home.presenter.SearchFieldPresenter
 import java.text.SimpleDateFormat
 import java.util.*
-import android.databinding.adapters.TextViewBindingAdapter.setText
-import android.widget.TimePicker
-import android.app.TimePickerDialog
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 
 
 class SearchFieldFragment : Fragment(), SearchFieldContract.View {
@@ -57,6 +54,10 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             }
         }
 
+        mBinding.buttonContinue.setOnClickListener(View.OnClickListener {
+            mPresenter.addOrderToFirebase()
+        })
+
         return mBinding.root
     }
 
@@ -66,11 +67,11 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     override fun getFieldName(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mBinding.listOfField.selectedItem.toString()
     }
 
     override fun getSport(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return mBinding.listOfSports.selectedItem.toString()
     }
 
     override fun getDate(): String {

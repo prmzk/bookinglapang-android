@@ -24,6 +24,19 @@ object Database {
         root.child("users").child(userId).setValue(user)
     }
 
+    fun addNewOrder(order: Order) {
+        addNewOrderToUsersChild(order)
+        addNewOrderToOrdersChild(order)
+    }
+
+    private fun addNewOrderToUsersChild(order: Order) {
+        root.child("users").child(userId).child("orders").push().setValue(order)
+    }
+
+    private fun addNewOrderToOrdersChild(order: Order) {
+        root.child("orders").push().setValue(order)
+    }
+
 /*    fun getUsers(): MutableList<User>? {
         val root: DatabaseReference = database.getReference("users")
 

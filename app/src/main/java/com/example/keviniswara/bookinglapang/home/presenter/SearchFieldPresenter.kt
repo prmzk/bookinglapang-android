@@ -2,6 +2,9 @@ package com.example.keviniswara.bookinglapang.home.presenter
 
 import com.example.keviniswara.bookinglapang.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.model.Field
+import com.example.keviniswara.bookinglapang.model.Order
+import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class SearchFieldPresenter : SearchFieldContract.Presenter {
@@ -64,5 +67,16 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
             val name = ds.getValue(Field.Sport::class.java)!!.sport_name
             listOfSport.add(name)
         }
+    }
+
+    override fun addOrderToFirebase() {
+        val fieldName = mView!!.getFieldName()
+        val sportName = mView!!.getSport()
+        val date = mView!!.getDate()
+        val startHour = mView!!.getStartHour()
+        val finishHour = mView!!.getFinishHour()
+        val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
+        val order = Order(userEmail, date, finishHour, fieldName, sportName, startHour, 0)
+        Database.addNewOrder(order)
     }
 }
