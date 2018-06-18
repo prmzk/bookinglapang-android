@@ -17,5 +17,7 @@ interface SearchFieldContract {
     interface Presenter: BasePresenter<View> {
         fun retrieveListOfFieldFromFirebase()
         fun retrieveListOfSportFromFirebase(fieldName : String)
+        fun addOrderToFirebase()
+        fun sendOrderNotificationToFieldKeeper()
     }
 }
