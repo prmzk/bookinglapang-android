@@ -1,8 +1,10 @@
 package com.example.keviniswara.bookinglapang.home.presenter
 
+import android.util.Log
 import com.example.keviniswara.bookinglapang.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.model.Field
 import com.example.keviniswara.bookinglapang.model.Order
+import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -14,6 +16,8 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     private val fieldReference: DatabaseReference = database.getReference("").child("fields")
+
+    private val usersReference: DatabaseReference = database.getReference("").child("users")
 
     override fun bind(view: SearchFieldContract.View) {
         mView = view
@@ -78,5 +82,25 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
         val order = Order(userEmail, date, finishHour, fieldName, sportName, startHour, 0)
         Database.addNewOrder(order)
+    }
+
+    override fun sendOrderNotificationToFieldKeeper() {
+        val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, "New field order")
+        sendNotificationDataToFieldKeeper(mView!!.getFieldName(), notification)
+    }
+
+    private fun sendNotificationDataToFieldKeeper(fieldName: String, notification: User.Notification) {
+        usersReference.orderByChild("field").equalTo(fieldName).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot?) {
+                for(ds in dataSnapshot!!.children) {
+                    val uid = ds.key
+                    Database.addNotification(uid, notification)
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+        })
     }
 }

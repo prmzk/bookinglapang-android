@@ -18,5 +18,6 @@ interface SearchFieldContract {
         fun retrieveListOfFieldFromFirebase()
         fun retrieveListOfSportFromFirebase(fieldName : String)
         fun addOrderToFirebase()
+        fun sendOrderNotificationToFieldKeeper()
     }
 }

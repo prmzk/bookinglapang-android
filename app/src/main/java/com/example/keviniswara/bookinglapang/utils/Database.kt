@@ -37,6 +37,10 @@ object Database {
         root.child("orders").push().setValue(order)
     }
 
+    fun addNotification(uid: String, notification: User.Notification) {
+        root.child("users").child(uid).child("notifications").push().setValue(notification)
+    }
+
 /*    fun getUsers(): MutableList<User>? {
         val root: DatabaseReference = database.getReference("users")
 

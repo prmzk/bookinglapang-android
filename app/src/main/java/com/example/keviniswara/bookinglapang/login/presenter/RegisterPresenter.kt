@@ -40,7 +40,7 @@ class RegisterPresenter : RegisterContract.Presenter {
                     .addOnCompleteListener({ task ->
                         if (task.isSuccessful) {
                             //Add data to database
-                            val user = User(name!!, email, phoneNumber!!, 1, null, null)
+                            val user = User(name!!, email, phoneNumber!!, 1, null, null, null)
                             Database.setUsers(user)
                             mView!!.startMainActivity()
                         } else {

@@ -56,6 +56,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
         mBinding.buttonContinue.setOnClickListener(View.OnClickListener {
             mPresenter.addOrderToFirebase()
+            mPresenter.sendOrderNotificationToFieldKeeper()
         })
 
         return mBinding.root
