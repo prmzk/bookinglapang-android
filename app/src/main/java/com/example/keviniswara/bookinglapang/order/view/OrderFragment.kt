@@ -19,8 +19,7 @@ import com.example.keviniswara.bookinglapang.order.presenter.OrderPresenter
 import android.support.v7.widget.DividerItemDecoration
 
 
-
-class OrderFragment : Fragment(), OrderContact.View{
+class OrderFragment : Fragment(), OrderContact.View {
 
     private lateinit var mBinding: FragmentOrderBinding
     private lateinit var mRecyclerView: RecyclerView
@@ -46,20 +45,7 @@ class OrderFragment : Fragment(), OrderContact.View{
 
         mRecyclerView.addItemDecoration(dividerItemDecoration)
 
-        val orders: MutableList<Order?> = mutableListOf()
-        for (i in 1..5) {
-            orders.add(Order())
-        }
-        mRecyclerView.adapter = OrderAdapter(orders)
-
         return mBinding.root
-    }
-
-    companion object {
-        fun newInstance(): OrderFragment {
-            val fragment = OrderFragment()
-            return fragment
-        }
     }
 
     override fun initPresenter(): OrderPresenter {
@@ -67,10 +53,27 @@ class OrderFragment : Fragment(), OrderContact.View{
         return presenter
     }
 
+    override fun moveToDetail(orderDetail: Order) {
+
+        val arguments = Bundle()
+        val fragment = OrderDetailFragment()
+        arguments.putString("startHour", orderDetail.startHour)
+        arguments.putString("endHour", orderDetail.endHour)
+        arguments.putString("customerEmail", orderDetail.customerEmail)
+        arguments.putString("status", orderDetail.status.toString())
+        arguments.putString("date", orderDetail.date)
+        arguments.putString("sport", orderDetail.sport)
+        arguments.putString("fieldId", orderDetail.fieldId)
+        fragment.arguments = arguments
+        val ft = fragmentManager!!.beginTransaction()
+        ft.replace(R.id.content, fragment).isAddToBackStackAllowed
+        ft.commit()
+    }
+
     override fun initListOfOrders(orders: MutableList<Order?>?) {
         if (orders != null) {
             mRecyclerView.layoutManager = linearLayoutManager
-            mRecyclerView.adapter = OrderAdapter(orders)
+            mRecyclerView.adapter = OrderAdapter(orders, this)
         } else {
             Log.d("KEVIN INIT", "masuk null")
         }

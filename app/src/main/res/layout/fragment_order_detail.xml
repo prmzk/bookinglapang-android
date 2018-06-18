@@ -61,7 +61,8 @@
                         android:text="@string/pilih_lapangan"
                         android:textColor="@color/colorPrimary" />
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/field_id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -78,7 +79,8 @@
                         android:text="@string/pilih_olahraga"
                         android:textColor="@color/colorPrimary" />
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/sport"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -95,7 +97,8 @@
                         android:text="@string/tanggal_main"
                         android:textColor="@color/colorPrimary" />
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -112,7 +115,8 @@
                         android:text="@string/jam_main"
                         android:textColor="@color/colorPrimary" />
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/start_hour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -129,7 +133,8 @@
                         android:text="@string/jam_selesai"
                         android:textColor="@color/colorPrimary" />
 
-                    <EditText
+                    <TextView
+                        android:id="@+id/end_hour"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
@@ -141,6 +146,7 @@
                     android:layout_height="wrap_content">
 
                     <Button
+                        android:id="@+id/verification_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
@@ -153,6 +159,7 @@
                         android:textColor="#ffffff" />
 
                     <Button
+                        android:id="@+id/paid_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"

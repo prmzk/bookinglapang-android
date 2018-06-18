@@ -7,6 +7,7 @@ import com.example.keviniswara.bookinglapang.model.Order
 interface OrderContact {
     interface View  : BaseView<Presenter> {
         fun initListOfOrders(orders: MutableList<Order?>?)
+        fun moveToDetail(orderDetail: Order)
     }
     interface Presenter : BasePresenter<View> {
         fun retrieveOrderList()
