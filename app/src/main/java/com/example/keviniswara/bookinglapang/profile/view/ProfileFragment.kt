@@ -14,6 +14,7 @@ import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentProfileBinding
 import com.example.keviniswara.bookinglapang.login.view.LoginActivity
+import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
@@ -32,6 +33,7 @@ class ProfileFragment : Fragment() {
 
         mBinding.buttonLogout.setOnClickListener(View.OnClickListener {
             mAuth.signOut()
+            Database.updateTokenId("")
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
         })
