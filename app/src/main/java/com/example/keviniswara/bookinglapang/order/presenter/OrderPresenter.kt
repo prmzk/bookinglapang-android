@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang.order.presenter
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.order.OrderContact
 import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -23,7 +24,7 @@ class OrderPresenter() : OrderContact.Presenter {
     override fun retrieveOrderList() {
 
         var orders: MutableList<Order?>? = mutableListOf()
-        val userId: String = Database.userId
+        val userId: String = FirebaseAuth.getInstance().currentUser!!.uid
 
         val userRoot: DatabaseReference = Database.database.getReference("users")
 
