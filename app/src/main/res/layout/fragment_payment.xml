@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_marginTop="30dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="30dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_pembayaran"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pembayaran"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/divider"/>
+            </LinearLayout>
+        </LinearLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:text="Pilih Lapangan"
+                    android:textColor="@color/colorPrimary"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_background"
+                    android:layout_weight="3"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:text="Pilih Olahraga"
+                    android:textColor="@color/colorPrimary"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_background"
+                    android:layout_weight="3"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_weight="1"
+                    android:text="Tanggal Main"
+                    android:textColor="@color/colorPrimary"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_background"
+                    android:layout_weight="3"/>
+            </TableRow>
+        </TableLayout>
+        <TableLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+            <TableRow>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawableRight="@drawable/resized_triangle_icon"
+                    android:background="@drawable/button_green"
+                    android:text="Bank A"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="false"
+                    android:drawableEnd="@drawable/resized_triangle_icon"
+                    android:padding="2dp"
+                    android:minHeight="20dp">
+                </Button>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawableRight="@drawable/resized_triangle_icon"
+                    android:background="@drawable/button_green"
+                    android:text="Bank C"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="false"
+                    android:drawableEnd="@drawable/resized_triangle_icon"
+                    android:padding="2dp"
+                    android:minHeight="20dp">
+                </Button>
+            </TableRow>
+            <TableRow>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawableRight="@drawable/resized_triangle_icon"
+                    android:background="@drawable/button_green"
+                    android:text="Bank B"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="false"
+                    android:drawableEnd="@drawable/resized_triangle_icon"
+                    android:padding="2dp"
+                    android:minHeight="20dp">
+                </Button>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:drawableRight="@drawable/resized_triangle_icon"
+                    android:background="@drawable/button_green"
+                    android:text="Bank D"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="false"
+                    android:drawableEnd="@drawable/resized_triangle_icon"
+                    android:padding="2dp"
+                    android:minHeight="20dp">
+                </Button>
+            </TableRow>
+        </TableLayout>
+
+
+    </LinearLayout>
+
+</layout>
