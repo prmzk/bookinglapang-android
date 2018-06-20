@@ -3,10 +3,12 @@ package com.example.keviniswara.bookinglapang.login.presenter
 import android.util.Log
 import com.example.keviniswara.bookinglapang.login.LoginContract
 import android.widget.Toast
+import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class LoginPresenter() : LoginContract.Presenter {
@@ -38,6 +40,8 @@ class LoginPresenter() : LoginContract.Presenter {
             val addOnCompleteListener: Any = mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener({ task ->
                         if (task.isSuccessful) {
+                            val tokenId = FirebaseInstanceId.getInstance().token
+                            Database.updateTokenId(tokenId!!)
                             mView?.startMainActivity()
                         } else {
                             when {
