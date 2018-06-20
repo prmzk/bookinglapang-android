@@ -1,14 +1,13 @@
 package com.example.keviniswara.bookinglapang
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.view.MenuItem
 import android.widget.FrameLayout
-import com.example.keviniswara.bookinglapang.R.drawable.*
 import com.example.keviniswara.bookinglapang.databinding.ActivityMainBinding
 import com.example.keviniswara.bookinglapang.home.view.HomeFragment
 import com.example.keviniswara.bookinglapang.order.view.OrderFragment
@@ -17,7 +16,6 @@ import com.example.keviniswara.bookinglapang.status.view.StatusFragment
 import android.util.TypedValue
 import android.support.design.internal.BottomNavigationMenuView
 import android.view.View
-import android.support.design.internal.BottomNavigationItemView
 import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
 
 
@@ -29,38 +27,31 @@ class MainActivity : AppCompatActivity() {
 
     private var content: FrameLayout? = null
 
-    private val mOnNavigationItemSelectedListener = object : BottomNavigationView.OnNavigationItemSelectedListener {
-
-        override fun onNavigationItemSelected(item: MenuItem): Boolean {
-            when (item.itemId) {
-                R.id.bottom_nav_bar_1 -> {
-                    val fragment = HomeFragment()
-                    addFragment(fragment)
-                    item.setIcon(home_green)
-                    return true
-                }
-                R.id.bottom_nav_bar_2 -> {
-                    val fragment = OrderFragment()
-                    addFragment(fragment)
-                    item.setIcon(order_green)
-                    return true
-                }
-                R.id.bottom_nav_bar_3 -> {
-                    var fragment = StatusFragment()
-                    addFragment(fragment)
-                    item.setIcon(status_green)
-                    return true
-                }
-                R.id.bottom_nav_bar_4 -> {
-                    var fragment = ProfileFragment()
-                    addFragment(fragment)
-                    item.setIcon(profile_green)
-                    return true
-                }
+    private val mOnNavigationItemSelectedListener
+            = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.bottom_nav_bar_1 -> {
+                val fragment = HomeFragment()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
             }
-            return false
+            R.id.bottom_nav_bar_2 -> {
+                val fragment = OrderFragment()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.bottom_nav_bar_3 -> {
+                var fragment = StatusFragment()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.bottom_nav_bar_4 -> {
+                var fragment = ProfileFragment()
+                addFragment(fragment)
+                return@OnNavigationItemSelectedListener true
+            }
         }
-
+        false
     }
 
     @SuppressLint("RestrictedApi")
@@ -70,7 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         content = mBinding.content
 
-        val navigation = findViewById(R.id.bottom_nav_bar) as BottomNavigationView
+        val navigation = findViewById<BottomNavigationView>(R.id.bottom_nav_bar)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         val navHelper = BottomNavigationViewHelper()
         navHelper.removeShiftMode(navigation)
@@ -91,11 +82,57 @@ class MainActivity : AppCompatActivity() {
         addFragment(fragment)
     }
 
+    @SuppressLint("CommitTransaction")
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+
+            val stackCount = fragmentManager.backStackEntryCount
+            var exit: Boolean = false
+            var popStack: Boolean = false
+
+            if (supportFragmentManager.findFragmentByTag("HomeFragment") != null &&
+                    supportFragmentManager.findFragmentByTag("HomeFragment").isVisible) {
+                popStack = true
+                exit = true
+
+            } else if (supportFragmentManager.findFragmentByTag("OrderFragment") != null &&
+                    supportFragmentManager.findFragmentByTag("OrderFragment").isVisible) {
+                popStack = true
+                exit = true
+            } else if (supportFragmentManager.findFragmentByTag("StatusFragment") != null &&
+                    supportFragmentManager.findFragmentByTag("StatusFragment").isVisible) {
+                popStack = true
+                exit = true
+            } else if (supportFragmentManager.findFragmentByTag("ProfileFragment") != null &&
+                    supportFragmentManager.findFragmentByTag("StatusFragment").isVisible) {
+                popStack = true
+                exit = true
+            } else {
+                supportFragmentManager.popBackStack()
+            }
+
+            if (popStack) {
+                for (i in 0 until stackCount) {
+                    fragmentManager.popBackStack()
+                }
+            }
+
+            if (exit) {
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun addFragment(fragment: Fragment) {
         supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.design_bottom_sheet_slide_in, R.anim.design_bottom_sheet_slide_out)
-                .replace(R.id.content, fragment, fragment.javaClass.getSimpleName())
+                .replace(R.id.content, fragment, fragment.javaClass.simpleName)
                 .addToBackStack(fragment.javaClass.getSimpleName())
                 .commit()
     }

@@ -47,10 +47,10 @@ class OrderPresenter() : OrderContact.Presenter {
                         }
                     }
 
-                    mView!!.initListOfOrders(orders)
+                    mView?.initListOfOrders(orders)
 
                 } else {
-                    mView!!.initListOfOrders(null)
+                    mView?.initListOfOrders(null)
                 }
 
             }
