@@ -3,7 +3,6 @@ package com.example.keviniswara.bookinglapang.order.view
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,21 +62,25 @@ class OrderDetailFragment : Fragment(), OrderDetailContract.View {
     }
 
     override fun setStatusNotVerified() {
-        Log.d("ORDER DETAIL FRAGMENT", "status not verified")
+        mBinding.verificationButton.setBackgroundResource(R.drawable.button_grey)
+        mBinding.paidButton.setBackgroundResource(R.drawable.button_grey)
     }
 
     override fun setStatusNotPaid() {
-        Log.d("ORDER DETAIL FRAGMENT", "status not paid")
         mBinding.verificationButton.text = "Sudah diverifikasi"
+        mBinding.verificationButton.setBackgroundResource(R.drawable.button_green)
+        mBinding.paidButton.setBackgroundResource(R.drawable.button_grey)
     }
 
     override fun setStatusDone() {
-        Log.d("ORDER DETAIL FRAGMENT", "status done")
         mBinding.verificationButton.text = "Sudah diverifikasi"
         mBinding.paidButton.text = "Sudah dibayar"
+        mBinding.verificationButton.setBackgroundResource(R.drawable.button_green)
+        mBinding.paidButton.setBackgroundResource(R.drawable.button_green)
     }
 
     override fun setStatusCancelled() {
-        Log.d("ORDER DETAIL FRAGMENT", "status cancelled")
+        mBinding.verificationButton.setBackgroundResource(R.drawable.button_grey)
+        mBinding.paidButton.setBackgroundResource(R.drawable.button_grey)
     }
 }
