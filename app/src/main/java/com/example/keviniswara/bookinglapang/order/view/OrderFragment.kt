@@ -66,7 +66,7 @@ class OrderFragment : Fragment(), OrderContact.View {
         arguments.putString("fieldId", orderDetail.fieldId)
         fragment.arguments = arguments
         val ft = fragmentManager!!.beginTransaction()
-        ft.replace(R.id.content, fragment).isAddToBackStackAllowed
+        ft.replace(R.id.content, fragment).addToBackStack("order")
         ft.commit()
     }
 

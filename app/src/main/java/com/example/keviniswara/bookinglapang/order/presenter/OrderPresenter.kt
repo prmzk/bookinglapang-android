@@ -1,5 +1,6 @@
 package com.example.keviniswara.bookinglapang.order.presenter
 
+import android.util.Log
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.order.OrderContact
 import com.example.keviniswara.bookinglapang.utils.Database
@@ -23,40 +24,35 @@ class OrderPresenter() : OrderContact.Presenter {
     override fun retrieveOrderList() {
 
         var orders: MutableList<Order?>? = mutableListOf()
-        val userId: String = Database.userId
 
         val userRoot: DatabaseReference = Database.database.getReference("users")
 
+        val userId = Database.userId
+
         userRoot.addValueEventListener(object : ValueEventListener {
+
             override fun onCancelled(p0: DatabaseError?) {
                 mView!!.initListOfOrders(null)
             }
 
             override fun onDataChange(userData: DataSnapshot?) {
 
-                val cusEmail: String = userData!!.child(userId).child("email").value.toString()
+                if (userData!!.child(userId).hasChild("orders")) {
+                    for (orderSnapshot in userData.child(userId).child("orders").children) {
 
-                val root: DatabaseReference = Database.database.getReference("orders")
+                        val order = orderSnapshot.getValue<Order>(Order::class.java)
 
-                root.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-
-                        for (orderSnapshot in dataSnapshot.children) {
-
-                            val order = orderSnapshot.getValue<Order>(Order::class.java)
-
-                            if (order!!.customerEmail.equals(cusEmail)) {
-                                orders!!.add(order)
-                            }
+                        if (order != null) {
+                            orders!!.add(order)
                         }
-
-                        mView!!.initListOfOrders(orders)
                     }
 
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        mView!!.initListOfOrders(null)
-                    }
-                })
+                    mView!!.initListOfOrders(orders)
+
+                } else {
+                    mView!!.initListOfOrders(null)
+                }
+
             }
 
         })
