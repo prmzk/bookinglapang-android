@@ -41,17 +41,12 @@ class ProfileFragment : Fragment() {
             tokenUpdate["tokenId"] = ""
 
             tokenRef.updateChildren(tokenUpdate).addOnCompleteListener(OnCompleteListener {
-//                mAuth.signOut()
+                mAuth.signOut()
                 val intent = Intent(activity, LoginActivity::class.java)
                 startActivity(intent)
             })
         })
 
         return mBinding.root
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mAuth.signOut()
     }
 }
