@@ -57,6 +57,9 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         mBinding.buttonContinue.setOnClickListener(View.OnClickListener {
             mPresenter.addOrderToFirebase()
             mPresenter.sendOrderNotificationToFieldKeeper()
+            val ft = fragmentManager!!.beginTransaction()
+            ft.replace(R.id.content, PaymentFragment())
+            ft.commit()
         })
 
         return mBinding.root
