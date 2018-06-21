@@ -36,7 +36,7 @@ class OrderFragment : Fragment(), OrderContact.View {
 
         mPresenter.retrieveOrderList()
 
-        linearLayoutManager = LinearLayoutManager(this.activity)
+        linearLayoutManager = LinearLayoutManager(context)
 
         mRecyclerView = mBinding.rvOrder
 
@@ -49,8 +49,7 @@ class OrderFragment : Fragment(), OrderContact.View {
     }
 
     override fun initPresenter(): OrderPresenter {
-        val presenter = OrderPresenter()
-        return presenter
+        return OrderPresenter()
     }
 
     override fun moveToDetail(orderDetail: Order) {
@@ -66,16 +65,19 @@ class OrderFragment : Fragment(), OrderContact.View {
         arguments.putString("fieldId", orderDetail.fieldId)
         fragment.arguments = arguments
         val ft = fragmentManager!!.beginTransaction()
-        ft.replace(R.id.content, fragment).isAddToBackStackAllowed
+        ft.replace(R.id.content, fragment).addToBackStack(fragment
+                .javaClass.simpleName)
         ft.commit()
     }
 
     override fun initListOfOrders(orders: MutableList<Order?>?) {
         if (orders != null) {
+
+            Log.d("LALALA", " masuk sini kok")
             mRecyclerView.layoutManager = linearLayoutManager
             mRecyclerView.adapter = OrderAdapter(orders, this)
         } else {
-            Log.d("KEVIN INIT", "masuk null")
+            Log.d("INIT ORDER lalala", "masuk null")
         }
     }
 }

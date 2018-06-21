@@ -1,7 +1,7 @@
-package com.example.keviniswara.bookinglapang.order.presenter
+package com.example.keviniswara.bookinglapang.status.presenter
 
 import com.example.keviniswara.bookinglapang.model.Order
-import com.example.keviniswara.bookinglapang.order.OrderContact
+import com.example.keviniswara.bookinglapang.status.StatusContract
 import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -9,11 +9,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-class OrderPresenter : OrderContact.Presenter {
+class StatusPresenter : StatusContract.Presenter{
 
-    private var mView: OrderContact.View? = null
+    private var mView: StatusContract.View? = null
 
-    override fun bind(view: OrderContact.View) {
+    override fun bind(view: StatusContract.View) {
         mView = view
     }
 
@@ -32,8 +32,7 @@ class OrderPresenter : OrderContact.Presenter {
         userRoot.addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(p0: DatabaseError?) {
-
-                mView?.initListOfOrders(null)
+                mView!!.initListOfOrders(null)
             }
 
             override fun onDataChange(userData: DataSnapshot?) {

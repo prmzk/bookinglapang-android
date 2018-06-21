@@ -17,17 +17,10 @@ class OrderDetailPresenter : OrderDetailContract.Presenter{
     override fun initOrderDetail(sport: String, startHour: String, endHour: String
                                  , customerEmail: String, status: String, date: String
                                  , fieldId: String) {
-        mView!!.setDate(date)
-        mView!!.setEndHour(endHour)
-        mView!!.setFieldId(fieldId)
-        mView!!.setSport(sport)
-        mView!!.setStartHour(startHour)
-
-        when (status) {
-            "0" -> mView!!.setStatusNotVerified()
-            "1" -> mView!!.setStatusNotPaid()
-            "2" -> mView!!.setStatusDone()
-            "3" -> mView!!.setStatusCancelled()
-        }
+        mView?.setDate(date)
+        mView?.setEndHour(endHour)
+        mView?.setFieldId(fieldId)
+        mView?.setSport(sport)
+        mView?.setStartHour(startHour)
     }
 }

@@ -3,7 +3,6 @@ package com.example.keviniswara.bookinglapang.order.view
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,24 +59,5 @@ class OrderDetailFragment : Fragment(), OrderDetailContract.View {
 
     override fun setDate(date: String) {
         mBinding.date.text = date
-    }
-
-    override fun setStatusNotVerified() {
-        Log.d("ORDER DETAIL FRAGMENT", "status not verified")
-    }
-
-    override fun setStatusNotPaid() {
-        Log.d("ORDER DETAIL FRAGMENT", "status not paid")
-        mBinding.verificationButton.text = "Sudah diverifikasi"
-    }
-
-    override fun setStatusDone() {
-        Log.d("ORDER DETAIL FRAGMENT", "status done")
-        mBinding.verificationButton.text = "Sudah diverifikasi"
-        mBinding.paidButton.text = "Sudah dibayar"
-    }
-
-    override fun setStatusCancelled() {
-        Log.d("ORDER DETAIL FRAGMENT", "status cancelled")
     }
 }
