@@ -9,7 +9,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 
-class OrderPresenter() : OrderContact.Presenter {
+class OrderPresenter : OrderContact.Presenter {
 
     private var mView: OrderContact.View? = null
 
@@ -32,7 +32,8 @@ class OrderPresenter() : OrderContact.Presenter {
         userRoot.addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(p0: DatabaseError?) {
-                mView!!.initListOfOrders(null)
+
+                mView?.initListOfOrders(null)
             }
 
             override fun onDataChange(userData: DataSnapshot?) {

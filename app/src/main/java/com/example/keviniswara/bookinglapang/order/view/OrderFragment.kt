@@ -49,8 +49,7 @@ class OrderFragment : Fragment(), OrderContact.View {
     }
 
     override fun initPresenter(): OrderPresenter {
-        val presenter = OrderPresenter()
-        return presenter
+        return OrderPresenter()
     }
 
     override fun moveToDetail(orderDetail: Order) {
@@ -73,10 +72,12 @@ class OrderFragment : Fragment(), OrderContact.View {
 
     override fun initListOfOrders(orders: MutableList<Order?>?) {
         if (orders != null) {
+
+            Log.d("LALALA", " masuk sini kok")
             mRecyclerView.layoutManager = linearLayoutManager
             mRecyclerView.adapter = OrderAdapter(orders, this)
         } else {
-            Log.d("KEVIN INIT", "masuk null")
+            Log.d("INIT ORDER lalala", "masuk null")
         }
     }
 }

@@ -60,27 +60,4 @@ class OrderDetailFragment : Fragment(), OrderDetailContract.View {
     override fun setDate(date: String) {
         mBinding.date.text = date
     }
-
-    override fun setStatusNotVerified() {
-        mBinding.verificationButton.setBackgroundResource(R.drawable.button_grey)
-        mBinding.paidButton.setBackgroundResource(R.drawable.button_grey)
-    }
-
-    override fun setStatusNotPaid() {
-        mBinding.verificationButton.text = "Sudah diverifikasi"
-        mBinding.verificationButton.setBackgroundResource(R.drawable.button_green)
-        mBinding.paidButton.setBackgroundResource(R.drawable.button_grey)
-    }
-
-    override fun setStatusDone() {
-        mBinding.verificationButton.text = "Sudah diverifikasi"
-        mBinding.paidButton.text = "Sudah dibayar"
-        mBinding.verificationButton.setBackgroundResource(R.drawable.button_green)
-        mBinding.paidButton.setBackgroundResource(R.drawable.button_green)
-    }
-
-    override fun setStatusCancelled() {
-        mBinding.verificationButton.setBackgroundResource(R.drawable.button_grey)
-        mBinding.paidButton.setBackgroundResource(R.drawable.button_grey)
-    }
 }

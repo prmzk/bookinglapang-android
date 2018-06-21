@@ -10,10 +10,6 @@ interface OrderDetailContract {
         fun setStartHour(startHour: String)
         fun setEndHour(endHour: String)
         fun setDate(date: String)
-        fun setStatusNotVerified()
-        fun setStatusNotPaid()
-        fun setStatusDone()
-        fun setStatusCancelled()
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
