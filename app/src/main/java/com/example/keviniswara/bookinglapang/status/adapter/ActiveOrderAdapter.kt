@@ -61,8 +61,15 @@ class ActiveOrderAdapter(private val orders: MutableList<Order?>, fragment: Stat
             this.order = order
 
             mBinding.date.text = order.date
-            mBinding.hour.text = "Pukul " + order.startHour + ".00 - " + order.endHour + ".00"
+            mBinding.startHour.text = order.startHour + ".00"
             mBinding.fieldId.text = order.fieldId
+            mBinding.sport.text = order.sport
+            when {
+                order.status == 0 -> mBinding.notTransfer.visibility = View.VISIBLE
+                order.status == 1 -> mBinding.notTransfer.visibility = View.VISIBLE
+                order.status == 2 -> mBinding.transfered.visibility = View.VISIBLE
+                order.status == 3 -> mBinding.failed.visibility = View.VISIBLE
+            }
         }
     }
 }
