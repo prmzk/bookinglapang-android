@@ -58,7 +58,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             mPresenter.addOrderToFirebase()
             mPresenter.sendOrderNotificationToFieldKeeper()
             val ft = fragmentManager!!.beginTransaction()
-            ft.replace(R.id.content, PaymentFragment())
+            ft.replace(R.id.content, HomeFragment())
             ft.commit()
         })
 
