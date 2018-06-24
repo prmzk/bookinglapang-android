@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang.status.view
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,9 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         mPresenter = initPresenter()
 
         mPresenter.bind(this)
+
+        val orderId = arguments!!.getString("orderId")
+        Log.d("PAYMENT FRAGMENT 1", orderId)
 
         mBinding.buttonPay.setOnClickListener({
 

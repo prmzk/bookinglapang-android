@@ -6,8 +6,9 @@ class ActiveOrderDetailPresenter : ActiveOrderDetailContract.Presenter {
 
     private var mView: ActiveOrderDetailContract.View? = null
 
-    override fun initOrderDetail(sport: String, startHour: String, endHour: String
-                                 , customerEmail: String, status: String, date: String, fieldId: String) {
+    override fun initOrderDetail(sport: String, startHour: String, endHour: String,
+                                 customerEmail: String, status: String, date: String,
+                                 fieldId: String) {
         mView?.setDate(date)
         mView?.setEndHour(endHour)
         mView?.setFieldId(fieldId)

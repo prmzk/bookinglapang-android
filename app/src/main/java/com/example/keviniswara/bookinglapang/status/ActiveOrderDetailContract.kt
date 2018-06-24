@@ -14,6 +14,8 @@ interface ActiveOrderDetailContract {
         fun setStatusNotPaid()
         fun setStatusDone()
         fun setStatusCancelled()
+        fun initButton(status: String)
+        fun moveToPayment(orderId: String)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String

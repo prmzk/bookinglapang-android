@@ -9,6 +9,6 @@ interface Payment1Contract {
         fun getPhoneNumber(): String
     }
     interface Presenter : BasePresenter<View> {
-
+        fun addTransactionToFirebase()
     }
 }
