@@ -1,6 +1,8 @@
 package com.example.keviniswara.bookinglapang.status.presenter
 
+import com.example.keviniswara.bookinglapang.model.Transaction
 import com.example.keviniswara.bookinglapang.status.Payment1Contract
+import com.example.keviniswara.bookinglapang.utils.Database
 
 class Payment1Presenter: Payment1Contract.Presenter {
 
@@ -12,5 +14,12 @@ class Payment1Presenter: Payment1Contract.Presenter {
 
     override fun unbind() {
         mView = null
+    }
+
+    override fun addTransactionToFirebase() {
+        val name = mView?.getName() ?: ""
+        val phoneNumber = mView?.getPhoneNumber() ?: ""
+        val transaction =  Transaction(name, phoneNumber, null, 0)
+        Database.addTransaction("", transaction)
     }
 }

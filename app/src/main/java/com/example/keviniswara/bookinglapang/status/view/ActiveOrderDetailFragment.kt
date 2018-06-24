@@ -14,6 +14,7 @@ import com.example.keviniswara.bookinglapang.status.presenter.ActiveOrderDetailP
 class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
 
     private lateinit var mPresenter: ActiveOrderDetailContract.Presenter
+
     private lateinit var mBinding: FragmentActiveOrderDetailBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,6 +32,14 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
         val status = arguments!!.getString("status")
         val date = arguments!!.getString("date")
         val fieldId = arguments!!.getString("fieldId")
+        val deadline = arguments!!.getLong("deadline")
+        val orderId = arguments!!.getString("orderId")
+
+        initButton(status)
+
+        mBinding.payButton.setOnClickListener({
+            moveToPayment(orderId)
+        })
 
         mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId)
 
@@ -75,5 +84,42 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
 
     override fun initPresenter(): ActiveOrderDetailContract.Presenter {
         return ActiveOrderDetailPresenter()
+    }
+
+    override fun initButton(status: String) {
+        when (status) {
+            "0" -> {
+                mBinding.verificationButton.visibility = View.VISIBLE
+                mBinding.verifiedButton.visibility = View.GONE
+                mBinding.paidButton.visibility = View.VISIBLE
+                mBinding.payButton.visibility = View.GONE
+                mBinding.failed.visibility = View.GONE
+            }
+            "1" -> {
+                mBinding.verificationButton.visibility = View.GONE
+                mBinding.verifiedButton.visibility = View.VISIBLE
+                mBinding.paidButton.visibility = View.GONE
+                mBinding.payButton.visibility = View.VISIBLE
+                mBinding.failed.visibility = View.GONE
+            }
+            "3" -> {
+                mBinding.verificationButton.visibility = View.GONE
+                mBinding.verifiedButton.visibility = View.GONE
+                mBinding.paidButton.visibility = View.GONE
+                mBinding.payButton.visibility = View.GONE
+                mBinding.failed.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun moveToPayment(orderId: String) {
+        val arguments = Bundle()
+        val fragment = Payment1Fragment()
+        arguments.putString("orderId", orderId)
+        fragment.arguments = arguments
+        val ft = fragmentManager?.beginTransaction()
+        ft?.replace(R.id.content, fragment)?.addToBackStack(fragment
+                .javaClass.simpleName)
+        ft?.commit()
     }
 }
