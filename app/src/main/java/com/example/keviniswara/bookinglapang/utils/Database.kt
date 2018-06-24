@@ -1,6 +1,7 @@
 package com.example.keviniswara.bookinglapang.utils
 
 import com.example.keviniswara.bookinglapang.model.Order
+import com.example.keviniswara.bookinglapang.model.Transaction
 import com.example.keviniswara.bookinglapang.model.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -44,6 +45,10 @@ object Database {
 
     fun addNotification(uid: String, notification: User.Notification) {
         root.child("users").child(uid).child("notifications").push().setValue(notification)
+    }
+
+    fun addTransaction(orderId: String, transaction: Transaction) {
+        root.child("transactions").child(orderId).setValue(transaction)
     }
 
 /*    fun getUsers(): MutableList<User>? {

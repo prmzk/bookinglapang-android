@@ -10,6 +10,7 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentPayment1Binding
 import com.example.keviniswara.bookinglapang.status.Payment1Contract
 import com.example.keviniswara.bookinglapang.status.presenter.Payment1Presenter
+import com.example.keviniswara.bookinglapang.utils.Database
 
 class Payment1Fragment: Fragment(), Payment1Contract.View {
 
@@ -25,10 +26,22 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
 
         mPresenter.bind(this)
 
+        mBinding.buttonPay.setOnClickListener({
+
+        })
+
         return mBinding.root
     }
 
     override fun initPresenter(): Payment1Contract.Presenter {
         return Payment1Presenter()
+    }
+
+    override fun getName(): String {
+        return mBinding.name.text.toString()
+    }
+
+    override fun getPhoneNumber(): String {
+        return mBinding.phoneNumber.text.toString()
     }
 }

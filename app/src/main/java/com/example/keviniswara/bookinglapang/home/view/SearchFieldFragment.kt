@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentSearchFieldBinding
 import com.example.keviniswara.bookinglapang.home.SearchFieldContract
@@ -60,6 +62,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             val ft = fragmentManager!!.beginTransaction()
             ft.replace(R.id.content, HomeFragment())
             ft.commit()
+            showToastMessage("Order berhasil disimpan.")
         })
 
         return mBinding.root
@@ -120,5 +123,9 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         val adapter = ArrayAdapter(activity!!.applicationContext, R.layout.spinner_item, listOfSport)
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         mBinding.listOfSports.adapter = adapter
+    }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG ).show()
     }
 }

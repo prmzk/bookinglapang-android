@@ -8,6 +8,7 @@ import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.util.*
 
 class SearchFieldPresenter : SearchFieldContract.Presenter {
 
@@ -80,7 +81,8 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         val startHour = mView!!.getStartHour()
         val finishHour = mView!!.getFinishHour()
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
-        val order = Order(userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0)
+        val uuid = UUID.randomUUID().toString().replace("-", "")
+        val order = Order(userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0, uuid)
         Database.addNewOrder(order)
     }
 
