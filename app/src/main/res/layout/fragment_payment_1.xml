@@ -27,7 +27,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Profile"
+                    android:text="Data Pemesan"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"/>
@@ -46,7 +46,7 @@
                 android:layout_marginBottom="15dp">
                 <TextView
                     android:layout_weight="1"
-                    android:text="Nama"
+                    android:text="Nama Pemilik Rekening"
                     android:textColor="@color/colorPrimary"/>
 
                 <EditText
@@ -82,28 +82,14 @@
             android:layout_marginTop="20dp"
             android:drawableRight="@drawable/resized_triangle_icon"
             android:background="@drawable/button_green"
-            android:text="Simpan"
+            android:text="Bayar"
             android:textColor="#ffffff"
             android:layout_gravity="center_horizontal"
             android:textAllCaps="false"
             android:drawableEnd="@drawable/resized_triangle_icon"
             android:padding="2dp"
             android:minHeight="20dp"
-            android:id="@+id/button_save">
-        </Button>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_green"
-            android:text="Logout"
-            android:id="@+id/button_logout"
-            android:textColor="#ffffff"
-            android:layout_gravity="center_horizontal"
-            android:textAllCaps="false"
-            android:padding="2dp"
-            android:minHeight="20dp">
+            android:id="@+id/button_pay">
         </Button>
 
     </LinearLayout>

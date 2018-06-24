@@ -17,7 +17,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_data"
+                android:src="@drawable/ic_pembayaran"
                 android:layout_marginRight="5dp"
                 android:layout_marginEnd="5dp" />
             <LinearLayout
@@ -27,7 +27,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit Profile"
+                    android:text="Pembayaran"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"/>
@@ -46,7 +46,25 @@
                 android:layout_marginBottom="15dp">
                 <TextView
                     android:layout_weight="1"
-                    android:text="Nama"
+                    android:text="No. Rekening"
+                    android:textColor="@color/colorPrimary"/>
+
+                <EditText
+                    android:id="@+id/bills_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_background"
+                    android:layout_weight="3"
+                    android:cursorVisible="true"
+                    android:textCursorDrawable="@null"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_weight="1"
+                    android:text="Nama Penerima"
                     android:textColor="@color/colorPrimary"/>
 
                 <EditText
@@ -63,11 +81,11 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_weight="1"
-                    android:text="No. Telepon"
+                    android:text="Jumlah"
                     android:textColor="@color/colorPrimary"/>
 
                 <EditText
-                    android:id="@+id/phone_number"
+                    android:id="@+id/total"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/form_input_background"
@@ -82,28 +100,14 @@
             android:layout_marginTop="20dp"
             android:drawableRight="@drawable/resized_triangle_icon"
             android:background="@drawable/button_green"
-            android:text="Simpan"
+            android:text="Saya Sudah Bayar"
             android:textColor="#ffffff"
             android:layout_gravity="center_horizontal"
             android:textAllCaps="false"
             android:drawableEnd="@drawable/resized_triangle_icon"
             android:padding="2dp"
             android:minHeight="20dp"
-            android:id="@+id/button_save">
-        </Button>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_green"
-            android:text="Logout"
-            android:id="@+id/button_logout"
-            android:textColor="#ffffff"
-            android:layout_gravity="center_horizontal"
-            android:textAllCaps="false"
-            android:padding="2dp"
-            android:minHeight="20dp">
+            android:id="@+id/button_pay">
         </Button>
 
     </LinearLayout>
