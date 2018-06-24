@@ -24,6 +24,7 @@ class StatusFragment : Fragment(), StatusContract.View {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mPresenter: StatusPresenter
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private var mAdapter: ActiveOrderAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -48,10 +49,16 @@ class StatusFragment : Fragment(), StatusContract.View {
         return mBinding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        mPresenter.retrieveOrderList()
+    }
+
     override fun initListOfOrders(orders: MutableList<Order?>?) {
         if (orders != null) {
             mRecyclerView.layoutManager = linearLayoutManager
-            mRecyclerView.adapter = ActiveOrderAdapter(orders, this)
+            mAdapter = ActiveOrderAdapter(orders, this)
+            mRecyclerView.adapter = mAdapter
         } else {
             Log.d("INIT ACTIVE ORDER", "masuk null")
         }
@@ -78,5 +85,9 @@ class StatusFragment : Fragment(), StatusContract.View {
     override fun initPresenter(): StatusPresenter {
         val presenter = StatusPresenter()
         return presenter
+    }
+
+    override fun clearOrderList() {
+        mAdapter?.clearOrderList()
     }
 }

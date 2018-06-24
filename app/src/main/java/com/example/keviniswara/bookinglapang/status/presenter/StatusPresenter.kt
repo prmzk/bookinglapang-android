@@ -32,18 +32,20 @@ class StatusPresenter : StatusContract.Presenter{
         userRoot.addValueEventListener(object : ValueEventListener {
 
             override fun onCancelled(p0: DatabaseError?) {
-                mView!!.initListOfOrders(null)
+                mView?.initListOfOrders(null)
             }
 
             override fun onDataChange(userData: DataSnapshot?) {
+
+                mView?.clearOrderList()
 
                 if (userData!!.child(userId).hasChild("orders")) {
                     for (orderSnapshot in userData.child(userId).child("orders").children) {
 
                         val order = orderSnapshot.getValue<Order>(Order::class.java)
 
-                        if (order != null) {
-                            orders!!.add(order)
+                        if (order != null && order.status != 2) {
+                            orders?.add(order)
                         }
                     }
 
