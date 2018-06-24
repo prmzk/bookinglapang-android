@@ -6,7 +6,8 @@ class Order(var customerEmail: String,
             var fieldId: String,
             var sport: String,
             var startHour: String,
-            var status: Int) {
+            var status: Int,
+            var deadline: Int) {
     constructor() : this("", "", "", "", "", "",
-            -1)
+            -1, 0)
 }

@@ -80,7 +80,7 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         val startHour = mView!!.getStartHour()
         val finishHour = mView!!.getFinishHour()
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
-        val order = Order(userEmail, date, finishHour, fieldName, sportName, startHour, 0)
+        val order = Order(userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0)
         Database.addNewOrder(order)
     }
 
