@@ -42,7 +42,7 @@ class OrderAdapter(private val orders: MutableList<Order?>?, fragment: OrderFrag
     fun clearOrderList() {
         val size = itemCount
         for (i in 0..(size-1)) {
-            orders?.removeAt(i)
+            orders?.removeAt(0)
             notifyItemRemoved(i)
         }
         notifyItemRangeRemoved(0, size)

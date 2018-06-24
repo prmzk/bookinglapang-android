@@ -55,6 +55,8 @@ class OrderPresenter() : OrderContact.Presenter {
 
                 override fun onDataChange(userData: DataSnapshot?) {
 
+                    mView?.clearOrderList()
+
                     if (userData!!.child(userId).hasChild("orders")) {
                         for (orderSnapshot in userData.child(userId).child("orders").children) {
 
