@@ -1,6 +1,5 @@
 package com.example.keviniswara.bookinglapang.order.adapter
 
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,7 +11,7 @@ import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.order.view.OrderFragment
 
 
-class OrderAdapter(private val orders: MutableList<Order?>, fragment: OrderFragment)
+class OrderAdapter(private val orders: MutableList<Order?>?, fragment: OrderFragment)
     : RecyclerView.Adapter<OrderAdapter.OrderHolder>() {
 
     private lateinit var mBinding: OrderListBinding
@@ -23,11 +22,13 @@ class OrderAdapter(private val orders: MutableList<Order?>, fragment: OrderFragm
     }
 
     override fun getItemCount(): Int {
-        return orders.size
+        if (orders != null) {
+            return orders.size
+        } else return 0
     }
 
     override fun onBindViewHolder(holder: OrderAdapter.OrderHolder, position: Int) {
-        val itemOrder = orders[position]
+        val itemOrder = orders?.get(position)
         holder.bind(itemOrder!!)
     }
 
@@ -36,6 +37,15 @@ class OrderAdapter(private val orders: MutableList<Order?>, fragment: OrderFragm
         val inflater = LayoutInflater.from(parent.context)
         mBinding = DataBindingUtil.inflate(inflater, R.layout.order_list, parent, false)
         return OrderHolder(mBinding, mFragment)
+    }
+
+    fun clearOrderList() {
+        val size = itemCount
+        for (i in 0..(size-1)) {
+            orders?.removeAt(i)
+            notifyItemRemoved(i)
+        }
+        notifyItemRangeRemoved(0, size)
     }
 
     class OrderHolder(mBinding: OrderListBinding, fragment: OrderFragment) : RecyclerView.ViewHolder(mBinding.root) {

@@ -1,15 +1,20 @@
 package com.example.keviniswara.bookinglapang.order.presenter
 
+import android.content.Context
+import android.os.Build
+import android.support.annotation.RequiresApi
+import android.widget.Toast
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.order.OrderContact
 import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
-class OrderPresenter : OrderContact.Presenter {
+
+class OrderPresenter() : OrderContact.Presenter {
 
     private var mView: OrderContact.View? = null
 
@@ -21,7 +26,8 @@ class OrderPresenter : OrderContact.Presenter {
         mView = null
     }
 
-    override fun retrieveOrderList() {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun retrieveOrderList(start: String, end: String) {
 
         var orders: MutableList<Order?>? = mutableListOf()
 
@@ -29,33 +35,51 @@ class OrderPresenter : OrderContact.Presenter {
 
         val userRoot: DatabaseReference = Database.database.getReference("users")
 
-        userRoot.addValueEventListener(object : ValueEventListener {
+        val formatter = DateTimeFormatter.ofPattern("d/M/u", Locale.ENGLISH)
 
-            override fun onCancelled(p0: DatabaseError?) {
+        val startDate = LocalDate.parse(start, formatter)
 
-                mView?.initListOfOrders(null)
-            }
+        val endDate = LocalDate.parse(end, formatter)
 
-            override fun onDataChange(userData: DataSnapshot?) {
+        if (endDate.isBefore(startDate)) {
+            mView?.makeToast("Waktu akhir tidak boleh lebih cepat dari waktu awal!")
+            mView?.clearOrderList()
+        } else {
 
-                if (userData!!.child(userId).hasChild("orders")) {
-                    for (orderSnapshot in userData.child(userId).child("orders").children) {
+            userRoot.addValueEventListener(object : ValueEventListener {
 
-                        val order = orderSnapshot.getValue<Order>(Order::class.java)
+                override fun onCancelled(p0: DatabaseError?) {
 
-                        if (order != null) {
-                            orders!!.add(order)
-                        }
-                    }
-
-                    mView?.initListOfOrders(orders)
-
-                } else {
                     mView?.initListOfOrders(null)
                 }
 
-            }
+                override fun onDataChange(userData: DataSnapshot?) {
 
-        })
+                    if (userData!!.child(userId).hasChild("orders")) {
+                        for (orderSnapshot in userData.child(userId).child("orders").children) {
+
+                            val order = orderSnapshot.getValue<Order>(Order::class.java)
+
+                            if (order != null && order.status == 2) {
+
+                                val orderDate = LocalDate.parse(order.date, formatter)
+
+                                if (orderDate.equals(startDate) || orderDate.equals(endDate) ||
+                                        orderDate.isAfter(startDate) && orderDate.isBefore(endDate)) {
+                                    orders!!.add(order)
+                                }
+                            }
+                        }
+
+                        mView?.initListOfOrders(orders)
+
+                    } else {
+                        mView?.initListOfOrders(null)
+                    }
+
+                }
+
+            })
+        }
     }
 }
