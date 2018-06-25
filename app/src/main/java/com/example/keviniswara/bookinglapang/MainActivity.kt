@@ -18,11 +18,6 @@ import android.support.design.internal.BottomNavigationMenuView
 import android.view.View
 import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
 
-
-
-
-
-
 class MainActivity : AppCompatActivity() {
 
     private var content: FrameLayout? = null
@@ -104,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                 popStack = true
                 exit = true
             } else if (supportFragmentManager.findFragmentByTag("ProfileFragment") != null &&
-                    supportFragmentManager.findFragmentByTag("StatusFragment").isVisible) {
+                    supportFragmentManager.findFragmentByTag("ProfileFragment").isVisible) {
                 popStack = true
                 exit = true
             } else {
