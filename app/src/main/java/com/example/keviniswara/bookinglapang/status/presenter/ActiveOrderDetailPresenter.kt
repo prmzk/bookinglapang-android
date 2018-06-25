@@ -18,7 +18,6 @@ class ActiveOrderDetailPresenter : ActiveOrderDetailContract.Presenter {
         when (status) {
             "0" -> mView!!.setStatusNotVerified()
             "1" -> mView!!.setStatusNotPaid()
-            "2" -> mView!!.setStatusDone()
             "3" -> mView!!.setStatusCancelled()
         }
     }

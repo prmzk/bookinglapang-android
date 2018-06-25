@@ -12,7 +12,7 @@ import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.status.view.StatusFragment
 
 
-class ActiveOrderAdapter(private val orders: MutableList<Order?>, fragment: StatusFragment)
+class ActiveOrderAdapter(private val orders: MutableList<Order?>?, fragment: StatusFragment)
     : RecyclerView.Adapter<ActiveOrderAdapter.ActiveOrderHolder>() {
 
     private lateinit var mBinding: OrderListBinding
@@ -23,14 +23,25 @@ class ActiveOrderAdapter(private val orders: MutableList<Order?>, fragment: Stat
     }
 
     override fun getItemCount(): Int {
-        return orders.size
+        if (orders != null) {
+            return orders.size
+        } else return 0
     }
 
     override fun onBindViewHolder(holder: ActiveOrderHolder, position: Int) {
-        val itemOrder = orders[position]
+        val itemOrder = orders?.get(position)
         if (itemOrder != null) {
             holder.bind(itemOrder)
         }
+    }
+
+    fun clearOrderList() {
+        val size = itemCount
+        for (i in 0..(size-1)) {
+            orders?.removeAt(0)
+            notifyItemRemoved(i)
+        }
+        notifyItemRangeRemoved(0, size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveOrderAdapter.ActiveOrderHolder {
@@ -65,9 +76,8 @@ class ActiveOrderAdapter(private val orders: MutableList<Order?>, fragment: Stat
             mBinding.fieldId.text = order.fieldId
             mBinding.sport.text = order.sport
             when {
-                order.status == 0 -> mBinding.notTransfer.visibility = View.VISIBLE
+                order.status == 0 -> mBinding.notVerified.visibility = View.VISIBLE
                 order.status == 1 -> mBinding.notTransfer.visibility = View.VISIBLE
-                order.status == 2 -> mBinding.transfered.visibility = View.VISIBLE
                 order.status == 3 -> mBinding.failed.visibility = View.VISIBLE
             }
         }

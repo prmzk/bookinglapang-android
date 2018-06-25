@@ -13,7 +13,6 @@ interface ActiveOrderDetailContract {
         fun setDate(date: String)
         fun setStatusNotVerified()
         fun setStatusNotPaid()
-        fun setStatusDone()
         fun setStatusCancelled()
         fun initButton(status: String)
         fun moveToPayment(orderDetail: Order)

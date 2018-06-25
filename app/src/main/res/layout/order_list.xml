@@ -77,6 +77,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Belum verifikasi"
+                        android:background="@drawable/button_grey"
+                        android:visibility="gone"
+                        android:padding="3dp"
+                        android:id="@+id/not_verified"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="Belum transfer"
                         android:background="@drawable/button_grey"
                         android:visibility="gone"

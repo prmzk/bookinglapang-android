@@ -1,5 +1,6 @@
 package com.example.keviniswara.bookinglapang.status.presenter
 
+import android.util.Log
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.status.StatusContract
 import com.example.keviniswara.bookinglapang.utils.Database
@@ -27,34 +28,51 @@ class StatusPresenter : StatusContract.Presenter{
 
         val userId: String = FirebaseAuth.getInstance().currentUser!!.uid
 
+        val timeRoot: DatabaseReference = Database.database.getReference("server_time")
+
         val userRoot: DatabaseReference = Database.database.getReference("users")
 
-        userRoot.addValueEventListener(object : ValueEventListener {
-
+        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
-                mView!!.initListOfOrders(null)
+                Log.d("Status Presenter", "failed to get server time")
             }
 
-            override fun onDataChange(userData: DataSnapshot?) {
+            override fun onDataChange(dateSnapshot: DataSnapshot?) {
 
-                if (userData!!.child(userId).hasChild("orders")) {
-                    for (orderSnapshot in userData.child(userId).child("orders").children) {
+                val dateInMillis: Long = dateSnapshot?.getValue() as Long
 
-                        val order = orderSnapshot.getValue<Order>(Order::class.java)
+                userRoot.addValueEventListener(object : ValueEventListener {
 
-                        if (order != null) {
-                            orders!!.add(order)
-                        }
+                    override fun onCancelled(p0: DatabaseError?) {
+                        mView?.initListOfOrders(null)
                     }
 
-                    mView?.initListOfOrders(orders)
+                    override fun onDataChange(userData: DataSnapshot?) {
 
-                } else {
-                    mView?.initListOfOrders(null)
-                }
+                        mView?.clearOrderList()
 
+                        if (userData!!.child(userId).hasChild("orders")) {
+                            for (orderSnapshot in userData.child(userId).child("orders").children) {
+
+                                val order = orderSnapshot.getValue<Order>(Order::class.java)
+
+                                if (order != null && order.status != 2) {
+                                    if (order.status == 0 || order.status != 0 && order.deadline >= dateInMillis) {
+                                        orders?.add(order)
+                                    }
+                                }
+                            }
+
+                            mView?.initListOfOrders(orders)
+
+                        } else {
+                            mView?.initListOfOrders(null)
+                        }
+
+                    }
+
+                })
             }
-
         })
     }
 }
