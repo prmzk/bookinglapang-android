@@ -1,5 +1,6 @@
 package com.example.keviniswara.bookinglapang.utils
 
+import com.example.keviniswara.bookinglapang.model.Bank
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.model.Transaction
 import com.example.keviniswara.bookinglapang.model.User
@@ -54,5 +55,9 @@ object Database {
 
     fun addServerDate() {
         root.child("server_time").setValue(ServerValue.TIMESTAMP)
+    }
+
+    fun addBank(bank: Bank) {
+        root.child("banks").push().setValue(bank)
     }
 }

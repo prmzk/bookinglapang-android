@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentSearchFieldBinding
 import com.example.keviniswara.bookinglapang.home.SearchFieldContract
@@ -126,6 +125,6 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     override fun showToastMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG ).show()
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
 }

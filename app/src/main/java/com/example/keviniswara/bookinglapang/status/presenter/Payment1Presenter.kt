@@ -16,10 +16,10 @@ class Payment1Presenter: Payment1Contract.Presenter {
         mView = null
     }
 
-    override fun addTransactionToFirebase() {
+    override fun addTransactionToFirebase(orderId: String) {
         val name = mView?.getName() ?: ""
         val phoneNumber = mView?.getPhoneNumber() ?: ""
         val transaction =  Transaction(name, phoneNumber, null, 0)
-        Database.addTransaction("", transaction)
+        Database.addTransaction(orderId, transaction)
     }
 }

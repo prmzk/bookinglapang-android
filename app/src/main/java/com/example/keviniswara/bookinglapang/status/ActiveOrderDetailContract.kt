@@ -2,6 +2,7 @@ package com.example.keviniswara.bookinglapang.status
 
 import com.example.keviniswara.bookinglapang.BasePresenter
 import com.example.keviniswara.bookinglapang.BaseView
+import com.example.keviniswara.bookinglapang.model.Order
 
 interface ActiveOrderDetailContract {
     interface View : BaseView<Presenter> {
@@ -14,7 +15,7 @@ interface ActiveOrderDetailContract {
         fun setStatusNotPaid()
         fun setStatusCancelled()
         fun initButton(status: String)
-        fun moveToPayment(orderId: String)
+        fun moveToPayment(orderDetail: Order)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
