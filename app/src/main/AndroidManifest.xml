@@ -27,6 +27,10 @@
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>
+        <activity android:name=".admin.AdminActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+
+        </activity>
         <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
