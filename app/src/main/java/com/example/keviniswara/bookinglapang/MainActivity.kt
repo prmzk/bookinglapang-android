@@ -9,10 +9,10 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.widget.FrameLayout
 import com.example.keviniswara.bookinglapang.databinding.ActivityMainBinding
-import com.example.keviniswara.bookinglapang.home.view.HomeFragment
-import com.example.keviniswara.bookinglapang.order.view.OrderFragment
-import com.example.keviniswara.bookinglapang.profile.view.ProfileFragment
-import com.example.keviniswara.bookinglapang.status.view.StatusFragment
+import com.example.keviniswara.bookinglapang.user.home.view.HomeFragment
+import com.example.keviniswara.bookinglapang.user.order.view.OrderFragment
+import com.example.keviniswara.bookinglapang.user.profile.view.ProfileFragment
+import com.example.keviniswara.bookinglapang.user.status.view.StatusFragment
 import android.util.TypedValue
 import android.support.design.internal.BottomNavigationMenuView
 import android.view.View
