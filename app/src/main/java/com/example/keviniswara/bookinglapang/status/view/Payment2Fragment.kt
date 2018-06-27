@@ -37,6 +37,8 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
 
+        val order = Order(customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, orderId)
+
         setField(fieldId)
         setSport(sport)
         setDate(date)
@@ -44,7 +46,7 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
         mPresenter.retrieveListOfBankFromFirebase()
 
         mBinding.buttonPay.setOnClickListener({
-            moveToPayment3(orderId, getBankName())
+            moveToPayment3(order, getBankName())
         })
 
         return mBinding.root
@@ -76,10 +78,18 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
         return mBinding.listOfBank.selectedItem.toString()
     }
 
-    override fun moveToPayment3(orderId: String, bankName: String) {
+    override fun moveToPayment3(orderDetail: Order, bankName: String) {
         val arguments = Bundle()
         val fragment = Payment3Fragment()
-        arguments.putString("orderId", orderId)
+        arguments.putString("startHour", orderDetail.startHour)
+        arguments.putString("endHour", orderDetail.endHour)
+        arguments.putString("customerEmail", orderDetail.customerEmail)
+        arguments.putString("status", orderDetail.status.toString())
+        arguments.putString("date", orderDetail.date)
+        arguments.putString("sport", orderDetail.sport)
+        arguments.putString("fieldId", orderDetail.fieldId)
+        arguments.putLong("deadline", orderDetail.deadline)
+        arguments.putString("orderId", orderDetail.orderId)
         arguments.putString("bankName", bankName)
         fragment.arguments = arguments
         val ft = fragmentManager?.beginTransaction()

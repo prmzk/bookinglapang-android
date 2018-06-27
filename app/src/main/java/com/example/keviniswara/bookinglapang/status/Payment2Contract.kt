@@ -11,7 +11,7 @@ interface Payment2Contract {
         fun setDate(date: String)
         fun getBankName(): String
         fun initListOfBankDropdown(listOfBank: List<String>)
-        fun moveToPayment3(orderId: String, bankName: String)
+        fun moveToPayment3(orderDetail: Order, bankName: String)
     }
 
     interface Presenter : BasePresenter<View> {
