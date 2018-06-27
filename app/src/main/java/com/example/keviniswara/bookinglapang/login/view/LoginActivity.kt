@@ -43,10 +43,24 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
         })
     }
 
-    override fun startMainActivity() {
-        val intent = Intent(this, KeeperActivity::class.java)
-        startActivity(intent)
-        finish()
+    override fun moveTo(status: Int) {
+        if (status == 0) {
+            val intent = Intent(this, KeeperActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (status == 1) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (status == 2) {
+            val intent = Intent(this, KeeperActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun setErrorMessage(text: String) {

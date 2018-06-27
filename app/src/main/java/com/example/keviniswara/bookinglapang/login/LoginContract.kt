@@ -10,7 +10,7 @@ interface LoginContract {
         fun getPassword(): String
         fun getActivity(): Activity
         fun setErrorMessage(text: String)
-        fun startMainActivity()
+        fun moveTo(status: Int)
         fun hideKeyboard()
     }
     interface Presenter : BasePresenter<View> {
