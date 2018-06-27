@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.ActivitySignInBinding
+import com.example.keviniswara.bookinglapang.keeper.KeeperActivity
 import com.example.keviniswara.bookinglapang.login.LoginContract
 import com.example.keviniswara.bookinglapang.login.presenter.LoginPresenter
 
@@ -43,7 +44,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
     }
 
     override fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, KeeperActivity::class.java)
         startActivity(intent)
         finish()
     }
@@ -58,8 +59,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
     }
 
     override fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm!!.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     override fun getEmail(): String {

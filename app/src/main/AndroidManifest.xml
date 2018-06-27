@@ -22,6 +22,9 @@
         <activity android:name=".login.view.RegisterActivity">
 
         </activity>
+        <activity android:name=".keeper.KeeperActivity">
+
+        </activity>
         <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

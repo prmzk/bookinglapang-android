@@ -1,47 +1,42 @@
-package com.example.keviniswara.bookinglapang
+package com.example.keviniswara.bookinglapang.keeper
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.widget.FrameLayout
-import com.example.keviniswara.bookinglapang.databinding.ActivityMainBinding
-import com.example.keviniswara.bookinglapang.home.view.HomeFragment
-import com.example.keviniswara.bookinglapang.order.view.OrderFragment
-import com.example.keviniswara.bookinglapang.profile.view.ProfileFragment
-import com.example.keviniswara.bookinglapang.status.view.StatusFragment
+import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
-import android.support.design.internal.BottomNavigationMenuView
 import android.view.View
+import android.widget.FrameLayout
+import com.example.keviniswara.bookinglapang.R
+import com.example.keviniswara.bookinglapang.databinding.ActivityKeeperBinding
+import com.example.keviniswara.bookinglapang.keeper.order.view.KeeperOrderFragment
+import com.example.keviniswara.bookinglapang.keeper.profile.view.KeeperProfileFragment
+import com.example.keviniswara.bookinglapang.keeper.status.view.KeeperStatusFragment
 import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
 
-class MainActivity : AppCompatActivity() {
+class KeeperActivity : AppCompatActivity() {
 
     private var content: FrameLayout? = null
 
     private val mOnNavigationItemSelectedListener
             = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.bottom_nav_bar_1 -> {
-                val fragment = HomeFragment()
-                addFragment(fragment)
-                return@OnNavigationItemSelectedListener true
-            }
             R.id.bottom_nav_bar_2 -> {
-                val fragment = OrderFragment()
+                val fragment = KeeperOrderFragment()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bottom_nav_bar_3 -> {
-                var fragment = StatusFragment()
+                var fragment = KeeperStatusFragment()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.bottom_nav_bar_4 -> {
-                var fragment = ProfileFragment()
+                var fragment = KeeperProfileFragment()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
@@ -52,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val mBinding: ActivityKeeperBinding = DataBindingUtil.setContentView(this, R.layout.activity_keeper)
 
         content = mBinding.content
 
@@ -73,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             iconView.setLayoutParams(layoutParams)
         }
 
-        val fragment = HomeFragment()
+        val fragment = KeeperOrderFragment()
         addFragment(fragment)
     }
 
@@ -85,21 +80,16 @@ class MainActivity : AppCompatActivity() {
             var exit: Boolean = false
             var popStack: Boolean = false
 
-            if (supportFragmentManager.findFragmentByTag("HomeFragment") != null &&
-                    supportFragmentManager.findFragmentByTag("HomeFragment").isVisible) {
+            if (supportFragmentManager.findFragmentByTag("KeeperOrderFragment") != null &&
+                    supportFragmentManager.findFragmentByTag("KeeperOrderFragment").isVisible) {
                 popStack = true
                 exit = true
-
-            } else if (supportFragmentManager.findFragmentByTag("OrderFragment") != null &&
-                    supportFragmentManager.findFragmentByTag("OrderFragment").isVisible) {
+            } else if (supportFragmentManager.findFragmentByTag("KeeperStatusFragment") != null &&
+                    supportFragmentManager.findFragmentByTag("KeeperStatusFragment").isVisible) {
                 popStack = true
                 exit = true
-            } else if (supportFragmentManager.findFragmentByTag("StatusFragment") != null &&
-                    supportFragmentManager.findFragmentByTag("StatusFragment").isVisible) {
-                popStack = true
-                exit = true
-            } else if (supportFragmentManager.findFragmentByTag("ProfileFragment") != null &&
-                    supportFragmentManager.findFragmentByTag("ProfileFragment").isVisible) {
+            } else if (supportFragmentManager.findFragmentByTag("KeeperProfileFragment") != null &&
+                    supportFragmentManager.findFragmentByTag("KeeperProfileFragment").isVisible) {
                 popStack = true
                 exit = true
             } else {
