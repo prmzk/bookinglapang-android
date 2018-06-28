@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,8 +58,7 @@ class AdminStatusFragment: Fragment(), AdminStatusContract.View {
     }
 
     override fun moveToDetail(orderDetail: Order) {
-        Log.d("lalala", "dipencet cuy " + orderDetail.fieldId)
-        /*val arguments = Bundle()
+        val arguments = Bundle()
         val fragment = AdminStatusDetailFragment()
         arguments.putString("startHour", orderDetail.startHour)
         arguments.putString("endHour", orderDetail.endHour)
@@ -74,7 +72,7 @@ class AdminStatusFragment: Fragment(), AdminStatusContract.View {
         val ft = fragmentManager!!.beginTransaction()
         ft.replace(R.id.content, fragment).addToBackStack(fragment
                 .javaClass.simpleName)
-        ft.commit()*/
+        ft.commit()
     }
 
     override fun clearOrderList() {
