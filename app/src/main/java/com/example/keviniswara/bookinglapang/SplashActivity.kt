@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.keviniswara.bookinglapang.admin.AdminActivity
 import com.example.keviniswara.bookinglapang.keeper.KeeperActivity
 import com.example.keviniswara.bookinglapang.login.view.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -54,7 +55,7 @@ class SplashActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else if (status == 2) {
-            val intent = Intent(this, KeeperActivity::class.java)
+            val intent = Intent(this, AdminActivity::class.java)
             startActivity(intent)
             finish()
         } else {

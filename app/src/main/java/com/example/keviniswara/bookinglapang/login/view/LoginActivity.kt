@@ -10,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.R
+import com.example.keviniswara.bookinglapang.admin.AdminActivity
 import com.example.keviniswara.bookinglapang.databinding.ActivitySignInBinding
 import com.example.keviniswara.bookinglapang.keeper.KeeperActivity
 import com.example.keviniswara.bookinglapang.login.LoginContract
@@ -53,7 +54,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
             startActivity(intent)
             finish()
         } else if (status == 2) {
-            val intent = Intent(this, KeeperActivity::class.java)
+            val intent = Intent(this, AdminActivity::class.java)
             startActivity(intent)
             finish()
         } else {
