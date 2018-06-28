@@ -18,7 +18,7 @@ class AdminProfileFragment: Fragment(), AdminProfileContract.View {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_home, container, false)
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_profile, container, false)
 
         mPresenter = initPresenter()
 
