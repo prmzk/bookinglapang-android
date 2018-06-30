@@ -1,5 +1,6 @@
 package com.example.keviniswara.bookinglapang.keeper.status.presenter
 
+import android.util.Log
 import com.example.keviniswara.bookinglapang.keeper.status.KeeperStatusDetailContract
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.utils.Database
@@ -40,6 +41,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
         orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onCancelled(p0: DatabaseError?) {
+                Log.d("lalala", "1")
                 mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
             }
 
@@ -87,24 +89,23 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                     if (type == 0) {
                                                         userRoot.child(userId).child("orders").child(orderKey)
                                                                 .child("status").setValue(1)
+                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
                                                     } else if (type == 1) {
                                                         userRoot.child(userId).child("orders").child(orderKey)
                                                                 .child("status").setValue(3)
+                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
                                                     }
-                                                    mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
                                                     mView?.finish()
                                                 }
                                             }
-                                        } else {
-                                            mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                         }
                                     }
                                 }
                             })
-                            break
                         }
                     }
                 } else {
+                    Log.d("lalala", "4")
                     mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                 }
             }
