@@ -82,13 +82,10 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                     mView?.finish()
                                                 }
                                             }
-                                        } else {
-                                            mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                         }
                                     }
                                 }
                             })
-                            break
                         }
                     }
                 } else {
@@ -153,13 +150,10 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                     mView?.finish()
                                                 }
                                             }
-                                        } else {
-                                            mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                         }
                                     }
                                 }
                             })
-                            break
                         }
                     }
                 } else {
