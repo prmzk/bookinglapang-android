@@ -52,23 +52,23 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
     }
 
     override fun setFieldId(fieldId: String) {
-        mBinding.fieldId.text = fieldId
+        mBinding.fieldId.setText(fieldId)
     }
 
     override fun setSport(sport: String) {
-        mBinding.sport.text = sport
+        mBinding.sport.setText(sport)
     }
 
     override fun setStartHour(startHour: String) {
-        mBinding.startHour.text = startHour
+        mBinding.startHour.setText(startHour)
     }
 
     override fun setEndHour(endHour: String) {
-        mBinding.endHour.text = endHour
+        mBinding.endHour.setText(endHour)
     }
 
     override fun setDate(date: String) {
-        mBinding.date.text = date
+        mBinding.date.setText(date)
     }
 
     override fun makeToast(text: String) {
