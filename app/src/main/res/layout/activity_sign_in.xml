@@ -71,7 +71,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:background="@drawable/form_input_background"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        android:paddingLeft="@dimen/befote_text"
+                        android:paddingRight="@dimen/befote_text" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -93,7 +95,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
                         android:background="@drawable/form_input_background"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:paddingLeft="@dimen/befote_text"
+                        android:paddingRight="@dimen/befote_text" />
                 </LinearLayout>
 
                 <RelativeLayout
