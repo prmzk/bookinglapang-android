@@ -31,7 +31,7 @@ class AdminHomeAdapter(private val fields: MutableList<Field?>?, fragment: Admin
             this.mBinding = mBinding
             mFragment = fragment
             mBinding.root.setOnClickListener({
-                //TODO MOVE TO DETAIL
+                mFragment.moveToDetail(field!!)
             })
         }
 

@@ -1,9 +1,6 @@
 package com.example.keviniswara.bookinglapang.utils
 
-import com.example.keviniswara.bookinglapang.model.Bank
-import com.example.keviniswara.bookinglapang.model.Order
-import com.example.keviniswara.bookinglapang.model.Transaction
-import com.example.keviniswara.bookinglapang.model.User
+import com.example.keviniswara.bookinglapang.model.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -59,5 +56,16 @@ object Database {
 
     fun addBank(bank: Bank) {
         root.child("banks").push().setValue(bank)
+    }
+
+    fun addField(field: Field, fieldId: String) {
+        root.child("fields").child(fieldId).setValue(field)
+    }
+
+    fun updateField(fieldName: String, address: String, contactPerson: String, phoneNumber: String, fieldId: String) {
+        root.child("fields").child(fieldId).child("field_id").setValue(fieldName)
+        root.child("fields").child(fieldId).child("address").setValue(address)
+        root.child("fields").child(fieldId).child("contact_person").setValue(contactPerson)
+        root.child("fields").child(fieldId).child("phone_number").setValue(phoneNumber)
     }
 }

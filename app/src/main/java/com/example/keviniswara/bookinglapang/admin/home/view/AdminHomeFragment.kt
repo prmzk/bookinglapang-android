@@ -46,6 +46,10 @@ class AdminHomeFragment: Fragment(), AdminHomeContract.View {
 
         mPresenter.retrieveFieldList()
 
+        mBinding.fabAdd.setOnClickListener({
+            startFieldDetailFragment()
+        })
+
         return mBinding.root
     }
 
@@ -57,5 +61,24 @@ class AdminHomeFragment: Fragment(), AdminHomeContract.View {
         mRecyclerView.layoutManager = linearLayoutManager
         mAdapter = AdminHomeAdapter(fields, this)
         mRecyclerView.adapter = mAdapter
+    }
+
+    override fun startFieldDetailFragment() {
+        val ft = fragmentManager!!.beginTransaction()
+        ft.replace(R.id.content, AdminHomeFieldDetailFragment())
+        ft.commit()
+    }
+
+    override fun moveToDetail(fieldDetail: Field) {
+        val arguments = Bundle()
+        val fragment = AdminHomeFieldDetailFragment()
+        arguments.putString("fieldId", fieldDetail.field_id)
+        arguments.putString("contactPerson", fieldDetail.contact_person)
+        arguments.putString("phoneNumber", fieldDetail.phone_number)
+        arguments.putString("address", fieldDetail.address)
+        fragment.arguments = arguments
+        val ft = fragmentManager!!.beginTransaction()
+        ft.replace(R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
+        ft.commit()
     }
 }
