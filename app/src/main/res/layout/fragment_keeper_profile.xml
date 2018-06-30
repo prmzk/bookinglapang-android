@@ -57,7 +57,8 @@
                     android:cursorVisible="true"
                     android:textCursorDrawable="@null"
                     android:editable="false"
-                    android:paddingLeft="@dimen/befote_text"/>
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -76,7 +77,8 @@
                     android:layout_weight="3"
                     android:cursorVisible="true"
                     android:textCursorDrawable="@null"
-                    android:paddingLeft="@dimen/befote_text"/>
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -94,7 +96,8 @@
                     android:layout_weight="3"
                     android:cursorVisible="true"
                     android:textCursorDrawable="@null"
-                    android:paddingLeft="@dimen/befote_text"/>
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
         </TableLayout>
         <Button
