@@ -80,10 +80,7 @@ class AdminOrderFragment: Fragment(), AdminOrderContract.View {
     }
 
     override fun moveToDetail(orderDetail: Order) {
-
-        Log.d("lalala", "dipencet aduh")
-
-        /*val arguments = Bundle()
+        val arguments = Bundle()
         val fragment = AdminOrderDetailFragment()
         arguments.putString("startHour", orderDetail.startHour)
         arguments.putString("endHour", orderDetail.endHour)
@@ -96,7 +93,7 @@ class AdminOrderFragment: Fragment(), AdminOrderContract.View {
         val ft = fragmentManager!!.beginTransaction()
         ft.replace(R.id.content, fragment).addToBackStack(fragment
                 .javaClass.simpleName)
-        ft.commit()*/
+        ft.commit()
     }
 
     override fun updateStartLabel() {

@@ -100,13 +100,12 @@ class KeeperOrderPresenter : KeeperOrderContract.Presenter {
                                                                     || yearOrder == yearStart && monthOrder == monthStart && dayOrder > dayStart))) {
                                                 orders!!.add(order)
                                             }
+                                            mView?.initListOfOrders(orders)
                                         }
                                     }
                                 } else {
                                     mView?.initListOfOrders(null)
                                 }
-
-                                mView?.initListOfOrders(orders)
                             }
 
                         })
