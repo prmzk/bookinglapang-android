@@ -56,7 +56,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:cursorVisible="true"
-                    android:textCursorDrawable="@null"/>
+                    android:textCursorDrawable="@null"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -73,7 +75,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:cursorVisible="true"
-                    android:textCursorDrawable="@null"/>
+                    android:textCursorDrawable="@null"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
         </TableLayout>
         <Button

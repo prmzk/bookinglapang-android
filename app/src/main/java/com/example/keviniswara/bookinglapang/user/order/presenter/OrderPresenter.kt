@@ -7,8 +7,6 @@ import com.example.keviniswara.bookinglapang.user.order.OrderContact
 import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -33,13 +31,20 @@ class OrderPresenter() : OrderContact.Presenter {
 
         val userRoot: DatabaseReference = Database.database.getReference("users")
 
-        val formatter = DateTimeFormatter.ofPattern("d/M/u", Locale.ENGLISH)
+        val startDate = start.split("/")
 
-        val startDate = LocalDate.parse(start, formatter)
+        val endDate = end.split("/")
 
-        val endDate = LocalDate.parse(end, formatter)
+        val dayStart = Integer.parseInt(startDate[0])
+        val monthStart = Integer.parseInt(startDate[1])
+        val yearStart = Integer.parseInt(startDate[2])
 
-        if (endDate.isBefore(startDate)) {
+        val dayEnd = Integer.parseInt(endDate[0])
+        val monthEnd = Integer.parseInt(endDate[1])
+        val yearEnd = Integer.parseInt(endDate[2])
+
+        if (yearEnd < yearStart || yearEnd == yearStart && monthEnd < monthStart ||
+                yearEnd == yearStart && monthEnd == monthStart && dayEnd < dayStart) {
             mView?.makeToast("Waktu akhir tidak boleh lebih cepat dari waktu awal!")
             mView?.clearOrderList()
         } else {
@@ -62,10 +67,18 @@ class OrderPresenter() : OrderContact.Presenter {
 
                             if (order != null && order.status == 2) {
 
-                                val orderDate = LocalDate.parse(order.date, formatter)
+                                val orderDate = order.date.split("/")
 
-                                if (orderDate.equals(startDate) || orderDate.equals(endDate) ||
-                                        orderDate.isAfter(startDate) && orderDate.isBefore(endDate)) {
+                                val dayOrder = Integer.parseInt(orderDate[0])
+                                val monthOrder = Integer.parseInt(orderDate[1])
+                                val yearOrder = Integer.parseInt(orderDate[2])
+
+                                if ((dayStart == dayOrder && monthStart == monthOrder && yearStart == yearOrder)
+                                        || (dayEnd == dayOrder && monthEnd == monthOrder && yearEnd == yearOrder)
+                                        || ((yearOrder < yearEnd || yearOrder == yearEnd && monthOrder < monthEnd
+                                                || yearOrder == yearEnd && monthOrder == monthEnd && dayOrder < dayEnd) &&
+                                                (yearOrder > yearStart || yearOrder == yearStart && monthOrder > monthStart
+                                                        || yearOrder == yearStart && monthOrder == monthStart && dayOrder > dayStart))) {
                                     orders!!.add(order)
                                 }
                             }

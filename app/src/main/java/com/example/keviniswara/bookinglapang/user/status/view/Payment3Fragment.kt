@@ -58,9 +58,10 @@ class Payment3Fragment: Fragment(), Payment3Contract.View {
     }
 
     override fun startHomeFragment() {
-        val ft = fragmentManager!!.beginTransaction()
-        ft.replace(R.id.content, HomeFragment())
-        ft.commit()
+        fragmentManager?.popBackStack()
+        fragmentManager?.popBackStack()
+        fragmentManager?.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     override fun setName(name: String) {

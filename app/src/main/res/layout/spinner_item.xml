@@ -6,4 +6,6 @@
     android:minHeight="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:ellipsize="marquee" />
+    android:ellipsize="marquee"
+    android:paddingLeft="@dimen/befote_text"
+    android:paddingRight="@dimen/befote_text" />

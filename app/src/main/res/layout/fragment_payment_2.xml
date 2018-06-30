@@ -54,7 +54,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:editable="false"
-                    android:id="@+id/field"/>
+                    android:id="@+id/field"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -71,7 +73,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:editable="false"
-                    android:id="@+id/sport"/>
+                    android:id="@+id/sport"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -88,7 +92,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:editable="false"
-                    android:id="@+id/date"/>
+                    android:id="@+id/date"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text" />
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
