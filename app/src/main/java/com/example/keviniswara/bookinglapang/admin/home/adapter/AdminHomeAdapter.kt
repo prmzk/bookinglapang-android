@@ -39,7 +39,11 @@ class AdminHomeAdapter(private val fields: MutableList<Field?>?, fragment: Admin
             this.field = field
 
             mBinding.fieldId.text = field.field_id
-            mBinding.sport.text = field.sports.joinToString()
+            val sports : MutableList<String> = mutableListOf()
+            for (i in field.sports) {
+                sports.add(i.sport_name)
+            }
+            mBinding.sport.text = sports.joinToString()
         }
     }
 
