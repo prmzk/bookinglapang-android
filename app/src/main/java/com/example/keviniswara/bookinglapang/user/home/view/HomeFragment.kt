@@ -62,14 +62,12 @@ class HomeFragment : Fragment() {
         })
 
         mBinding.buttonCariLapangan.setOnClickListener({
-            mBinding.lalala.setText("cari lapangan coy")
             val ft = fragmentManager!!.beginTransaction()
             ft.replace(R.id.content, SearchFieldFragment()).addToBackStack(SearchFieldFragment()
                     .javaClass.simpleName)
             ft.commit()
         })
         mBinding.buttonCariLawan.setOnClickListener({
-            mBinding.lalala.setText("cari lawan coy")
         })
         return view
     }
