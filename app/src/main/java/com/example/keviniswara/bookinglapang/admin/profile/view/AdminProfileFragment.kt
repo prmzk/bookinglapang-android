@@ -29,6 +29,16 @@ class AdminProfileFragment: Fragment(), AdminProfileContract.View {
 
         mPresenter.bind(this)
 
+        mBinding.buttonLogout.setOnClickListener({
+            mPresenter.logout()
+        })
+
+        mPresenter.getProfileFromDatabase()
+
+        mBinding.buttonSave.setOnClickListener({
+            mPresenter.save()
+        })
+
         return mBinding.root
     }
 

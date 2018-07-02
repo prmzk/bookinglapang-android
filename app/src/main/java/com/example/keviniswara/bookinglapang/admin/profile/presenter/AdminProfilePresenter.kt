@@ -29,8 +29,8 @@ class AdminProfilePresenter: AdminProfileContract.Presenter {
             override fun onDataChange(p0: DataSnapshot?) {
                 val name = p0!!.child("name").value.toString()
                 val phoneNumber = p0.child("phoneNumber").value.toString()
-                mView!!.setName(name)
-                mView!!.setPhoneNumber(phoneNumber)
+                mView?.setName(name)
+                mView?.setPhoneNumber(phoneNumber)
             }
 
             override fun onCancelled(p0: DatabaseError?) {
@@ -45,13 +45,13 @@ class AdminProfilePresenter: AdminProfileContract.Presenter {
 
         usersReference.updateChildren(tokenUpdate).addOnCompleteListener({
             mAuth.signOut()
-            mView!!.startLoginActivity()
+            mView?.startLoginActivity()
         })
     }
 
     override fun save() {
         usersReference.child("name").setValue(mView!!.getName())
         usersReference.child("phoneNumber").setValue(mView!!.getPhoneNumber())
-        mView!!.hideKeyboard()
+        mView?.hideKeyboard()
     }
 }
