@@ -9,7 +9,7 @@ import com.example.keviniswara.bookinglapang.admin.home.view.AdminHomeFieldDetai
 import com.example.keviniswara.bookinglapang.databinding.AdminSportListBinding
 import com.example.keviniswara.bookinglapang.model.Field
 
-class AdminHomeFieldDetailAdapter(private val sports: MutableList<Field.PriceTimeDayRange>?, fragment: AdminHomeFieldDetailFragment) : RecyclerView.Adapter<AdminHomeFieldDetailAdapter.AdminHomeHolder>() {
+class AdminHomeFieldDetailAdapter(private val sports: MutableList<Field.PriceTimeDayRange?>?, fragment: AdminHomeFieldDetailFragment) : RecyclerView.Adapter<AdminHomeFieldDetailAdapter.AdminHomeHolder>() {
 
     private lateinit var mBinding: AdminSportListBinding
 
