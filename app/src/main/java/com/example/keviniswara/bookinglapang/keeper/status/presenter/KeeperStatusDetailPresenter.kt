@@ -3,7 +3,9 @@ package com.example.keviniswara.bookinglapang.keeper.status.presenter
 import android.util.Log
 import com.example.keviniswara.bookinglapang.keeper.status.KeeperStatusDetailContract
 import com.example.keviniswara.bookinglapang.model.Order
+import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -41,7 +43,6 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
         orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
             override fun onCancelled(p0: DatabaseError?) {
-                Log.d("lalala", "1")
                 mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
             }
 
@@ -98,6 +99,8 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                     mView?.finish()
                                                 }
                                             }
+
+                                            sendNotificationToUser(userId, type)
                                         }
                                     }
                                 }
@@ -105,11 +108,27 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                         }
                     }
                 } else {
-                    Log.d("lalala", "4")
                     mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                 }
             }
 
         })
+    }
+
+    // type = 0, status available, type = 1, status not available
+    override fun sendNotificationToUser(userId: String, type: Int) {
+
+        val usersReference: DatabaseReference = Database.database.getReference("users")
+
+        var message: String = ""
+
+        when (type) {
+            0 -> message = "Lapangan tersedia"
+            1 -> message = "Lapangan tidak tersedia"
+        }
+
+        val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, message)
+
+        Database.addNotification(userId, notification)
     }
 }
