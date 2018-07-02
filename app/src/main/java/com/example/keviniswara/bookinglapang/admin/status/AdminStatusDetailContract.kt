@@ -19,5 +19,6 @@ interface AdminStatusDetailContract {
                             , fieldId: String)
         fun alreadyTransfer(orderId: String)
         fun failed(orderId: String)
+        fun sendNotificationToUser(userId: String, type: Int)
     }
 }

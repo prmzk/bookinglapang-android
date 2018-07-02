@@ -2,7 +2,9 @@ package com.example.keviniswara.bookinglapang.admin.status.presenter
 
 import com.example.keviniswara.bookinglapang.admin.status.AdminStatusDetailContract
 import com.example.keviniswara.bookinglapang.model.Order
+import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -82,6 +84,7 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                     mView?.finish()
                                                 }
                                             }
+                                            sendNotificationToUser(userId, 0)
                                         }
                                     }
                                 }
@@ -150,6 +153,7 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                     mView?.finish()
                                                 }
                                             }
+                                            sendNotificationToUser(userId, 1)
                                         }
                                     }
                                 }
@@ -162,5 +166,23 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
             }
 
         })
+    }
+
+
+    // type = 0, already paid, type = 1, not paid
+    override fun sendNotificationToUser(userId: String, type: Int) {
+
+        val usersReference: DatabaseReference = Database.database.getReference("users")
+
+        var message: String = ""
+
+        when (type) {
+            0 -> message = "Pembayaran sukses"
+            1 -> message = "Pembayaran gagal"
+        }
+
+        val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, message)
+
+        Database.addNotification(userId, notification)
     }
 }
