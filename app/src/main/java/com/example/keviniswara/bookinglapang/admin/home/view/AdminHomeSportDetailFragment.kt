@@ -24,10 +24,40 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
 
         mPresenter.bind(this)
 
+        val fieldId = arguments!!.getString("fieldId")
+
+        mBinding.buttonSave.setOnClickListener({
+            mPresenter.savePrice(fieldId)
+        })
+
         return mBinding.root
     }
 
     override fun initPresenter(): AdminHomeSportDetailContract.Presenter {
         return AdminHomeSportDetailPresenter()
+    }
+
+    override fun getStartDay(): String {
+        return mBinding.dayStart.text.toString()
+    }
+
+    override fun getEndDay(): String {
+        return mBinding.dayEnd.text.toString()
+    }
+
+    override fun getStartHour(): String {
+        return mBinding.hourStart.text.toString()
+    }
+
+    override fun getEndHour(): String {
+        return mBinding.hourEnd.text.toString()
+    }
+
+    override fun getPrice(): String {
+        return mBinding.price.text.toString()
+    }
+
+    override fun getSport(): String {
+        return mBinding.sport.text.toString()
     }
 }

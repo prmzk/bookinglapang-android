@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.admin.home.view.AdminHomeFieldDetailFragment
 import com.example.keviniswara.bookinglapang.databinding.AdminSportListBinding
-import com.example.keviniswara.bookinglapang.model.Field
+import com.example.keviniswara.bookinglapang.model.Price
 
-class AdminHomeFieldDetailAdapter(private val sports: MutableList<Field.PriceTimeDayRange?>?, fragment: AdminHomeFieldDetailFragment) : RecyclerView.Adapter<AdminHomeFieldDetailAdapter.AdminHomeHolder>() {
+class AdminHomeFieldDetailAdapter(private val sports: MutableList<Price?>?, fragment: AdminHomeFieldDetailFragment) : RecyclerView.Adapter<AdminHomeFieldDetailAdapter.AdminHomeHolder>() {
 
     private lateinit var mBinding: AdminSportListBinding
 
@@ -37,7 +37,7 @@ class AdminHomeFieldDetailAdapter(private val sports: MutableList<Field.PriceTim
     class AdminHomeHolder(mBinding: AdminSportListBinding, fragment: AdminHomeFieldDetailFragment) : RecyclerView.ViewHolder(mBinding.root) {
         private var mBinding: AdminSportListBinding
 
-        private var sport: Field.PriceTimeDayRange? = null
+        private var sport: Price? = null
 
         private var mFragment: AdminHomeFieldDetailFragment
 
@@ -49,7 +49,7 @@ class AdminHomeFieldDetailAdapter(private val sports: MutableList<Field.PriceTim
             })
         }
 
-        fun bind(sport: Field.PriceTimeDayRange) {
+        fun bind(sport: Price) {
             this.sport = sport
             mBinding.rangeDay.text = sport.day_range
             mBinding.rangeTime.text = sport.hour_range

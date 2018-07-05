@@ -15,6 +15,7 @@ import com.example.keviniswara.bookinglapang.admin.home.adapter.AdminHomeFieldDe
 import com.example.keviniswara.bookinglapang.admin.home.presenter.AdminHomeFieldDetailPresenter
 import com.example.keviniswara.bookinglapang.databinding.FragmentAdminHomeFieldDetailBinding
 import com.example.keviniswara.bookinglapang.model.Field
+import com.example.keviniswara.bookinglapang.model.Price
 import com.example.keviniswara.bookinglapang.utils.Database
 
 class AdminHomeFieldDetailFragment: Fragment(), AdminHomeFieldDetailContract.View {
@@ -56,18 +57,17 @@ class AdminHomeFieldDetailFragment: Fragment(), AdminHomeFieldDetailContract.Vie
             setContactPersonName(contactPerson)
             setHandphone(phoneNumber)
             mPresenter.retrieveSportList(fieldId)
+            mBinding.fabAdd.setOnClickListener({
+                startSportDetailFragment(fieldId)
+            })
+        } else {
+            mBinding.fabAdd.visibility = View.GONE
         }
 
         mBinding.buttonSave.setOnClickListener({
             Database.updateField(getFieldId(), getAddress(), getContactPersonName(),
                     getHandphone(), getFieldId())
         })
-
-        mBinding.fabAdd.setOnClickListener({
-            startSportDetailFragment()
-        })
-
-
 
         return mBinding.root
     }
@@ -100,7 +100,7 @@ class AdminHomeFieldDetailFragment: Fragment(), AdminHomeFieldDetailContract.Vie
         mBinding.handphone.setText(handphone)
     }
 
-    override fun initListOfSport(sports: MutableList<Field.PriceTimeDayRange?>?) {
+    override fun initListOfSport(sports: MutableList<Price?>?) {
         mRecyclerView.layoutManager = linearLayoutManager
         mAdapter = AdminHomeFieldDetailAdapter(sports, this)
         mRecyclerView.adapter = mAdapter
@@ -114,9 +114,13 @@ class AdminHomeFieldDetailFragment: Fragment(), AdminHomeFieldDetailContract.Vie
         mBinding.address.setText(address)
     }
 
-    override fun startSportDetailFragment() {
+    override fun startSportDetailFragment(fieldId: String) {
+        val arguments = Bundle()
+        val fragment = AdminHomeSportDetailFragment()
+        arguments.putString("fieldId", fieldId)
+        fragment.arguments = arguments
         val ft = fragmentManager!!.beginTransaction()
-        ft.replace(R.id.content, AdminHomeSportDetailFragment())
+        ft.replace(R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
         ft.commit()
     }
 }
