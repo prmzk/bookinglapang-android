@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang.user.home.view
 import android.app.DatePickerDialog
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentSearchFieldBinding
+import com.example.keviniswara.bookinglapang.databinding.NumberPickerDialogBinding
 import com.example.keviniswara.bookinglapang.user.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.user.home.presenter.SearchFieldPresenter
 import java.text.SimpleDateFormat
@@ -25,10 +27,6 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     private lateinit var mBinding: FragmentSearchFieldBinding
 
     private lateinit var mCalendar: Calendar
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -44,6 +42,14 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         })
 
         mPresenter.retrieveListOfFieldFromFirebase()
+
+        mBinding.startHour.setOnClickListener({
+            initNumberPicker("Pilih jam", 0, 23, 0)
+        })
+
+        mBinding.finishHour.setOnClickListener({
+            initNumberPicker("Pilih jam", 0, 23, 1)
+        })
 
         mBinding.listOfField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -110,6 +116,35 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         DatePickerDialog(activity, date, mCalendar
                 .get(Calendar.YEAR), mCalendar.get(Calendar.MONTH),
                 mCalendar.get(Calendar.DAY_OF_MONTH)).show()
+    }
+
+    // type 0 = start, 1 = end
+    override fun initNumberPicker(title: String, minValue: Int, maxValue: Int, type: Int) {
+
+
+        val mBottomSheetDialog: BottomSheetDialog = BottomSheetDialog(activity!!, R.style.BottomSheetDialogTheme)
+
+        val mBindingNumber : NumberPickerDialogBinding = DataBindingUtil.inflate(activity!!.layoutInflater,
+                R.layout.number_picker_dialog, null, false)
+        mBottomSheetDialog.setContentView(mBindingNumber.root)
+
+        mBindingNumber.tvDialogTitle.text = title
+
+        val numberPicker = mBindingNumber.numberPicker
+
+        numberPicker.minValue = minValue
+        numberPicker.maxValue = maxValue
+        numberPicker.wrapSelectorWheel = false
+
+        mBindingNumber.buttonSave.setOnClickListener({
+            if (type == 0) {
+                mBinding.startHour.setText(numberPicker.value.toString())
+            } else {
+                mBinding.finishHour.setText(numberPicker.value.toString())
+            }
+            mBottomSheetDialog.dismiss()
+        })
+        mBottomSheetDialog.show()
     }
 
     override fun initListOfFieldDropdown(listOfField: List<String>) {
