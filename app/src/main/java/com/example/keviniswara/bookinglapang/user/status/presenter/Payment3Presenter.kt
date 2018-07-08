@@ -16,6 +16,8 @@ class Payment3Presenter: Payment3Contract.Presenter {
 
     private val fieldReference: DatabaseReference = database.getReference("").child("fields")
 
+    private val priceReference: DatabaseReference = database.getReference("").child("prices_list")
+
     private val transactionReference: DatabaseReference = database.getReference("").child("transactions")
 
     private var mView: Payment3Contract.View? = null
@@ -47,20 +49,19 @@ class Payment3Presenter: Payment3Contract.Presenter {
     }
 
     override fun countTotalPayment(orderId: String, fieldName: String, sport: String, startHour: String, endHour: String, date: String) {
-        val day = intToDay(dateToIntDay(date))
-        Log.d("PAYMENT 3 PRESENTER", day)
+        val day = dateToIntDay(date)
+        Log.d("PAYMENT 3 PRESENTER", day.toString())
         var total = 0
         val start = startHour.toInt()
         val end = endHour.toInt()
-        fieldReference.child(fieldName).child("sports").orderByChild("sport_name").equalTo(sport).addValueEventListener(object : ValueEventListener {
+        priceReference.child(fieldName).child(sport).child(day.toString())
+                .addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot?) {
                 for (ds in p0!!.children) {
-                    val data = ds.getValue(Field.Sport::class.java)!!
-                    val listOfPrice = data.price_list
-                    for (item in listOfPrice) {
-                        if (item.day.equals(day) && item.hour.toInt() >= start && item.hour.toInt() < end) {
-                            total += item.price
-                        }
+                    Log.d("lalala", ds.key)
+                    if (ds.key.toInt() in start until end) {
+                        total += ds.getValue(String::class.java)!!.toInt()
+                        Log.d("lalalala", ds.getValue(String::class.java)!!.toString())
                     }
                 }
                 mView!!.setTotal(total.toString())

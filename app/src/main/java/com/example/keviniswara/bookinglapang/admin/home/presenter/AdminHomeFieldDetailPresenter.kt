@@ -36,21 +36,8 @@ class AdminHomeFieldDetailPresenter : AdminHomeFieldDetailContract.Presenter {
                     }
                 }
                 mView?.initListOfSport(sports)
-                Log.d("HAHAHAHA", p0.toString())
             }
 
-            //            override fun onDataChange(p0: DataSnapshot?) {
-//                if (p0 != null) {
-//                    for (ds in p0.children) {
-//                        for (price in ds.child("price_time_day_range_list").children) {
-//                            val newPrice = price.getValue(Field.PriceTimeDayRange::class.java)
-//                            sports!!.add(newPrice)
-//                        }
-//                    }
-//                }
-//                mView?.initListOfSport(sports)
-//            }
-//
             override fun onCancelled(p0: DatabaseError?) {
                 mView?.initListOfSport(null)
                 Log.d("ADMIN FIELD DETAIL", "Failed to get sport and price detail.")

@@ -38,7 +38,7 @@ class AdminHomeSportDetailPresenter : AdminHomeSportDetailContract.Presenter {
 
         for (day in dayToInt(startDay)..dayToInt(endDay)) {
             for (hour in startHour.toInt()..endHour.toInt()) {
-                priceListReference.child(fieldId).child(sport).child(day.toString()).child(startHour).setValue(price)
+                priceListReference.child(fieldId).child(sport).child(day.toString()).child(hour.toString()).setValue(price)
             }
         }
     }

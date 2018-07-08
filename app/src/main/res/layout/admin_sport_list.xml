@@ -47,7 +47,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_alignParentEnd="true">
@@ -57,12 +57,6 @@
                     android:text="Senin-Jumat"
                     android:textColor="@color/colorPrimary"
                     android:id="@+id/range_day"/>
-                <ImageView
-                    android:layout_width="5dp"
-                    android:layout_height="5dp"
-                    android:src="@drawable/ic_circle"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
