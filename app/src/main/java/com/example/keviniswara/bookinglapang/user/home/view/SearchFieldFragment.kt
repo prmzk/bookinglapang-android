@@ -28,6 +28,9 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     private lateinit var mCalendar: Calendar
 
+    private var defaultStartHour = 0
+    private var defaultEndHour = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_field,
@@ -135,11 +138,18 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         numberPicker.minValue = minValue
         numberPicker.maxValue = maxValue
         numberPicker.wrapSelectorWheel = false
+        if (type == 0) {
+            numberPicker.value = defaultStartHour
+        } else {
+            numberPicker.value = defaultEndHour
+        }
 
         mBindingNumber.buttonSave.setOnClickListener({
             if (type == 0) {
+                defaultStartHour = numberPicker.value
                 mBinding.startHour.setText(numberPicker.value.toString())
             } else {
+                defaultEndHour = numberPicker.value
                 mBinding.finishHour.setText(numberPicker.value.toString())
             }
             mBottomSheetDialog.dismiss()
