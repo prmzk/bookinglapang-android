@@ -67,6 +67,7 @@
                         android:layout_weight="3"
                         android:clickable="true"
                         android:editable="false"
+                        android:focusableInTouchMode="false"
                         android:id="@+id/start_date"
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text" />
@@ -89,6 +90,7 @@
                         android:layout_weight="3"
                         android:clickable="true"
                         android:editable="false"
+                        android:focusableInTouchMode="false"
                         android:id="@+id/end_date"
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text" />
