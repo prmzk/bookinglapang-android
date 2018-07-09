@@ -74,8 +74,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
     }
 
     override fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        imm?.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
     }
 
     override fun getEmail(): String {

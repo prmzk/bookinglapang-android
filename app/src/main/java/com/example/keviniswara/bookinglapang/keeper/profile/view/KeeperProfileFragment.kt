@@ -78,6 +78,6 @@ class KeeperProfileFragment : Fragment(), KeeperProfileContract.View {
 
     override fun hideKeyboard() {
         val imm: InputMethodManager? = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm?.hideSoftInputFromWindow(mBinding.parentLayout.windowToken, 0)
+        imm!!.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
     }
 }
