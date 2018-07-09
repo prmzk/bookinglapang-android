@@ -22,6 +22,8 @@ class AdminStatusPresenter : AdminStatusContract.Presenter {
 
     override fun retrieveOrderList() {
 
+        Database.addServerDate()
+
         var orders: MutableList<Order?>? = mutableListOf()
 
         val timeRoot: DatabaseReference = Database.database.getReference("server_time")

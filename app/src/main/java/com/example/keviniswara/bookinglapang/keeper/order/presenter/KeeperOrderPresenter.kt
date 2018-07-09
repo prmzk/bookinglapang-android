@@ -27,7 +27,6 @@ class KeeperOrderPresenter : KeeperOrderContract.Presenter {
         mView = null
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun retrieveOrderList(start: String, end: String) {
 
         var orders: MutableList<Order?>? = mutableListOf()

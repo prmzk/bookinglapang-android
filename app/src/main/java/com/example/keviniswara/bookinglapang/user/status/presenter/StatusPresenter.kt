@@ -24,6 +24,8 @@ class StatusPresenter : StatusContract.Presenter{
 
     override fun retrieveOrderList() {
 
+        Database.addServerDate()
+
         var orders: MutableList<Order?>? = mutableListOf()
 
         val userId: String = FirebaseAuth.getInstance().currentUser!!.uid
@@ -39,7 +41,7 @@ class StatusPresenter : StatusContract.Presenter{
 
             override fun onDataChange(dateSnapshot: DataSnapshot?) {
 
-                val dateInMillis: Long = dateSnapshot?.getValue() as Long
+                val dateInMillis: Long = dateSnapshot?.value as Long
 
                 userRoot.addValueEventListener(object : ValueEventListener {
 
