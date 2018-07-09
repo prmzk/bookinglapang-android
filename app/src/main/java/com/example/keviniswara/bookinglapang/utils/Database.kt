@@ -1,11 +1,10 @@
 package com.example.keviniswara.bookinglapang.utils
 
+import android.util.Log
 import com.example.keviniswara.bookinglapang.model.*
-import com.google.android.gms.tasks.OnCompleteListener
+import com.example.keviniswara.bookinglapang.model.Transaction
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
+import com.google.firebase.database.*
 import java.util.*
 
 
@@ -52,6 +51,56 @@ object Database {
 
     fun addServerDate() {
         root.child("server_time").setValue(ServerValue.TIMESTAMP)
+    }
+
+    fun add15MinutesDeadline(orderId: String, userId: String, orderKey: String) {
+
+        addServerDate()
+
+        val timeRoot: DatabaseReference = database.getReference("server_time")
+        val userRoot: DatabaseReference = database.getReference("users")
+        val orderRoot: DatabaseReference = database.getReference("orders")
+
+        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+                Log.d("ERROR", "failed to get server time")
+            }
+
+            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+
+                val dateInMillis: Long = dateSnapshot?.value as Long + 900000
+
+                userRoot.child(userId).child("orders").child(orderKey)
+                        .child("deadline").setValue(dateInMillis)
+
+                orderRoot.child(orderId).child("deadline").setValue(dateInMillis)
+            }
+        })
+    }
+
+    fun addOneDayDeadline(orderId: String, userId: String, orderKey: String) {
+
+        addServerDate()
+
+        val timeRoot: DatabaseReference = database.getReference("server_time")
+        val userRoot: DatabaseReference = database.getReference("users")
+        val orderRoot: DatabaseReference = database.getReference("orders")
+
+        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+                Log.d("ERROR", "failed to get server time")
+            }
+
+            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+
+                val dateInMillis: Long = dateSnapshot?.value as Long + 86400000
+
+                userRoot.child(userId).child("orders").child(orderKey)
+                        .child("deadline").setValue(dateInMillis)
+
+                orderRoot.child(orderId).child("deadline").setValue(dateInMillis)
+            }
+        })
     }
 
     fun addBank(bank: Bank) {

@@ -79,11 +79,11 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
                                             val userId = userSnapshot.key
 
-                                            for (orderSnapshot in userData.child(userSnapshot.key).child("orders").children) {
+                                            for (userOrderSnapshot in userData.child(userSnapshot.key).child("orders").children) {
 
-                                                val order = orderSnapshot.getValue<Order>(Order::class.java)
+                                                val order = userOrderSnapshot.getValue<Order>(Order::class.java)
 
-                                                val orderKey = orderSnapshot.key
+                                                val orderKey = userOrderSnapshot.key
 
                                                 if (order != null && order.orderId.equals(orderId)) {
 
@@ -91,10 +91,15 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                         userRoot.child(userId).child("orders").child(orderKey)
                                                                 .child("status").setValue(1)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
+
+                                                        Database.add15MinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key)
+
                                                     } else if (type == 1) {
                                                         userRoot.child(userId).child("orders").child(orderKey)
                                                                 .child("status").setValue(3)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
+
+                                                        Database.addOneDayDeadline(orderSnapshot.key, userId, userOrderSnapshot.key)
                                                     }
                                                     mView?.finish()
                                                 }
