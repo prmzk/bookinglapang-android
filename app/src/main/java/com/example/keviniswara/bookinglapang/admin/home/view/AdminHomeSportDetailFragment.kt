@@ -2,6 +2,7 @@ package com.example.keviniswara.bookinglapang.admin.home.view
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.admin.home.AdminHomeSportDetailContract
 import com.example.keviniswara.bookinglapang.admin.home.presenter.AdminHomeSportDetailPresenter
 import com.example.keviniswara.bookinglapang.databinding.FragmentAdminHomeSportDetailBinding
+import com.example.keviniswara.bookinglapang.databinding.NumberPickerDialogBinding
 
 class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.View {
 
@@ -17,12 +19,33 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
 
     private lateinit var mPresenter: AdminHomeSportDetailContract.Presenter
 
+    private var defaultStartDay = 0
+    private var defaultEndDay = 0
+    private var defaultStartHour = 0
+    private var defaultEndHour = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_home_sport_detail, container, false)
 
         mPresenter = initPresenter()
 
         mPresenter.bind(this)
+
+        mBinding.dayStart.setOnClickListener({
+            initDayPicker("Pilih hari", 0)
+        })
+
+        mBinding.dayEnd.setOnClickListener({
+            initDayPicker("Pilih hari", 1)
+        })
+
+        mBinding.hourStart.setOnClickListener({
+            initHourPicker("Pilih jam", 0)
+        })
+
+        mBinding.hourEnd.setOnClickListener({
+            initHourPicker("Pilih jam", 1)
+        })
 
         val fieldId = arguments!!.getString("fieldId")
 
@@ -59,5 +82,78 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
 
     override fun getSport(): String {
         return mBinding.sport.text.toString()
+    }
+
+    // type 0 = start, 1 = end
+    override fun initDayPicker(title: String, type: Int) {
+
+        val mBottomSheetDialog: BottomSheetDialog = BottomSheetDialog(activity!!, R.style.BottomSheetDialogTheme)
+
+        val mBindingNumber : NumberPickerDialogBinding = DataBindingUtil.inflate(activity!!.layoutInflater,
+                R.layout.number_picker_dialog, null, false)
+        mBottomSheetDialog.setContentView(mBindingNumber.root)
+
+        mBindingNumber.tvDialogTitle.text = title
+
+        val numberPicker = mBindingNumber.numberPicker
+        val arrayOfDay = arrayOf("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu")
+
+        numberPicker.minValue = 0
+        numberPicker.maxValue = arrayOfDay.size - 1
+        numberPicker.displayedValues = arrayOfDay
+
+        if (type == 0) {
+            numberPicker.value = defaultStartDay
+        } else {
+            numberPicker.value = defaultEndDay
+        }
+        numberPicker.wrapSelectorWheel = false
+
+        mBindingNumber.buttonSave.setOnClickListener({
+            if (type == 0) {
+                defaultStartDay = numberPicker.value
+                mBinding.dayStart.setText(arrayOfDay[numberPicker.value])
+            } else {
+                defaultEndDay = numberPicker.value
+                mBinding.dayEnd.setText(arrayOfDay[numberPicker.value])
+            }
+            mBottomSheetDialog.dismiss()
+        })
+        mBottomSheetDialog.show()
+    }
+
+    // type 0 = start, 1 = end
+    override fun initHourPicker(title: String, type: Int) {
+
+        val mBottomSheetDialog: BottomSheetDialog = BottomSheetDialog(activity!!, R.style.BottomSheetDialogTheme)
+
+        val mBindingNumber : NumberPickerDialogBinding = DataBindingUtil.inflate(activity!!.layoutInflater,
+                R.layout.number_picker_dialog, null, false)
+        mBottomSheetDialog.setContentView(mBindingNumber.root)
+
+        mBindingNumber.tvDialogTitle.text = title
+
+        val numberPicker = mBindingNumber.numberPicker
+
+        numberPicker.minValue = 0
+        numberPicker.maxValue = 23
+        if (type == 0) {
+            numberPicker.value = defaultStartHour
+        } else {
+            numberPicker.value = defaultEndHour
+        }
+        numberPicker.wrapSelectorWheel = false
+
+        mBindingNumber.buttonSave.setOnClickListener({
+            if (type == 0) {
+                defaultStartHour = numberPicker.value
+                mBinding.hourStart.setText(numberPicker.value.toString())
+            } else {
+                defaultEndHour = numberPicker.value
+                mBinding.hourEnd.setText(numberPicker.value.toString())
+            }
+            mBottomSheetDialog.dismiss()
+        })
+        mBottomSheetDialog.show()
     }
 }
