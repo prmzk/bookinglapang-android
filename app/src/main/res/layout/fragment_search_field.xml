@@ -87,6 +87,7 @@
                         android:background="@drawable/form_input_background"
                         android:layout_weight="3"
                         android:clickable="true"
+                        android:focusableInTouchMode="false"
                         android:editable="false"
                         android:id="@+id/date"
                         android:paddingLeft="@dimen/befote_text"
@@ -107,6 +108,7 @@
                         android:background="@drawable/form_input_background"
                         android:layout_weight="3"
                         android:editable="false"
+                        android:focusableInTouchMode="false"
                         android:id="@+id/start_hour"
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text" />
@@ -126,6 +128,7 @@
                         android:background="@drawable/form_input_background"
                         android:layout_weight="3"
                         android:editable="false"
+                        android:focusableInTouchMode="false"
                         android:id="@+id/finish_hour"
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text" />
