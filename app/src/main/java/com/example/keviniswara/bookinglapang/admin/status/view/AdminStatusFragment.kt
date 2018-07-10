@@ -86,4 +86,9 @@ class AdminStatusFragment: Fragment(), AdminStatusContract.View {
     override fun initPresenter(): AdminStatusPresenter {
         return AdminStatusPresenter()
     }
+
+    override fun refresh() {
+        clearOrderList()
+        mPresenter.retrieveOrderList()
+    }
 }

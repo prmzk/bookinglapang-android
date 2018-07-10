@@ -10,6 +10,7 @@ interface AdminStatusContract {
         fun moveToDetail(orderDetail: Order)
         fun clearOrderList()
         fun makeToast(text: String)
+        fun refresh()
     }
     interface Presenter : BasePresenter<View> {
         fun retrieveOrderList()

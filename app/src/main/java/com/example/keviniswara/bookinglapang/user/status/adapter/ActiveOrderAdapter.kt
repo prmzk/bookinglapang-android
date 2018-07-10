@@ -9,6 +9,11 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.OrderListBinding
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.user.status.view.StatusFragment
+import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 
 
 class ActiveOrderAdapter(private val orders: MutableList<Order?>?, fragment: StatusFragment)
@@ -60,9 +65,29 @@ class ActiveOrderAdapter(private val orders: MutableList<Order?>?, fragment: Sta
             this.mBinding = mBinding
             mFragment = fragment
             mBinding.root.setOnClickListener(View.OnClickListener {
-                if (order != null) {
-                    mFragment.moveToDetail(order!!)
-                }
+
+                Database.addServerDate()
+
+                val timeRoot: DatabaseReference = Database.database.getReference("server_time")
+
+                timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError?) {
+                    }
+
+                    override fun onDataChange(dateSnapshot: DataSnapshot?) {
+
+                        val dateInMillis: Long = dateSnapshot?.value as Long
+
+                        if (order != null && (order!!.status == 0 || order!!.status != 0
+                                        && order!!.deadline >= dateInMillis)) {
+                            mFragment.moveToDetail(order!!)
+                        } else {
+                            mFragment.makeToast("Pesanan sudah kadaluarsa")
+                            mFragment.refresh()
+                        }
+
+                    }
+                })
 
             })
         }

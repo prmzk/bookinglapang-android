@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentStatusBinding
@@ -91,5 +92,14 @@ class StatusFragment : Fragment(), StatusContract.View {
 
     override fun clearOrderList() {
         mAdapter?.clearOrderList()
+    }
+
+    override fun makeToast(text: String) {
+        Toast.makeText(activity, text, Toast.LENGTH_LONG).show()
+    }
+
+    override fun refresh() {
+        clearOrderList()
+        mPresenter.retrieveOrderList()
     }
 }

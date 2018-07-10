@@ -9,12 +9,17 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.admin.status.view.AdminStatusFragment
 import com.example.keviniswara.bookinglapang.databinding.AdminStatusListBinding
 import com.example.keviniswara.bookinglapang.model.Order
+import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 
 class AdminStatusAdapter (private val orders: MutableList<Order?>?, fragment: AdminStatusFragment)
     : RecyclerView.Adapter<AdminStatusAdapter.AdminStatusHolder>() {
 
     private lateinit var mBinding: AdminStatusListBinding
-    private var mFragment: AdminStatusFragment
+    private lateinit var mFragment: AdminStatusFragment
 
     init {
         mFragment = fragment
@@ -57,7 +62,28 @@ class AdminStatusAdapter (private val orders: MutableList<Order?>?, fragment: Ad
             this.mBinding = mBinding
             mFragment = fragment
             mBinding.root.setOnClickListener(View.OnClickListener {
-                mFragment.moveToDetail(order!!)
+
+                Database.addServerDate()
+
+                val timeRoot: DatabaseReference = Database.database.getReference("server_time")
+
+                timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onCancelled(p0: DatabaseError?) {
+                    }
+
+                    override fun onDataChange(dateSnapshot: DataSnapshot?) {
+
+                        val dateInMillis: Long = dateSnapshot?.value as Long
+
+                        if (order != null && order!!.status == 1 &&  order!!.deadline >= dateInMillis) {
+                            mFragment.moveToDetail(order!!)
+                        } else {
+                            mFragment.makeToast("Pesanan sudah kadaluarsa")
+                            mFragment.refresh()
+                        }
+
+                    }
+                })
             })
         }
 
