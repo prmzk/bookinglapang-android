@@ -20,4 +20,5 @@
     <string name="order_confirmation">Order Confirmation</string>
     <string name="status_pemesanan">Status Pemesanan</string>
     <string name="booked">BOOKED</string>
+    <string name="channel_id">Channel01</string>
 </resources>

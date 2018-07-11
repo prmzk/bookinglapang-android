@@ -8,6 +8,7 @@ import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.TypedValue
 import android.view.View
 import android.widget.FrameLayout
@@ -21,6 +22,7 @@ import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
 class KeeperActivity : AppCompatActivity() {
 
     private var content: FrameLayout? = null
+    private lateinit var mToolbar: Toolbar
 
     private val mOnNavigationItemSelectedListener
             = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -50,6 +52,10 @@ class KeeperActivity : AppCompatActivity() {
         val mBinding: ActivityKeeperBinding = DataBindingUtil.setContentView(this, R.layout.activity_keeper)
 
         content = mBinding.content
+
+        mToolbar = mBinding.toolbar
+
+        setSupportActionBar(mToolbar)
 
         val navigation = findViewById<BottomNavigationView>(R.id.bottom_nav_bar)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

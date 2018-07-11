@@ -15,12 +15,14 @@ import com.example.keviniswara.bookinglapang.user.profile.view.ProfileFragment
 import com.example.keviniswara.bookinglapang.user.status.view.StatusFragment
 import android.util.TypedValue
 import android.support.design.internal.BottomNavigationMenuView
+import android.support.v7.widget.Toolbar
 import android.view.View
 import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
 
 class MainActivity : AppCompatActivity() {
 
     private var content: FrameLayout? = null
+    private lateinit var mToolbar: Toolbar
 
     private val mOnNavigationItemSelectedListener
             = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -55,6 +57,10 @@ class MainActivity : AppCompatActivity() {
         val mBinding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         content = mBinding.content
+
+        mToolbar = mBinding.toolbar
+
+        setSupportActionBar(mToolbar)
 
         val navigation = findViewById<BottomNavigationView>(R.id.bottom_nav_bar)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
