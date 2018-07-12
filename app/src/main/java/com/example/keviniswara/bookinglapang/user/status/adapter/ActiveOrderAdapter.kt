@@ -100,9 +100,21 @@ class ActiveOrderAdapter(private val orders: MutableList<Order?>?, fragment: Sta
             mBinding.fieldId.text = order.fieldId
             mBinding.sport.text = order.sport
             when {
-                order.status == 0 -> mBinding.notVerified.visibility = View.VISIBLE
-                order.status == 1 -> mBinding.notTransfer.visibility = View.VISIBLE
-                order.status == 3 -> mBinding.failed.visibility = View.VISIBLE
+                order.status == 0 -> {
+                    mBinding.notVerified.visibility = View.VISIBLE
+                    mBinding.notTransfer.visibility = View.GONE
+                    mBinding.failed.visibility = View.GONE
+                }
+                order.status == 1 -> {
+                    mBinding.notVerified.visibility = View.GONE
+                    mBinding.notTransfer.visibility = View.VISIBLE
+                    mBinding.failed.visibility = View.GONE
+                }
+                order.status == 3 -> {
+                    mBinding.notVerified.visibility = View.GONE
+                    mBinding.notTransfer.visibility = View.GONE
+                    mBinding.failed.visibility = View.VISIBLE
+                }
             }
         }
     }
