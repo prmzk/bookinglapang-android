@@ -12,7 +12,7 @@ interface AdminHomeSportDetailContract {
         fun getPrice() : String
         fun getSport() : String
         fun initDayPicker(title: String, type: Int)
-        fun initHourPicker(title: String, type: Int)
+        fun initHourPicker(title: String, type: Int, array: Array<String>)
     }
     interface Presenter : BasePresenter<View> {
         fun savePrice(fieldId: String)

@@ -24,6 +24,10 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
     private var defaultStartHour = 0
     private var defaultEndHour = 0
 
+    private val arrayOfString = arrayOf("00.00", "01.00", "02.00", "03.00", "04.00", "05.00",
+            "06.00", "07.00", "08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00",
+            "15.00", "16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00", "23.00")
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_admin_home_sport_detail, container, false)
 
@@ -40,11 +44,11 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
         })
 
         mBinding.hourStart.setOnClickListener({
-            initHourPicker("Pilih jam", 0)
+            initHourPicker("Pilih jam", 0, arrayOfString)
         })
 
         mBinding.hourEnd.setOnClickListener({
-            initHourPicker("Pilih jam", 1)
+            initHourPicker("Pilih jam", 1, arrayOfString)
         })
 
         val fieldId = arguments!!.getString("fieldId")
@@ -69,11 +73,11 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
     }
 
     override fun getStartHour(): String {
-        return mBinding.hourStart.text.toString()
+        return defaultStartHour.toString()
     }
 
     override fun getEndHour(): String {
-        return mBinding.hourEnd.text.toString()
+        return defaultEndHour.toString()
     }
 
     override fun getPrice(): String {
@@ -123,7 +127,7 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
     }
 
     // type 0 = start, 1 = end
-    override fun initHourPicker(title: String, type: Int) {
+    override fun initHourPicker(title: String, type: Int, array: Array<String>) {
 
         val mBottomSheetDialog: BottomSheetDialog = BottomSheetDialog(activity!!, R.style.BottomSheetDialogTheme)
 
@@ -137,6 +141,7 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
 
         numberPicker.minValue = 0
         numberPicker.maxValue = 23
+        numberPicker.displayedValues = array
         if (type == 0) {
             numberPicker.value = defaultStartHour
         } else {
@@ -147,10 +152,10 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
         mBindingNumber.buttonSave.setOnClickListener({
             if (type == 0) {
                 defaultStartHour = numberPicker.value
-                mBinding.hourStart.setText(numberPicker.value.toString())
+                mBinding.hourStart.setText(arrayOfString[numberPicker.value])
             } else {
                 defaultEndHour = numberPicker.value
-                mBinding.hourEnd.setText(numberPicker.value.toString())
+                mBinding.hourEnd.setText(arrayOfString[numberPicker.value])
             }
             mBottomSheetDialog.dismiss()
         })
