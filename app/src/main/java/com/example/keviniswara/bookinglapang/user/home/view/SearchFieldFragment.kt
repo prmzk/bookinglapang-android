@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,10 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     private lateinit var mCalendar: Calendar
 
+    private val arrayOfString = arrayOf("00.00", "01.00", "02.00", "03.00", "04.00", "05.00",
+            "06.00", "07.00", "08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00",
+            "15.00", "16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00", "23.00")
+
     private var defaultStartHour = 0
     private var defaultEndHour = 0
 
@@ -47,11 +52,11 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         mPresenter.retrieveListOfFieldFromFirebase()
 
         mBinding.startHour.setOnClickListener({
-            initNumberPicker("Pilih jam", 0, 23, 0)
+            initNumberPicker("Pilih jam", 0, 23, 0, arrayOfString)
         })
 
         mBinding.finishHour.setOnClickListener({
-            initNumberPicker("Pilih jam", 0, 23, 1)
+            initNumberPicker("Pilih jam", 0, 23, 1, arrayOfString)
         })
 
         mBinding.listOfField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -94,11 +99,11 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     override fun getStartHour(): String {
-        return mBinding.startHour.text.toString()
+        return defaultStartHour.toString()
     }
 
     override fun getFinishHour(): String {
-        return mBinding.finishHour.text.toString()
+        return defaultEndHour.toString()
     }
 
     private fun updateLabel() {
@@ -122,7 +127,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     // type 0 = start, 1 = end
-    override fun initNumberPicker(title: String, minValue: Int, maxValue: Int, type: Int) {
+    override fun initNumberPicker(title: String, minValue: Int, maxValue: Int, type: Int, array: Array<String>) {
 
 
         val mBottomSheetDialog: BottomSheetDialog = BottomSheetDialog(activity!!, R.style.BottomSheetDialogTheme)
@@ -137,6 +142,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
         numberPicker.minValue = minValue
         numberPicker.maxValue = maxValue
+        numberPicker.displayedValues = array
         numberPicker.wrapSelectorWheel = false
         if (type == 0) {
             numberPicker.value = defaultStartHour
@@ -147,10 +153,10 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         mBindingNumber.buttonSave.setOnClickListener({
             if (type == 0) {
                 defaultStartHour = numberPicker.value
-                mBinding.startHour.setText(numberPicker.value.toString())
+                mBinding.startHour.setText(arrayOfString[numberPicker.value])
             } else {
                 defaultEndHour = numberPicker.value
-                mBinding.finishHour.setText(numberPicker.value.toString())
+                mBinding.finishHour.setText(arrayOfString[numberPicker.value])
             }
             mBottomSheetDialog.dismiss()
         })

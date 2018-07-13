@@ -11,7 +11,7 @@ interface SearchFieldContract {
         fun getStartHour(): String
         fun getFinishHour(): String
         fun initDatePicker()
-        fun initNumberPicker(title: String, minValue: Int, maxValue: Int, type: Int)
+        fun initNumberPicker(title: String, minValue: Int, maxValue: Int, type: Int, array: Array<String>)
         fun initListOfFieldDropdown(listOfField: List<String>)
         fun initListOfSportDropdown(listOfSport: List<String>)
         fun showToastMessage(message: String)

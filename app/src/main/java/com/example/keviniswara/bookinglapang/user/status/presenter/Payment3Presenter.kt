@@ -38,7 +38,6 @@ class Payment3Presenter: Payment3Contract.Presenter {
                     mView!!.setName(bank.billsOwner)
                     mView!!.setBillsNumber(bank.billsNumber)
                     addBankToTransaction(bank, orderId)
-                    Log.d("PAYMENT 3 PRESENTER", p0.toString())
                 }
             }
 
@@ -50,7 +49,6 @@ class Payment3Presenter: Payment3Contract.Presenter {
 
     override fun countTotalPayment(orderId: String, fieldName: String, sport: String, startHour: String, endHour: String, date: String) {
         val day = dateToIntDay(date)
-        Log.d("PAYMENT 3 PRESENTER", day.toString())
         var total = 0
         val start = startHour.toInt()
         val end = endHour.toInt()
@@ -58,10 +56,8 @@ class Payment3Presenter: Payment3Contract.Presenter {
                 .addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot?) {
                 for (ds in p0!!.children) {
-                    Log.d("lalala", ds.key)
                     if (ds.key.toInt() in start until end) {
                         total += ds.getValue(String::class.java)!!.toInt()
-                        Log.d("lalalala", ds.getValue(String::class.java)!!.toString())
                     }
                 }
                 mView!!.setTotal(total.toString())
