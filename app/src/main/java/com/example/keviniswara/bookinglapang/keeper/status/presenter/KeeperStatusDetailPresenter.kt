@@ -38,10 +38,10 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                         val userPhoneNumber = userSnapshot.child("phoneNumber").getValue<String>(String::class.java)
 
                         mView?.setDate(date)
-                        mView?.setEndHour(endHour)
                         mView?.setFieldId(fieldId)
                         mView?.setSport(sport)
-                        mView?.setStartHour(startHour)
+                        if (endHour.toInt() < 10) mView?.setEndHour("0$endHour.00") else mView?.setEndHour("$endHour.00")
+                        if (startHour.toInt() < 10) mView?.setStartHour("0$startHour.00") else mView?.setStartHour("$startHour.00")
                         if (userName != null) mView?.setUserName(userName)
                         if (userPhoneNumber != null) mView?.setUserPhoneNumber(userPhoneNumber)
                     }
