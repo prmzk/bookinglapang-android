@@ -15,12 +15,39 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
     private var mView: KeeperStatusDetailContract.View? = null
 
+    val userRoot: DatabaseReference = Database.database.getReference("users")
+
     override fun initOrderDetail(sport: String, startHour: String, endHour: String, customerEmail: String, status: String, date: String, fieldId: String) {
-        mView?.setDate(date)
-        mView?.setFieldId(fieldId)
-        mView?.setSport(sport)
-        if (endHour.toInt() < 10) mView?.setEndHour("0$endHour.00") else mView?.setEndHour("$endHour.00")
-        if (startHour.toInt() < 10) mView?.setStartHour("0$startHour.00") else mView?.setStartHour("$startHour.00")
+
+        userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onCancelled(p0: DatabaseError?) {
+                mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+            }
+
+            override fun onDataChange(userData: DataSnapshot?) {
+
+                for (userSnapshot in userData!!.children) {
+
+                    val userEmail = userSnapshot.child("email").getValue<String>(String::class.java)
+
+                    if (userEmail.equals(customerEmail)) {
+
+                        val userName = userSnapshot.child("name").getValue<String>(String::class.java)
+
+                        val userPhoneNumber = userSnapshot.child("phoneNumber").getValue<String>(String::class.java)
+
+                        mView?.setDate(date)
+                        mView?.setFieldId(fieldId)
+                        mView?.setSport(sport)
+                        if (endHour.toInt() < 10) mView?.setEndHour("0$endHour.00") else mView?.setEndHour("$endHour.00")
+                        if (startHour.toInt() < 10) mView?.setStartHour("0$startHour.00") else mView?.setStartHour("$startHour.00")
+                        if (userName != null) mView?.setUserName(userName)
+                        if (userPhoneNumber != null) mView?.setUserPhoneNumber(userPhoneNumber)
+                    }
+                }
+            }
+        })
     }
 
     override fun bind(view: KeeperStatusDetailContract.View) {

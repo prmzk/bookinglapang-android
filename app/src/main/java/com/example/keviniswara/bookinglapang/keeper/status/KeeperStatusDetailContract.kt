@@ -10,6 +10,8 @@ interface KeeperStatusDetailContract {
         fun setStartHour(startHour: String)
         fun setEndHour(endHour: String)
         fun setDate(date: String)
+        fun setUserName(name: String)
+        fun setUserPhoneNumber(phoneNumber: String)
         fun makeToast(text: String)
         fun finish()
     }
