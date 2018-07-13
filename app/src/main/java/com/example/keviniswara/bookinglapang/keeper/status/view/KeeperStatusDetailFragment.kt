@@ -67,6 +67,14 @@ class KeeperStatusDetailFragment : Fragment(), KeeperStatusDetailContract.View {
         mBinding.date.setText(date)
     }
 
+    override fun setUserPhoneNumber(phoneNumber: String) {
+        mBinding.userPhone.setText(phoneNumber)
+    }
+
+    override fun setUserName(name: String) {
+        mBinding.userName.setText(name)
+    }
+
     override fun initPresenter(): KeeperStatusDetailPresenter {
         return KeeperStatusDetailPresenter()
     }

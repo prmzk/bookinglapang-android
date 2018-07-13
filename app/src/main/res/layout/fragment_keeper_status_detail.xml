@@ -58,6 +58,52 @@
 
                     <TextView
                         android:layout_weight="1"
+                        android:text="Nama Pemesan"
+                        android:textColor="@color/colorPrimary" />
+
+                    <EditText
+                        android:id="@+id/user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/form_input_background"
+                        android:layout_weight="3"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
+                        android:editable="false"
+                        android:paddingLeft="@dimen/befote_text"
+                        android:paddingRight="@dimen/befote_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="Nomor Telepon"
+                        android:textColor="@color/colorPrimary" />
+
+                    <EditText
+                        android:id="@+id/user_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/form_input_background"
+                        android:layout_weight="3"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
+                        android:editable="false"
+                        android:paddingLeft="@dimen/befote_text"
+                        android:paddingRight="@dimen/befote_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_weight="1"
                         android:text="@string/pilih_lapangan"
                         android:textColor="@color/colorPrimary" />
 
