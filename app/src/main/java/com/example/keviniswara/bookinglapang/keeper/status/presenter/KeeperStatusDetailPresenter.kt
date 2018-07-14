@@ -44,6 +44,12 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                         if (startHour.toInt() < 10) mView?.setStartHour("0$startHour.00") else mView?.setStartHour("$startHour.00")
                         if (userName != null) mView?.setUserName(userName)
                         if (userPhoneNumber != null) mView?.setUserPhoneNumber(userPhoneNumber)
+
+                        if (status == "0") {
+                            mView?.setButtonVisibility(true)
+                        } else {
+                            mView?.setButtonVisibility(false)
+                        }
                     }
                 }
             }

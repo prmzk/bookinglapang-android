@@ -14,6 +14,7 @@ interface KeeperStatusDetailContract {
         fun setUserPhoneNumber(phoneNumber: String)
         fun makeToast(text: String)
         fun finish()
+        fun setButtonVisibility(visible: Boolean)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String

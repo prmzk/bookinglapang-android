@@ -68,6 +68,26 @@ class KeeperStatusAdapter(private val orders: MutableList<Order?>?, fragment: Ke
             mBinding.startHour.text = order.startHour + ".00"
             mBinding.fieldId.text = order.fieldId
             mBinding.sport.text = order.sport
+            when {
+                order.status == 0 -> {
+                    mBinding.available.visibility = View.VISIBLE
+                    mBinding.notAvailable.visibility = View.VISIBLE
+                    mBinding.notPaid.visibility = View.GONE
+                    mBinding.failed.visibility = View.GONE
+                }
+                order.status == 1 -> {
+                    mBinding.available.visibility = View.GONE
+                    mBinding.notAvailable.visibility = View.GONE
+                    mBinding.notPaid.visibility = View.VISIBLE
+                    mBinding.failed.visibility = View.GONE
+                }
+                order.status == 3 -> {
+                    mBinding.available.visibility = View.GONE
+                    mBinding.notAvailable.visibility = View.GONE
+                    mBinding.notPaid.visibility = View.GONE
+                    mBinding.failed.visibility = View.VISIBLE
+                }
+            }
         }
     }
 

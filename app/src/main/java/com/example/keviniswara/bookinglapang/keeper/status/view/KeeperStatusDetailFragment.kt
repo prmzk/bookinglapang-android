@@ -87,4 +87,14 @@ class KeeperStatusDetailFragment : Fragment(), KeeperStatusDetailContract.View {
         val fm: FragmentManager? = fragmentManager
         fm?.popBackStack()
     }
+
+    override fun setButtonVisibility(visible: Boolean) {
+        if (visible) {
+            mBinding.availableButton.visibility = View.VISIBLE
+            mBinding.notAvailableButton.visibility = View.VISIBLE
+        } else {
+            mBinding.availableButton.visibility = View.GONE
+            mBinding.notAvailableButton.visibility = View.GONE
+        }
+    }
 }

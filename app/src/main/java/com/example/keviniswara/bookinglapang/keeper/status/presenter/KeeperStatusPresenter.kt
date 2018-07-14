@@ -1,5 +1,6 @@
 package com.example.keviniswara.bookinglapang.keeper.status.presenter
 
+import android.util.Log
 import com.example.keviniswara.bookinglapang.keeper.status.KeeperStatusContract
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.utils.Database
@@ -23,53 +24,68 @@ class KeeperStatusPresenter : KeeperStatusContract.Presenter {
 
         val orderRoot: DatabaseReference = Database.database.getReference("orders")
 
-        userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+        val timeRoot: DatabaseReference = Database.database.getReference("server_time")
 
+        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
-
-                mView?.initListOfOrders(null)
+                Log.d("Status Presenter", "failed to get server time")
             }
 
-            override fun onDataChange(userData: DataSnapshot?) {
+            override fun onDataChange(dateSnapshot: DataSnapshot?) {
 
-                if (userData!!.child(userId).hasChild("field")) {
+                val dateInMillis: Long = dateSnapshot?.value as Long
+                userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-                    val fieldId: String? = userData.child(userId).child("field").getValue<String>(String::class.java)
+                    override fun onCancelled(p0: DatabaseError?) {
 
-                    orderRoot.addValueEventListener(object : ValueEventListener {
-                        override fun onCancelled(p0: DatabaseError?) {
+                        mView?.initListOfOrders(null)
+                    }
 
+                    override fun onDataChange(userData: DataSnapshot?) {
+
+                        if (userData!!.child(userId).hasChild("field")) {
+
+                            val fieldId: String? = userData.child(userId).child("field").getValue<String>(String::class.java)
+
+                            orderRoot.addValueEventListener(object : ValueEventListener {
+                                override fun onCancelled(p0: DatabaseError?) {
+
+                                    mView?.initListOfOrders(null)
+                                }
+
+                                override fun onDataChange(orderData: DataSnapshot?) {
+
+                                    mView?.clearOrderList()
+
+                                    if (orderData != null) {
+                                        for (orderSnapshot in orderData.children) {
+
+                                            val order = orderSnapshot.getValue<Order>(Order::class.java)
+
+                                            if (order != null && fieldId.equals(order.fieldId)) {
+                                                if (order.status == 0 ||
+                                                        ((order.status == 1 || order.status == 3)
+                                                                && order.deadline >= dateInMillis))
+                                                    orders?.add(order)
+                                            }
+                                        }
+                                    } else {
+                                        mView?.initListOfOrders(null)
+                                    }
+
+                                    mView?.initListOfOrders(orders)
+                                }
+
+                            })
+
+                        } else {
                             mView?.initListOfOrders(null)
                         }
 
-                        override fun onDataChange(orderData: DataSnapshot?) {
+                    }
 
-                            mView?.clearOrderList()
-
-                            if (orderData != null) {
-                                for (orderSnapshot in orderData.children) {
-
-                                    val order = orderSnapshot.getValue<Order>(Order::class.java)
-
-                                    if (order != null && order.status == 0 && fieldId.equals(order.fieldId)) {
-                                        orders?.add(order)
-                                    }
-                                }
-                            } else {
-                                mView?.initListOfOrders(null)
-                            }
-
-                            mView?.initListOfOrders(orders)
-                        }
-
-                    })
-
-                } else {
-                    mView?.initListOfOrders(null)
-                }
-
+                })
             }
-
         })
     }
 
