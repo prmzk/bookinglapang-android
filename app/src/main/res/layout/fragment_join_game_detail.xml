@@ -161,6 +161,16 @@
             android:layout_height="1dp"
             android:layout_above="@+id/bottom_nav_bar"
             android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:background="@drawable/button_red"
+            android:text="CANCEL"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
 </layout>

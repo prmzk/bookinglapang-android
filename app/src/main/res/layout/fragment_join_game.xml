@@ -57,7 +57,7 @@
 
                     <TextView
                         android:layout_weight="1"
-                        android:text="Pilih Olahraga"
+                        android:text="Tanggal"
                         android:textColor="@color/colorPrimary" />
 
                     <EditText
@@ -68,6 +68,26 @@
                         android:clickable="true"
                         android:editable="false"
                         android:focusableInTouchMode="false"
+                        android:id="@+id/date"
+                        android:paddingLeft="@dimen/befote_text"
+                        android:paddingRight="@dimen/befote_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="Jenis Olahraga"
+                        android:textColor="@color/colorPrimary" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/form_input_background"
+                        android:layout_weight="3"
                         android:id="@+id/sport"
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text" />
