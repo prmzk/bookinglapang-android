@@ -117,4 +117,8 @@ object Database {
         root.child("fields").child(fieldId).child("contact_person").setValue(contactPerson)
         root.child("fields").child(fieldId).child("phone_number").setValue(phoneNumber)
     }
+
+    fun addNewFindEnemy(findEnemy: FindEnemy) {
+        root.child("find_enemy").push().setValue(findEnemy)
+    }
 }

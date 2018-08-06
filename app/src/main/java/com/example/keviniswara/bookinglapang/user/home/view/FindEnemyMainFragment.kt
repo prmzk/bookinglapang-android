@@ -10,9 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import com.example.keviniswara.bookinglapang.R
-import com.example.keviniswara.bookinglapang.databinding.FragmentHomeBinding
+import com.example.keviniswara.bookinglapang.databinding.FragmentUserFindEnemyMainBinding
 
-class HomeFragment : Fragment() {
+class FindEnemyMainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +21,8 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val mBinding: FragmentHomeBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_home, container, false)
+        val mBinding: FragmentUserFindEnemyMainBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_user_find_enemy_main, container, false)
 
         val view: View = mBinding.root
 
@@ -35,9 +35,9 @@ class HomeFragment : Fragment() {
             @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
             override fun onGlobalLayout() {
                 parentHeight = view.height
-                buttonHeight = mBinding.buttonCariLapangan.height
+                buttonHeight = mBinding.buttonMakeGame.height
                 parentWidth = view.width
-                buttonWidth = mBinding.buttonCariLapangan.width
+                buttonWidth = mBinding.buttonMakeGame.width
 
                 val buttonCariLapanganY: Float = ((parentHeight - buttonHeight * 13 / 8) / 2).toFloat()
 
@@ -47,13 +47,13 @@ class HomeFragment : Fragment() {
 
                 val buttonCariLawanX: Float = (buttonCariLapanganX + buttonWidth * 2 / 3)
 
-                mBinding.buttonCariLapangan.y = buttonCariLapanganY
+                mBinding.buttonMakeGame.y = buttonCariLapanganY
 
-                mBinding.buttonCariLawan.y = buttonCariLawanY
+                mBinding.buttonJoinGame.y = buttonCariLawanY
 
-                mBinding.buttonCariLapangan.x = buttonCariLapanganX
+                mBinding.buttonMakeGame.x = buttonCariLapanganX
 
-                mBinding.buttonCariLawan.x = buttonCariLawanX
+                mBinding.buttonJoinGame.x = buttonCariLawanX
 
                 if (parentHeight > 0 && buttonHeight > 0) {
                     view.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -61,17 +61,13 @@ class HomeFragment : Fragment() {
             }
         })
 
-        mBinding.buttonCariLapangan.setOnClickListener({
+        mBinding.buttonMakeGame.setOnClickListener({
             val ft = fragmentManager!!.beginTransaction()
-            ft.replace(R.id.content, SearchFieldFragment()).addToBackStack(SearchFieldFragment()
+            ft.replace(R.id.content, MakeGameFragment()).addToBackStack(MakeGameFragment()
                     .javaClass.simpleName)
             ft.commit()
         })
-        mBinding.buttonCariLawan.setOnClickListener({
-            val ft = fragmentManager!!.beginTransaction()
-            ft.replace(R.id.content, FindEnemyMainFragment()).addToBackStack(FindEnemyMainFragment()
-                    .javaClass.simpleName)
-            ft.commit()
+        mBinding.buttonJoinGame.setOnClickListener({
         })
         return view
     }
