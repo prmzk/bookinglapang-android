@@ -80,4 +80,15 @@ class JoinGameFragment : Fragment(), JoinGameContract.View {
         val sdf = SimpleDateFormat(dateFormat, Locale.US)
         mBinding.date.setText(sdf.format(mCalendar.getTime()))
     }
+
+    override fun moveToDetail(findEnemy: FindEnemy) {
+        val arguments = Bundle()
+        val fragment = JoinGameDetailFragment()
+        arguments.putString("hostName", findEnemy.customerEmail)
+        arguments.putString("hostPhoneNumber", findEnemy.customerPhone)
+        fragment.arguments = arguments
+        val ft = fragmentManager!!.beginTransaction()
+        ft.replace(R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
+        ft.commit()
+    }
 }

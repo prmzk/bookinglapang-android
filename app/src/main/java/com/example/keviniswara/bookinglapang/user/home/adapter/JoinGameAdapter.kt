@@ -54,10 +54,8 @@ class JoinGameAdapter(private val findEnemy: MutableList<FindEnemy?>?, fragment:
         init {
             this.mBinding = mBinding
             mFragment = fragment
-            mBinding.root.setOnClickListener(View.OnClickListener {
-                //TODO MOVE TO DETAIL
-//                mFragment.moveToDetail(find!!)
-
+            mBinding.root.setOnClickListener({
+                mFragment.moveToDetail(find!!)
             })
         }
 

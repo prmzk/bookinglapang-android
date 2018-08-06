@@ -23,10 +23,34 @@ class JoinGameDetailFragment : Fragment(),JoinGameDetailContract.View {
 
         mPresenter.bind(this)
 
+        val hostName = arguments!!.getString("hostName")
+        val hostPhoneNumber = arguments!!.getString("hostPhoneNumber")
+
+        mPresenter.retrieveCurrentUserDetail()
+
+        mPresenter.initJoinGameDetail(hostName, hostPhoneNumber)
+
         return mBinding.root
     }
 
     override fun initPresenter(): JoinGameDetailContract.Presenter {
         return JoinGameDetailPresenter()
     }
+
+    override fun setHostName(hostName: String) {
+        mBinding.hostName.text = hostName
+    }
+
+    override fun setHostPhoneNumber(phoneNumber: String) {
+        mBinding.hostPhoneNumber.text = phoneNumber
+    }
+
+    override fun setVisitorName(name: String) {
+        mBinding.visitorName.text = name
+    }
+
+    override fun setVisitorPhoneNumber(phoneNumber: String) {
+        mBinding.hostPhoneNumber.text = phoneNumber
+    }
+
 }

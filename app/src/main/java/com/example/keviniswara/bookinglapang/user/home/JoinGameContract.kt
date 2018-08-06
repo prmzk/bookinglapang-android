@@ -8,6 +8,7 @@ interface JoinGameContract {
     interface View : BaseView<Presenter> {
         fun initListOfJoinGame(joinGameList: MutableList<FindEnemy?>?)
         fun initDatePicker()
+        fun moveToDetail(findEnemy: FindEnemy)
     }
 
     interface Presenter : BasePresenter<View> {
