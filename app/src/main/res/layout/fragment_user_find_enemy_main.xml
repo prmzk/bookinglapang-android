@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".user.home.view.HomeFragment"
+        android:background="@color/white">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/home_background"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/background"/>
+
+        <ImageView
+            android:id="@+id/button_make_game"
+            android:layout_width="215dp"
+            android:layout_height="215dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_make_game" />
+
+        <ImageView
+            android:id="@+id/button_join_game"
+            android:layout_width="215dp"
+            android:layout_height="215dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_join_game" />
+
+    </RelativeLayout>
+</layout>
