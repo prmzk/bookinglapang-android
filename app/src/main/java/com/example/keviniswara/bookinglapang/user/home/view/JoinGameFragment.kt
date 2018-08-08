@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentJoinGameBinding
 import com.example.keviniswara.bookinglapang.model.FindEnemy
@@ -35,6 +38,8 @@ class JoinGameFragment : Fragment(), JoinGameContract.View {
 
         mPresenter.bind(this)
 
+        mPresenter.retrieveListOfSportFromFirebase()
+
         linearLayoutManager = LinearLayoutManager(context)
 
         mRecyclerView = mBinding.rvOrder
@@ -47,6 +52,18 @@ class JoinGameFragment : Fragment(), JoinGameContract.View {
         mBinding.date.setOnClickListener({
             initDatePicker()
         })
+
+        mBinding.listOfSport.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (getDate() != "") {
+                    mPresenter.retrieveJoinGameList(getDate(), getSport())
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
 
         return mBinding.root
     }
@@ -68,6 +85,9 @@ class JoinGameFragment : Fragment(), JoinGameContract.View {
             mCalendar.set(Calendar.MONTH, monthOfYear)
             mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
             updateLabel()
+            if (getSport() != "") {
+                mPresenter.retrieveJoinGameList(getDate(), getSport())
+            }
         }
 
         DatePickerDialog(activity, date, mCalendar
@@ -81,6 +101,16 @@ class JoinGameFragment : Fragment(), JoinGameContract.View {
         mBinding.date.setText(sdf.format(mCalendar.getTime()))
     }
 
+    override fun initListOfSportDropdown(listOfSport: List<String>) {
+        val adapter = ArrayAdapter(activity!!.applicationContext, R.layout.spinner_item, listOfSport)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        mBinding.listOfSport.adapter = adapter
+    }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
     override fun moveToDetail(findEnemy: FindEnemy) {
         val arguments = Bundle()
         val fragment = JoinGameDetailFragment()
@@ -90,5 +120,17 @@ class JoinGameFragment : Fragment(), JoinGameContract.View {
         val ft = fragmentManager!!.beginTransaction()
         ft.replace(R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
         ft.commit()
+    }
+
+    override fun getSport(): String {
+        return mBinding.listOfSport.selectedItem.toString()
+    }
+
+    override fun getDate(): String {
+        return mBinding.date.text.toString()
+    }
+
+    override fun clearOrderList() {
+        mAdapter?.clearOrderList()
     }
 }

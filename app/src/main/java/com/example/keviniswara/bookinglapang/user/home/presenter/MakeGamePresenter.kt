@@ -118,9 +118,6 @@ class MakeGamePresenter : MakeGameContract.Presenter {
         val fieldName = mView?.getFieldName() ?: ""
         val sportName = mView?.getSport() ?: ""
         val time = mView?.getTime() ?: ""
-        var status = 0
-        var deadline = 0
-        val uuid = UUID.randomUUID().toString().replace("-", "")
 
         usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
@@ -136,8 +133,7 @@ class MakeGamePresenter : MakeGameContract.Presenter {
                 } else if (customerPhone.isBlank()) {
                     mView?.showToastMessage("Failed to get user's data.")
                 } else {
-                    val findEnemy = FindEnemy(customerEmail, customerPhone, date, fieldName, sportName, time,
-                            status, deadline.toLong(), uuid)
+                    val findEnemy = FindEnemy(customerEmail, customerPhone, date, fieldName, sportName, time)
 
                     Database.addNewFindEnemy(findEnemy)
                     mView?.showToastMessage("Success add game to database.")
