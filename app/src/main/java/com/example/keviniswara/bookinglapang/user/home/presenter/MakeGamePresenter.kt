@@ -144,8 +144,6 @@ class MakeGamePresenter : MakeGameContract.Presenter {
                 }
                 mView?.goBack()
             }
-
         })
-
     }
 }

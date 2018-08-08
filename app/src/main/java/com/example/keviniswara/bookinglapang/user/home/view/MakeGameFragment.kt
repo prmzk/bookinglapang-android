@@ -16,6 +16,11 @@ import com.example.keviniswara.bookinglapang.databinding.FragmentUserMakeGameBin
 import com.example.keviniswara.bookinglapang.databinding.NumberPickerDialogBinding
 import com.example.keviniswara.bookinglapang.user.home.MakeGameContract
 import com.example.keviniswara.bookinglapang.user.home.presenter.MakeGamePresenter
+import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -68,7 +73,37 @@ class MakeGameFragment : Fragment(), MakeGameContract.View {
             }
 
             buttonContinue.setOnClickListener {
-                mPresenter.addFindEnemyToFirebase()
+                if (getFieldName().isBlank() || getTime().isBlank() || getSport().isBlank()
+                        || getDate().isBlank()) {
+                    showToastMessage("Form must not be blank.")
+                } else {
+                    Database.addServerDate()
+                    val dateFormat = "dd/MM/yy HH:mm:ss"
+                    val cal = Calendar.getInstance()
+                    val sdf = SimpleDateFormat(dateFormat, Locale.getDefault())
+                    cal.time = sdf.parse(getDate() + " " + getTime() + ":00:00")
+                    val timeRoot: DatabaseReference = Database.database.getReference("server_time")
+
+                    timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError?) {
+                            showToastMessage("Failed to get server time.")
+                        }
+
+                        override fun onDataChange(dateSnapshot: DataSnapshot?) {
+
+                            val dateInMillis: Long = dateSnapshot?.value as Long
+
+                            val calendarNow = Calendar.getInstance()
+                            calendarNow.timeInMillis = dateInMillis
+
+                            if (cal.after(calendarNow)) {
+                                mPresenter.addFindEnemyToFirebase()
+                            } else {
+                                showToastMessage("Time can't be in the past.")
+                            }
+                        }
+                    })
+                }
             }
         }
 
@@ -102,7 +137,7 @@ class MakeGameFragment : Fragment(), MakeGameContract.View {
     private fun updateLabel() {
         val dateFormat = "dd/MM/yy"
         val sdf = SimpleDateFormat(dateFormat, Locale.US)
-        mBinding.date.setText(sdf.format(mCalendar.getTime()))
+        mBinding.date.setText(sdf.format(mCalendar.time))
     }
 
     override fun initDatePicker() {
