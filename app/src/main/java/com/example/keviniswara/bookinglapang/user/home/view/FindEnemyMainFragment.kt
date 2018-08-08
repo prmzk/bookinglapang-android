@@ -68,6 +68,10 @@ class FindEnemyMainFragment : Fragment() {
             ft.commit()
         })
         mBinding.buttonJoinGame.setOnClickListener({
+            val ft = fragmentManager!!.beginTransaction()
+            ft.replace(R.id.content, JoinGameFragment()).addToBackStack(JoinGameFragment()
+                    .javaClass.simpleName)
+            ft.commit()
         })
         return view
     }
