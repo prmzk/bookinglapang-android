@@ -9,9 +9,14 @@ interface JoinGameDetailContract {
         fun setHostPhoneNumber(phoneNumber: String)
         fun setVisitorName(name: String)
         fun setVisitorPhoneNumber(phoneNumber: String)
+        fun showToastMessage(message: String)
+        fun hideCancelButton()
+        fun setupCancelButton()
+        fun goBackTwoTimes()
     }
     interface Presenter : BasePresenter<View> {
-        fun initJoinGameDetail(name: String, phoneNumber: String)
         fun retrieveCurrentUserDetail()
+        fun checkCurrentFindEnemy(hostEmail: String)
+        fun deleteFindEnemy(findEnemyId: String)
     }
 }

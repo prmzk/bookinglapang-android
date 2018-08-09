@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,18 +61,18 @@
                     android:id="@+id/host_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fakhri"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Fakhri" />
 
                 <TextView
                     android:id="@+id/host_phone_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="081234567890"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    tools:text="081234567890" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -140,18 +141,18 @@
                     android:id="@+id/visitor_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bond"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="Bond" />
 
                 <TextView
                     android:id="@+id/visitor_phone_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="081234567890"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    tools:text="081234567890" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -163,14 +164,16 @@
             android:background="@android:color/darker_gray" />
 
         <TextView
+            android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="3dp"
             android:background="@drawable/button_red"
-            android:text="CANCEL"
             android:textColor="@color/white"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:text="CANCEL" />
     </LinearLayout>
 
 </layout>

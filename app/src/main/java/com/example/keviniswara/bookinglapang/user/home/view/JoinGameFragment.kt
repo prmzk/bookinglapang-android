@@ -114,8 +114,10 @@ class JoinGameFragment : Fragment(), JoinGameContract.View {
     override fun moveToDetail(findEnemy: FindEnemy) {
         val arguments = Bundle()
         val fragment = JoinGameDetailFragment()
-        arguments.putString("hostName", findEnemy.customerEmail)
+        arguments.putString("hostName", findEnemy.customerName)
         arguments.putString("hostPhoneNumber", findEnemy.customerPhone)
+        arguments.putString("hostEmail", findEnemy.customerEmail)
+        arguments.putString("findEnemyId", findEnemy.id)
         fragment.arguments = arguments
         val ft = fragmentManager!!.beginTransaction()
         ft.replace(R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)

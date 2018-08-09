@@ -1,10 +1,9 @@
 package com.example.keviniswara.bookinglapang.user.home.presenter
 
-import android.util.Log
 import com.example.keviniswara.bookinglapang.user.home.JoinGameDetailContract
-import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
 
 class JoinGameDetailPresenter : JoinGameDetailContract.Presenter {
 
@@ -15,17 +14,14 @@ class JoinGameDetailPresenter : JoinGameDetailContract.Presenter {
     private val usersReference: DatabaseReference = database.getReference("").child("users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
 
+    private val findEnemyReference: DatabaseReference = database.getReference("").child("find_enemy")
+
     override fun bind(view: JoinGameDetailContract.View) {
         mView = view
     }
 
     override fun unbind() {
         mView = null
-    }
-
-    override fun initJoinGameDetail(name: String, phoneNumber: String) {
-        mView?.setHostName(name)
-        mView?.setHostPhoneNumber(phoneNumber)
     }
 
     override fun retrieveCurrentUserDetail() {
@@ -38,8 +34,49 @@ class JoinGameDetailPresenter : JoinGameDetailContract.Presenter {
             }
 
             override fun onCancelled(p0: DatabaseError?) {
-                Log.d("JOIN GAME DETAIL", "Could not retrieve user data from firebase")
+                mView?.showToastMessage("Could not retrieve user data from firebase")
             }
+        })
+    }
+
+    override fun checkCurrentFindEnemy(hostEmail: String) {
+        usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot?) {
+                val currentUserEmail = p0!!.child("email").value.toString()
+
+                if (hostEmail == currentUserEmail) {
+                    mView?.setupCancelButton()
+                } else {
+                    mView?.hideCancelButton()
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError?) {
+                mView?.showToastMessage("Could not retrieve user data from firebase")
+            }
+        })
+    }
+
+    override fun deleteFindEnemy(findEnemyId: String) {
+        findEnemyReference.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onCancelled(p0: DatabaseError?) {
+                mView?.showToastMessage("Failed to delete order")
+            }
+
+            override fun onDataChange(findEnemiesSnapshot: DataSnapshot?) {
+                for (findEnemySnapshot in findEnemiesSnapshot!!.children) {
+
+                    val uuid = findEnemySnapshot.child("id").getValue<String>(String::class.java)
+
+                    if (findEnemyId == uuid) {
+                        findEnemySnapshot.ref.removeValue()
+                        mView?.showToastMessage("Order has been deleted")
+                        mView?.goBackTwoTimes()
+                    }
+                }
+            }
+
         })
     }
 }

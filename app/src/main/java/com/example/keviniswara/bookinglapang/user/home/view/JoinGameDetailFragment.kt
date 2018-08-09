@@ -6,12 +6,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentJoinGameDetailBinding
 import com.example.keviniswara.bookinglapang.user.home.JoinGameDetailContract
 import com.example.keviniswara.bookinglapang.user.home.presenter.JoinGameDetailPresenter
 
-class JoinGameDetailFragment : Fragment(),JoinGameDetailContract.View {
+class JoinGameDetailFragment : Fragment(), JoinGameDetailContract.View {
 
     private lateinit var mPresenter: JoinGameDetailContract.Presenter
     private lateinit var mBinding: FragmentJoinGameDetailBinding
@@ -23,18 +24,36 @@ class JoinGameDetailFragment : Fragment(),JoinGameDetailContract.View {
 
         mPresenter.bind(this)
 
-        val hostName = arguments!!.getString("hostName")
-        val hostPhoneNumber = arguments!!.getString("hostPhoneNumber")
+        setHostName(arguments!!.getString("hostName"))
+        setHostPhoneNumber(arguments!!.getString("hostPhoneNumber"))
+
+        mPresenter.checkCurrentFindEnemy(arguments!!.getString("hostEmail"))
 
         mPresenter.retrieveCurrentUserDetail()
-
-        mPresenter.initJoinGameDetail(hostName, hostPhoneNumber)
 
         return mBinding.root
     }
 
     override fun initPresenter(): JoinGameDetailContract.Presenter {
         return JoinGameDetailPresenter()
+    }
+
+    override fun hideCancelButton() {
+        mBinding.btnCancel.visibility = View.GONE
+    }
+
+    override fun setupCancelButton() {
+        mBinding.btnCancel.apply {
+            visibility = View.VISIBLE
+            setOnClickListener {
+                mPresenter.deleteFindEnemy(arguments!!.getString("findEnemyId"))
+            }
+        }
+    }
+
+    override fun goBackTwoTimes() {
+        fragmentManager?.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     override fun setHostName(hostName: String) {
@@ -50,7 +69,11 @@ class JoinGameDetailFragment : Fragment(),JoinGameDetailContract.View {
     }
 
     override fun setVisitorPhoneNumber(phoneNumber: String) {
-        mBinding.hostPhoneNumber.text = phoneNumber
+        mBinding.visitorPhoneNumber.text = phoneNumber
+    }
+
+    override fun showToastMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
 
 }

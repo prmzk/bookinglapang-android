@@ -114,10 +114,13 @@ class MakeGamePresenter : MakeGameContract.Presenter {
 
         var customerEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
         var customerPhone: String
+        var customerName: String
         val date = mView?.getDate() ?: ""
         val fieldName = mView?.getFieldName() ?: ""
         val sportName = mView?.getSport() ?: ""
         val time = mView?.getTime() ?: ""
+        val uuid = UUID.randomUUID().toString().replace("-", "")
+
 
         usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
@@ -126,6 +129,7 @@ class MakeGamePresenter : MakeGameContract.Presenter {
 
             override fun onDataChange(p0: DataSnapshot?) {
                 customerPhone = p0?.child("phoneNumber")?.getValue<String>(String::class.java) ?: ""
+                customerName = p0?.child("name")?.getValue<String>(String::class.java) ?: ""
 
                 if (customerEmail.isBlank() || date.isBlank() ||
                         fieldName.isBlank() || sportName.isBlank() || time.isBlank()) {
@@ -133,7 +137,8 @@ class MakeGamePresenter : MakeGameContract.Presenter {
                 } else if (customerPhone.isBlank()) {
                     mView?.showToastMessage("Failed to get user's data.")
                 } else {
-                    val findEnemy = FindEnemy(customerEmail, customerPhone, date, fieldName, sportName, time)
+                    val findEnemy = FindEnemy(uuid, customerEmail, customerName, customerPhone, date,
+                            fieldName, sportName, time)
 
                     Database.addNewFindEnemy(findEnemy)
                     mView?.showToastMessage("Success add game to database.")
