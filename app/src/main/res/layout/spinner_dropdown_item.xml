@@ -1,0 +1,11 @@
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="20dp"
+    android:background="@drawable/form_input_background"
+    android:textColor="#000000"
+    android:ellipsize="marquee"
+    android:paddingLeft="@dimen/befote_text"
+    android:paddingRight="@dimen/befote_text" />

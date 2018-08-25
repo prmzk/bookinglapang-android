@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp">
+
+        <ImageView
+            android:id="@+id/icon_field_tilt"
+            android:layout_centerInParent="true"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_stadium" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/icon_field_tilt"
+            android:layout_toEndOf="@+id/icon_field_tilt">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:id="@+id/field_id"
+                android:text="YPKP"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="italic"
+                android:id="@+id/sport"
+                android:text="Futsal"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</layout>

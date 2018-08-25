@@ -5,8 +5,34 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.view.HomeFragment"
+        tools:context=".user.home.view.HomeFragment"
         android:background="@color/white">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/home_background"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/background"/>
+
+        <ImageView
+            android:id="@+id/button_cari_lapangan"
+            android:layout_width="215dp"
+            android:layout_height="215dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_cari_lapangan" />
+
+        <ImageView
+            android:id="@+id/button_cari_lawan"
+            android:layout_width="215dp"
+            android:layout_height="215dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo_cari_lawan" />
+
+        <TextView
+            android:id="@+id/lalala"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 </layout>

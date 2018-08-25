@@ -10,7 +10,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.example.keviniswara.bookinglapang.MainActivity
 import com.example.keviniswara.bookinglapang.R
+import com.example.keviniswara.bookinglapang.admin.AdminActivity
 import com.example.keviniswara.bookinglapang.databinding.ActivitySignInBinding
+import com.example.keviniswara.bookinglapang.keeper.KeeperActivity
 import com.example.keviniswara.bookinglapang.login.LoginContract
 import com.example.keviniswara.bookinglapang.login.presenter.LoginPresenter
 
@@ -42,10 +44,24 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
         })
     }
 
-    override fun startMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+    override fun moveTo(status: Int) {
+        if (status == 0) {
+            val intent = Intent(this, KeeperActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (status == 1) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (status == 2) {
+            val intent = Intent(this, AdminActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun setErrorMessage(text: String) {
@@ -59,7 +75,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
 
     override fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm!!.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
     }
 
     override fun getEmail(): String {
@@ -72,5 +88,12 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
 
     override fun getActivity(): Activity {
         return this
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }

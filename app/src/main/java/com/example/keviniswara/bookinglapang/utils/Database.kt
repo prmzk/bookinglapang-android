@@ -1,84 +1,124 @@
 package com.example.keviniswara.bookinglapang.utils
 
 import android.util.Log
-import com.example.keviniswara.bookinglapang.model.Order
-import com.example.keviniswara.bookinglapang.model.User
+import com.example.keviniswara.bookinglapang.model.*
+import com.example.keviniswara.bookinglapang.model.Transaction
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
-import javax.xml.datatype.DatatypeConstants.SECONDS
-
-
+import com.google.firebase.database.*
+import java.util.*
 
 
 object Database {
 
     val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     val root: DatabaseReference = database.getReference("")
-    val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
     fun setUsers(user: User) {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
         root.child("users").child(userId).setValue(user)
     }
 
-/*    fun getUsers(): MutableList<User>? {
-        val root: DatabaseReference = database.getReference("users")
+    fun updateTokenId(newToken: String) {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val tokenRef = root.child("users").child(userId)
+        val tokenUpdate = HashMap<String, Any>()
+        tokenUpdate["tokenId"] = newToken
 
-        var user: User?
-        var userList: MutableList<User>? = mutableListOf<User>()
-        var finish: Boolean = false
+        tokenRef.updateChildren(tokenUpdate)
+    }
 
-        root.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
+    fun addNewOrder(order: Order) {
+        addNewOrderToUsersChild(order)
+        addNewOrderToOrdersChild(order)
+    }
 
-                for (userSnapshot in dataSnapshot.children) {
+    private fun addNewOrderToUsersChild(order: Order) {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        root.child("users").child(userId).child("orders").push().setValue(order)
+    }
 
-                    val name: String = userSnapshot.child("name")
-                            .getValue<String>(String::class.java) ?: ""
-                    val email: String = userSnapshot.child("email")
-                            .getValue<String>(String::class.java) ?: ""
-                    val status: Int = userSnapshot.child("status")
-                            .getValue<Int>(Int::class.java) ?: 0
-                    val phoneNumber: String = userSnapshot.child("phoneNumber")
-                            .getValue<String>(String::class.java) ?: ""
-                    val field: String?
-                    var orders: MutableList<Order>? = mutableListOf<Order>()
+    private fun addNewOrderToOrdersChild(order: Order) {
+        root.child("orders").push().setValue(order)
+    }
 
-                    if (userSnapshot.hasChild("field")) {
-                        field = userSnapshot.child("field")
-                                .getValue<String>(String::class.java)
-                    } else {
-                        field = null
-                    }
+    fun addNotification(uid: String, notification: User.Notification) {
+        root.child("users").child(uid).child("notifications").push().setValue(notification)
+    }
 
-                    if (userSnapshot.hasChild("orders")) {
+    fun addTransaction(orderId: String, transaction: Transaction) {
+        root.child("transactions").child(orderId).setValue(transaction)
+    }
 
-                        for (orderSnapshot in userSnapshot.child("orders").children) {
+    fun addServerDate() {
+        root.child("server_time").setValue(ServerValue.TIMESTAMP)
+    }
 
-                            val order = orderSnapshot.getValue<Order>(Order::class.java)
-                            orders!!.add(order!!)
+    fun add15MinutesDeadline(orderId: String, userId: String, orderKey: String) {
 
-                        }
+        addServerDate()
 
-                    } else {
-                        orders = null
-                    }
+        val timeRoot: DatabaseReference = database.getReference("server_time")
+        val userRoot: DatabaseReference = database.getReference("users")
+        val orderRoot: DatabaseReference = database.getReference("orders")
 
-                    user = User(email, field, name, orders, phoneNumber, status)
-
-                    userList?.add(user!!)
-                }
-                finish = true
+        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+                Log.d("ERROR", "failed to get server time")
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                userList = null
-                finish = true
+            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+
+                val dateInMillis: Long = dateSnapshot?.value as Long + 900000
+
+                userRoot.child(userId).child("orders").child(orderKey)
+                        .child("deadline").setValue(dateInMillis)
+
+                orderRoot.child(orderId).child("deadline").setValue(dateInMillis)
             }
         })
-        return userList
-    }*/
+    }
+
+    fun addOneDayDeadline(orderId: String, userId: String, orderKey: String) {
+
+        addServerDate()
+
+        val timeRoot: DatabaseReference = database.getReference("server_time")
+        val userRoot: DatabaseReference = database.getReference("users")
+        val orderRoot: DatabaseReference = database.getReference("orders")
+
+        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError?) {
+                Log.d("ERROR", "failed to get server time")
+            }
+
+            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+
+                val dateInMillis: Long = dateSnapshot?.value as Long + 86400000
+
+                userRoot.child(userId).child("orders").child(orderKey)
+                        .child("deadline").setValue(dateInMillis)
+
+                orderRoot.child(orderId).child("deadline").setValue(dateInMillis)
+            }
+        })
+    }
+
+    fun addBank(bank: Bank) {
+        root.child("banks").push().setValue(bank)
+    }
+
+    fun addField(field: Field, fieldId: String) {
+        root.child("fields").child(fieldId).setValue(field)
+    }
+
+    fun updateField(fieldName: String, address: String, contactPerson: String, phoneNumber: String, fieldId: String) {
+        root.child("fields").child(fieldId).child("field_id").setValue(fieldName)
+        root.child("fields").child(fieldId).child("address").setValue(address)
+        root.child("fields").child(fieldId).child("contact_person").setValue(contactPerson)
+        root.child("fields").child(fieldId).child("phone_number").setValue(phoneNumber)
+    }
+
+    fun addNewFindEnemy(findEnemy: FindEnemy) {
+        root.child("find_enemy").push().setValue(findEnemy)
+    }
 }

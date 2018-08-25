@@ -42,7 +42,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:inputType="textEmailAddress"
-                    android:id="@+id/email"/>
+                    android:id="@+id/email"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text"/>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -58,7 +60,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:inputType="text"
-                    android:id="@+id/name"/>
+                    android:id="@+id/name"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text"/>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -74,7 +78,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:inputType="number"
-                    android:id="@+id/phone_number"/>
+                    android:id="@+id/phone_number"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text"/>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -91,7 +97,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:inputType="textPassword"
-                    android:id="@+id/password"/>
+                    android:id="@+id/password"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text"/>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -108,7 +116,9 @@
                     android:background="@drawable/form_input_background"
                     android:layout_weight="3"
                     android:inputType="textPassword"
-                    android:id="@+id/confirm_password"/>
+                    android:id="@+id/confirm_password"
+                    android:paddingLeft="@dimen/befote_text"
+                    android:paddingRight="@dimen/befote_text"/>
             </TableRow>
         </TableLayout>
         <TextView

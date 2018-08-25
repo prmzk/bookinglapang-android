@@ -6,10 +6,6 @@
     <string name="background">background</string>
     <string name="log_in">LOG IN</string>
     <string name="register"><u>Register</u></string>
-    <string name="title_bottom_nav_bar_1">home</string>
-    <string name="title_bottom_nav_bar_2">order</string>
-    <string name="title_bottom_nav_bar_3">status</string>
-    <string name="title_bottom_nav_bar_4">status</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -24,4 +20,8 @@
     <string name="order_confirmation">Order Confirmation</string>
     <string name="status_pemesanan">Status Pemesanan</string>
     <string name="booked">BOOKED</string>
+    <string name="channel_id">Channel01</string>
+    <string name="jenis_olahraga">Jenis Olahraga</string>
+    <string name="tempat">Tempat</string>
+    <string name="waktu">Waktu</string>
 </resources>

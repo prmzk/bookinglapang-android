@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuthEmailException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.iid.FirebaseInstanceId
 
 class RegisterPresenter : RegisterContract.Presenter {
 
@@ -39,8 +40,9 @@ class RegisterPresenter : RegisterContract.Presenter {
             mView!!.getAuth().createUserWithEmailAndPassword(email!!, password!!)
                     .addOnCompleteListener({ task ->
                         if (task.isSuccessful) {
+                            val tokenId = FirebaseInstanceId.getInstance().token
                             //Add data to database
-                            val user = User(name!!, email, phoneNumber!!, 1, null, null)
+                            val user = User(name!!, email, phoneNumber!!, 1, null, null, null, tokenId!!)
                             Database.setUsers(user)
                             mView!!.startMainActivity()
                         } else {
