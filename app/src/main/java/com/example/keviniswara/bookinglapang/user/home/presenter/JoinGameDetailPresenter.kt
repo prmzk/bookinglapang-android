@@ -26,14 +26,14 @@ class JoinGameDetailPresenter : JoinGameDetailContract.Presenter {
 
     override fun retrieveCurrentUserDetail() {
         usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 val name = p0!!.child("name").value.toString()
                 val phoneNumber = p0.child("phoneNumber").value.toString()
                 mView!!.setVisitorName(name)
                 mView!!.setVisitorPhoneNumber(phoneNumber)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Could not retrieve user data from firebase")
             }
         })
@@ -41,7 +41,7 @@ class JoinGameDetailPresenter : JoinGameDetailContract.Presenter {
 
     override fun checkCurrentFindEnemy(hostEmail: String) {
         usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 val currentUserEmail = p0!!.child("email").value.toString()
 
                 if (hostEmail == currentUserEmail) {
@@ -51,7 +51,7 @@ class JoinGameDetailPresenter : JoinGameDetailContract.Presenter {
                 }
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Could not retrieve user data from firebase")
             }
         })
@@ -60,11 +60,11 @@ class JoinGameDetailPresenter : JoinGameDetailContract.Presenter {
     override fun deleteFindEnemy(findEnemyId: String) {
         findEnemyReference.addListenerForSingleValueEvent(object : ValueEventListener {
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Failed to delete order")
             }
 
-            override fun onDataChange(findEnemiesSnapshot: DataSnapshot?) {
+            override fun onDataChange(findEnemiesSnapshot: DataSnapshot) {
                 for (findEnemySnapshot in findEnemiesSnapshot!!.children) {
 
                     val uuid = findEnemySnapshot.child("id").getValue<String>(String::class.java)

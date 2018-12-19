@@ -27,33 +27,33 @@ class KeeperStatusPresenter : KeeperStatusContract.Presenter {
         val timeRoot: DatabaseReference = Database.database.getReference("server_time")
 
         timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 Log.d("Status Presenter", "failed to get server time")
             }
 
-            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+            override fun onDataChange(dateSnapshot: DataSnapshot) {
 
                 val dateInMillis: Long = dateSnapshot?.value as Long
                 userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-                    override fun onCancelled(p0: DatabaseError?) {
+                    override fun onCancelled(p0: DatabaseError) {
 
                         mView?.initListOfOrders(null)
                     }
 
-                    override fun onDataChange(userData: DataSnapshot?) {
+                    override fun onDataChange(userData: DataSnapshot) {
 
                         if (userData!!.child(userId).hasChild("field")) {
 
                             val fieldId: String? = userData.child(userId).child("field").getValue<String>(String::class.java)
 
                             orderRoot.addValueEventListener(object : ValueEventListener {
-                                override fun onCancelled(p0: DatabaseError?) {
+                                override fun onCancelled(p0: DatabaseError) {
 
                                     mView?.initListOfOrders(null)
                                 }
 
-                                override fun onDataChange(orderData: DataSnapshot?) {
+                                override fun onDataChange(orderData: DataSnapshot) {
 
                                     mView?.clearOrderList()
 

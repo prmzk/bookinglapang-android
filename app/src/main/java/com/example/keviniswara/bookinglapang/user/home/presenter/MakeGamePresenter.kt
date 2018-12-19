@@ -30,13 +30,13 @@ class MakeGamePresenter : MakeGameContract.Presenter {
     override fun retrieveListOfFieldFromFirebase(sportName: String) {
         var listOfField = mutableListOf<String>()
         fieldReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot != null) {
                     for (fieldData in dataSnapshot.children) {
                         if (fieldData.hasChild("sports")) {
-                            fieldReference.child(fieldData.key).child("sports")
+                            fieldReference.child(fieldData.key!!).child("sports")
                                     .addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onDataChange(sportDataSnapshot: DataSnapshot?) {
+                                        override fun onDataChange(sportDataSnapshot: DataSnapshot) {
 
                                             if (sportDataSnapshot != null) {
                                                 for (sport in sportDataSnapshot.children) {
@@ -55,7 +55,7 @@ class MakeGamePresenter : MakeGameContract.Presenter {
                                             mView?.initListOfFieldDropdown(listOfField)
                                         }
 
-                                        override fun onCancelled(p0: DatabaseError?) {
+                                        override fun onCancelled(p0: DatabaseError) {
 
                                         }
                                     })
@@ -64,7 +64,7 @@ class MakeGamePresenter : MakeGameContract.Presenter {
                 }
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Failed to retrieve field list from database.")
             }
         })
@@ -73,14 +73,14 @@ class MakeGamePresenter : MakeGameContract.Presenter {
     override fun retrieveListOfSportFromFirebase() {
         var listOfSport = mutableListOf<String>()
         fieldReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot != null) {
                     for (fieldData in dataSnapshot.children) {
                         if (fieldData.hasChild("sports")) {
                             listOfSport.clear()
-                            fieldReference.child(fieldData.key).child("sports")
+                            fieldReference.child(fieldData.key!!).child("sports")
                                     .addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onDataChange(sportDataSnapshot: DataSnapshot?) {
+                                        override fun onDataChange(sportDataSnapshot: DataSnapshot) {
 
                                             if (sportDataSnapshot != null) {
                                                 for (sport in sportDataSnapshot.children) {
@@ -95,7 +95,7 @@ class MakeGamePresenter : MakeGameContract.Presenter {
                                             mView?.initListOfSportDropdown(listOfSport)
                                         }
 
-                                        override fun onCancelled(p0: DatabaseError?) {
+                                        override fun onCancelled(p0: DatabaseError) {
 
                                         }
                                     })
@@ -104,7 +104,7 @@ class MakeGamePresenter : MakeGameContract.Presenter {
                 }
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Failed to retrieve sport list from database.")
             }
         })
@@ -123,11 +123,11 @@ class MakeGamePresenter : MakeGameContract.Presenter {
 
 
         usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Something went wrong, please try again.")
             }
 
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 customerPhone = p0?.child("phoneNumber")?.getValue<String>(String::class.java) ?: ""
                 customerName = p0?.child("name")?.getValue<String>(String::class.java) ?: ""
 

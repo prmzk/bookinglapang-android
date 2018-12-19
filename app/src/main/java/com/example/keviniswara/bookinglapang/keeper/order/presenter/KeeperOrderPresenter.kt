@@ -57,24 +57,24 @@ class KeeperOrderPresenter : KeeperOrderContract.Presenter {
 
             userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-                override fun onCancelled(p0: DatabaseError?) {
+                override fun onCancelled(p0: DatabaseError) {
 
                     mView?.initListOfOrders(null)
                 }
 
-                override fun onDataChange(userData: DataSnapshot?) {
+                override fun onDataChange(userData: DataSnapshot) {
 
                     if (userData!!.child(userId).hasChild("field")) {
 
                         val fieldId: String? = userData.child(userId).child("field").getValue<String>(String::class.java)
 
                         orderRoot.addValueEventListener(object : ValueEventListener{
-                            override fun onCancelled(p0: DatabaseError?) {
+                            override fun onCancelled(p0: DatabaseError) {
 
                                 mView?.initListOfOrders(null)
                             }
 
-                            override fun onDataChange(orderData: DataSnapshot?) {
+                            override fun onDataChange(orderData: DataSnapshot) {
 
                                 mView?.clearOrderList()
 

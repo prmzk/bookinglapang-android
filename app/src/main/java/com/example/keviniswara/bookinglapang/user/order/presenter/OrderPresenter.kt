@@ -50,12 +50,12 @@ class OrderPresenter() : OrderContact.Presenter {
 
             userRoot.addValueEventListener(object : ValueEventListener {
 
-                override fun onCancelled(p0: DatabaseError?) {
+                override fun onCancelled(p0: DatabaseError) {
 
                     mView?.initListOfOrders(null)
                 }
 
-                override fun onDataChange(userData: DataSnapshot?) {
+                override fun onDataChange(userData: DataSnapshot) {
 
                     mView?.clearOrderList()
 

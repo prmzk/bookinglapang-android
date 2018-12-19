@@ -24,13 +24,13 @@ class Payment2Presenter: Payment2Contract.Presenter {
     override fun retrieveListOfBankFromFirebase() {
         var listOfBank = mutableListOf<String>()
         bankReference.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 fetchDataBank(p0, listOfBank)
 
                 mView!!.initListOfBankDropdown(listOfBank)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 Log.d("PAYMENT 2", "Error retrieve list of bank")
             }
         })

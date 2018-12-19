@@ -32,7 +32,7 @@ class Payment3Presenter: Payment3Contract.Presenter {
 
     override fun getBankDetail(bankName: String, orderId: String) {
         bankReference.orderByChild("name").equalTo(bankName).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 for (ds in p0!!.children) {
                     val bank = ds.getValue(Bank::class.java)!!
                     mView!!.setName(bank.billsOwner)
@@ -41,7 +41,7 @@ class Payment3Presenter: Payment3Contract.Presenter {
                 }
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 Log.d("PAYMENT 3 PRESENTER", p0.toString())
             }
         })
@@ -54,9 +54,9 @@ class Payment3Presenter: Payment3Contract.Presenter {
         val end = endHour.toInt()
         priceReference.child(fieldName).child(sport).child(day.toString())
                 .addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 for (ds in p0!!.children) {
-                    if (ds.key.toInt() in start until end) {
+                    if (ds.key!!.toInt() in start until end) {
                         total += ds.getValue(String::class.java)!!.toInt()
                     }
                 }
@@ -64,7 +64,7 @@ class Payment3Presenter: Payment3Contract.Presenter {
                 addTotalPaymentToTransaction(total.toLong(), orderId)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
         })

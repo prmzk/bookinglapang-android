@@ -26,14 +26,14 @@ class AdminProfilePresenter: AdminProfileContract.Presenter {
 
     override fun getProfileFromDatabase() {
         usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 val name = p0!!.child("name").value.toString()
                 val phoneNumber = p0.child("phoneNumber").value.toString()
                 mView?.setName(name)
                 mView?.setPhoneNumber(phoneNumber)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 Log.d("PROFILE", "Could not retrieve user data from firebase")
             }
         })

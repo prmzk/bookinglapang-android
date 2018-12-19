@@ -31,20 +31,20 @@ class AdminStatusPresenter : AdminStatusContract.Presenter {
         val orderRoot: DatabaseReference = Database.database.getReference("orders")
 
         timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.makeToast("Failed to get server time")
             }
 
-            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+            override fun onDataChange(dateSnapshot: DataSnapshot) {
                 val dateInMillis: Long = dateSnapshot?.getValue() as Long
 
                 orderRoot.addValueEventListener(object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError?) {
+                    override fun onCancelled(p0: DatabaseError) {
 
                         mView?.initListOfOrders(null)
                     }
 
-                    override fun onDataChange(orderData: DataSnapshot?) {
+                    override fun onDataChange(orderData: DataSnapshot) {
 
                         mView?.clearOrderList()
 

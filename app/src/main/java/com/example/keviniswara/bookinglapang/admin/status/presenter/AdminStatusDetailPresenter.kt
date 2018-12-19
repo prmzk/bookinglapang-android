@@ -41,11 +41,11 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
         orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
             }
 
-            override fun onDataChange(orderData: DataSnapshot?) {
+            override fun onDataChange(orderData: DataSnapshot) {
 
                 if (orderData != null) {
                     for (orderSnapshot in orderData.children) {
@@ -54,17 +54,17 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
                         if (order != null && order.orderId.equals(orderId)) {
 
-                            orderRoot.child(orderSnapshot.key).child("status").setValue(2)
+                            orderRoot.child(orderSnapshot.key!!).child("status").setValue(2)
 
                             userEmaiFromOrder = order.customerEmail
 
                             userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-                                override fun onCancelled(p0: DatabaseError?) {
+                                override fun onCancelled(p0: DatabaseError) {
                                     mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                 }
 
-                                override fun onDataChange(userData: DataSnapshot?) {
+                                override fun onDataChange(userData: DataSnapshot) {
 
                                     for (userSnapshot in userData!!.children) {
 
@@ -73,19 +73,24 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                         if (userEmail.equals(userEmaiFromOrder)) {
 
                                             val userId = userSnapshot.key
-                                            for (orderSnapshot in userData.child(userSnapshot.key).child("orders").children) {
+                                            for (orderSnapshot in userData.child(userSnapshot.key!!).child("orders").children) {
 
                                                 val order = orderSnapshot.getValue<Order>(Order::class.java)
                                                 val orderKey = orderSnapshot.key
 
                                                 if (order != null && order.orderId.equals(orderId)) {
-                                                    userRoot.child(userId).child("orders").child(orderKey)
-                                                            .child("status").setValue(2)
-                                                    mView?.makeToast("Sukses mengubah status pesanan menjadi booked.")
-                                                    mView?.finish()
+                                                    if (userId != null) {
+                                                        userRoot.child(userId).child("orders").child(orderKey!!)
+                                                                .child("status").setValue(2)
+                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi booked.")
+                                                        mView?.finish()
+                                                    }else{
+                                                        mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+                                                    }
+
                                                 }
                                             }
-                                            sendNotificationToUser(userId, 0)
+                                            sendNotificationToUser(userId!!, 0)
                                         }
                                     }
                                 }
@@ -110,11 +115,11 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
         orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
             }
 
-            override fun onDataChange(orderData: DataSnapshot?) {
+            override fun onDataChange(orderData: DataSnapshot) {
 
                 if (orderData != null) {
                     for (orderSnapshot in orderData.children) {
@@ -123,17 +128,17 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
                         if (order != null && order.orderId.equals(orderId)) {
 
-                            orderRoot.child(orderSnapshot.key).child("status").setValue(3)
+                            orderRoot.child(orderSnapshot.key!!).child("status").setValue(3)
 
                             userEmaiFromOrder = order.customerEmail
 
                             userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-                                override fun onCancelled(p0: DatabaseError?) {
+                                override fun onCancelled(p0: DatabaseError) {
                                     mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                 }
 
-                                override fun onDataChange(userData: DataSnapshot?) {
+                                override fun onDataChange(userData: DataSnapshot) {
 
                                     for (userSnapshot in userData!!.children) {
 
@@ -142,21 +147,26 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                         if (userEmail.equals(userEmaiFromOrder)) {
 
                                             val userId = userSnapshot.key
-                                            for (userOrderSnapshot in userData.child(userSnapshot.key).child("orders").children) {
+                                            for (userOrderSnapshot in userData.child(userSnapshot.key!!).child("orders").children) {
 
                                                 val order = userOrderSnapshot.getValue<Order>(Order::class.java)
                                                 val orderKey = userOrderSnapshot.key
 
                                                 if (order != null && order.orderId.equals(orderId)) {
-                                                    userRoot.child(userId).child("orders").child(orderKey)
-                                                            .child("status").setValue(3)
-                                                    mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
-                                                    mView?.finish()
+                                                    if (userId != null && orderKey != null) {
+                                                        userRoot.child(userId).child("orders").child(orderKey)
+                                                                .child("status").setValue(3)
+                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
+                                                        mView?.finish()
 
-                                                    Database.addOneDayDeadline(orderSnapshot.key, userId, orderKey)
+                                                        Database.addOneDayDeadline(orderSnapshot.key, userId, orderKey)
+                                                    }else{
+                                                        mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+                                                    }
+
                                                 }
                                             }
-                                            sendNotificationToUser(userId, 1)
+                                            sendNotificationToUser(userId!!, 1)
                                         }
                                     }
                                 }

@@ -28,14 +28,14 @@ class JoinGamePresenter : JoinGameContract.Presenter {
     override fun retrieveListOfSportFromFirebase() {
         var listOfSport = mutableListOf<String>()
         fieldReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot != null) {
                     for (fieldData in dataSnapshot.children) {
                         if (fieldData.hasChild("sports")) {
                             listOfSport.clear()
-                            fieldReference.child(fieldData.key).child("sports")
+                            fieldReference.child(fieldData.key!!).child("sports")
                                     .addListenerForSingleValueEvent(object : ValueEventListener {
-                                        override fun onDataChange(sportDataSnapshot: DataSnapshot?) {
+                                        override fun onDataChange(sportDataSnapshot: DataSnapshot) {
 
                                             if (sportDataSnapshot != null) {
                                                 for (sport in sportDataSnapshot.children) {
@@ -50,7 +50,7 @@ class JoinGamePresenter : JoinGameContract.Presenter {
                                             mView?.initListOfSportDropdown(listOfSport)
                                         }
 
-                                        override fun onCancelled(p0: DatabaseError?) {
+                                        override fun onCancelled(p0: DatabaseError) {
 
                                         }
                                     })
@@ -59,7 +59,7 @@ class JoinGamePresenter : JoinGameContract.Presenter {
                 }
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Failed to retrieve sport list from database.")
             }
         })
@@ -79,11 +79,11 @@ class JoinGamePresenter : JoinGameContract.Presenter {
         val timeRoot: DatabaseReference = Database.database.getReference("server_time")
 
         timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.showToastMessage("Failed to get server time.")
             }
 
-            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+            override fun onDataChange(dateSnapshot: DataSnapshot) {
 
                 val dateInMillis: Long = dateSnapshot?.value as Long
 
@@ -93,11 +93,11 @@ class JoinGamePresenter : JoinGameContract.Presenter {
                 if (cal.after(calendarNow)) {
 
                     findEnemyRoot.addValueEventListener(object : ValueEventListener {
-                        override fun onCancelled(p0: DatabaseError?) {
+                        override fun onCancelled(p0: DatabaseError) {
                             mView?.initListOfJoinGame(null)
                         }
 
-                        override fun onDataChange(p0: DataSnapshot?) {
+                        override fun onDataChange(p0: DataSnapshot) {
 
                             mView?.clearOrderList()
 
@@ -122,11 +122,11 @@ class JoinGamePresenter : JoinGameContract.Presenter {
         })
 
         findEnemyRoot.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.initListOfJoinGame(null)
             }
 
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
 
                 mView?.clearOrderList()
 

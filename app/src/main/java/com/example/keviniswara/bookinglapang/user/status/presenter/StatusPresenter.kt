@@ -35,21 +35,21 @@ class StatusPresenter : StatusContract.Presenter{
         val userRoot: DatabaseReference = Database.database.getReference("users")
 
         timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 Log.d("Status Presenter", "failed to get server time")
             }
 
-            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+            override fun onDataChange(dateSnapshot: DataSnapshot) {
 
                 val dateInMillis: Long = dateSnapshot?.value as Long
 
                 userRoot.addValueEventListener(object : ValueEventListener {
 
-                    override fun onCancelled(p0: DatabaseError?) {
+                    override fun onCancelled(p0: DatabaseError) {
                         mView?.initListOfOrders(null)
                     }
 
-                    override fun onDataChange(userData: DataSnapshot?) {
+                    override fun onDataChange(userData: DataSnapshot) {
 
                         mView?.clearOrderList()
 

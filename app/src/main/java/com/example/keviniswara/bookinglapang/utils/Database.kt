@@ -53,7 +53,7 @@ object Database {
         root.child("server_time").setValue(ServerValue.TIMESTAMP)
     }
 
-    fun add15MinutesDeadline(orderId: String, userId: String, orderKey: String) {
+    fun add15MinutesDeadline(orderId: String?, userId: String?, orderKey: String?) {
 
         addServerDate()
 
@@ -62,23 +62,23 @@ object Database {
         val orderRoot: DatabaseReference = database.getReference("orders")
 
         timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 Log.d("ERROR", "failed to get server time")
             }
 
-            override fun onDataChange(dateSnapshot: DataSnapshot?) {
+            override fun onDataChange(dateSnapshot: DataSnapshot) {
 
                 val dateInMillis: Long = dateSnapshot?.value as Long + 900000
 
-                userRoot.child(userId).child("orders").child(orderKey)
+                userRoot.child(userId!!).child("orders").child(orderKey!!)
                         .child("deadline").setValue(dateInMillis)
 
-                orderRoot.child(orderId).child("deadline").setValue(dateInMillis)
+                orderRoot.child(orderId!!).child("deadline").setValue(dateInMillis)
             }
         })
     }
 
-    fun addOneDayDeadline(orderId: String, userId: String, orderKey: String) {
+    fun addOneDayDeadline(orderId: String?, userId: String?, orderKey: String?) {
 
         addServerDate()
 
@@ -87,18 +87,17 @@ object Database {
         val orderRoot: DatabaseReference = database.getReference("orders")
 
         timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 Log.d("ERROR", "failed to get server time")
             }
 
-            override fun onDataChange(dateSnapshot: DataSnapshot?) {
-
+            override fun onDataChange(dateSnapshot: DataSnapshot) {
                 val dateInMillis: Long = dateSnapshot?.value as Long + 86400000
 
-                userRoot.child(userId).child("orders").child(orderKey)
+                userRoot.child(userId!!).child("orders").child(orderKey!!)
                         .child("deadline").setValue(dateInMillis)
 
-                orderRoot.child(orderId).child("deadline").setValue(dateInMillis)
+                orderRoot.child(orderId!!).child("deadline").setValue(dateInMillis)
             }
         })
     }

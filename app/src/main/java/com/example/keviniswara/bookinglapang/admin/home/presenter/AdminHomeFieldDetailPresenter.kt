@@ -26,7 +26,7 @@ class AdminHomeFieldDetailPresenter : AdminHomeFieldDetailContract.Presenter {
     override fun retrieveSportList(fieldId: String) {
         val sports: MutableList<Price?>? = mutableListOf()
         priceReference.child(fieldId).addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 if (p0 != null) {
                     for (dataChild in p0!!.children) {
                         for (data in dataChild.children) {
@@ -38,7 +38,7 @@ class AdminHomeFieldDetailPresenter : AdminHomeFieldDetailContract.Presenter {
                 mView?.initListOfSport(sports)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.initListOfSport(null)
                 Log.d("ADMIN FIELD DETAIL", "Failed to get sport and price detail.")
             }

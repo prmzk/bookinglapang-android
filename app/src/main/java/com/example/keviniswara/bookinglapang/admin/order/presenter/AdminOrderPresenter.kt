@@ -50,12 +50,12 @@ class AdminOrderPresenter : AdminOrderContract.Presenter {
         } else {
 
             orderRoot.addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(p0: DatabaseError?) {
+                override fun onCancelled(p0: DatabaseError) {
 
                     mView?.initListOfOrders(null)
                 }
 
-                override fun onDataChange(orderData: DataSnapshot?) {
+                override fun onDataChange(orderData: DataSnapshot) {
 
                     mView?.clearOrderList()
 

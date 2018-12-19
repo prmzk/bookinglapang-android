@@ -30,13 +30,13 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
     override fun retrieveListOfFieldFromFirebase() {
         var listOfField = mutableListOf<String>()
         fieldReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 fetchDataFieldName(p0, listOfField)
 
                 mView!!.initListOfFieldDropdown(listOfField)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
         })
@@ -53,13 +53,13 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
     override fun retrieveListOfSportFromFirebase(fieldName: String) {
         var listOfSport = mutableListOf<String>()
         fieldReference.child(fieldName).child("sports").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 fetchDataSportName(p0, listOfSport)
 
                 mView!!.initListOfSportDropdown(listOfSport)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
         })
@@ -92,14 +92,14 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
 
     private fun sendNotificationDataToFieldKeeper(fieldName: String, notification: User.Notification) {
         usersReference.orderByChild("field").equalTo(fieldName).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot?) {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(ds in dataSnapshot!!.children) {
                     val uid = ds.key
-                    Database.addNotification(uid, notification)
+                    Database.addNotification(uid!!, notification)
                 }
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
         })

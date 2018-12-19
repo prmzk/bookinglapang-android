@@ -31,13 +31,13 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
 
         usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 val status = p0?.child("status")?.getValue(Int::class.java)
 
                 sendNotification(remoteMessage, status!!)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
 
             }
         })

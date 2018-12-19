@@ -71,10 +71,10 @@ class ActiveOrderAdapter(private val orders: MutableList<Order?>?, fragment: Sta
                 val timeRoot: DatabaseReference = Database.database.getReference("server_time")
 
                 timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onCancelled(p0: DatabaseError?) {
+                    override fun onCancelled(p0: DatabaseError) {
                     }
 
-                    override fun onDataChange(dateSnapshot: DataSnapshot?) {
+                    override fun onDataChange(dateSnapshot: DataSnapshot) {
 
                         val dateInMillis: Long = dateSnapshot?.value as Long
 

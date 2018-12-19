@@ -25,7 +25,7 @@ class AdminHomePresenter: AdminHomeContract.Presenter {
     override fun retrieveFieldList() {
         val fields: MutableList<Field?>? = mutableListOf()
         fieldReference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 if (p0 != null) {
                     for (fieldSnapshot in p0.children) {
                         val field = fieldSnapshot.getValue(Field::class.java)
@@ -35,7 +35,7 @@ class AdminHomePresenter: AdminHomeContract.Presenter {
                 mView?.initListOfFields(fields)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.initListOfFields(null)
             }
         })

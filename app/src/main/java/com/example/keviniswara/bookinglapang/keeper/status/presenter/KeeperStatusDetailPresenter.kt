@@ -1,6 +1,5 @@
 package com.example.keviniswara.bookinglapang.keeper.status.presenter
 
-import android.util.Log
 import com.example.keviniswara.bookinglapang.keeper.status.KeeperStatusDetailContract
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.model.User
@@ -21,11 +20,11 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
         userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
             }
 
-            override fun onDataChange(userData: DataSnapshot?) {
+            override fun onDataChange(userData: DataSnapshot) {
 
                 for (userSnapshot in userData!!.children) {
 
@@ -75,11 +74,11 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
         orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
             }
 
-            override fun onDataChange(orderData: DataSnapshot?) {
+            override fun onDataChange(orderData: DataSnapshot) {
 
                 if (orderData != null) {
                     for (orderSnapshot in orderData.children) {
@@ -89,20 +88,20 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                         if (order != null && order.orderId.equals(orderId)) {
 
                             if (type == 0) {
-                                orderRoot.child(orderSnapshot.key).child("status").setValue(1)
+                                orderRoot.child(orderSnapshot.key!!).child("status").setValue(1)
                             } else if (type == 1) {
-                                orderRoot.child(orderSnapshot.key).child("status").setValue(3)
+                                orderRoot.child(orderSnapshot.key!!).child("status").setValue(3)
                             }
 
                             userEmaiFromOrder = order.customerEmail
 
                             userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
-                                override fun onCancelled(p0: DatabaseError?) {
+                                override fun onCancelled(p0: DatabaseError) {
                                     mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                 }
 
-                                override fun onDataChange(userData: DataSnapshot?) {
+                                override fun onDataChange(userData: DataSnapshot) {
 
                                     for (userSnapshot in userData!!.children) {
 
@@ -112,7 +111,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
                                             val userId = userSnapshot.key
 
-                                            for (userOrderSnapshot in userData.child(userSnapshot.key).child("orders").children) {
+                                            for (userOrderSnapshot in userData.child(userSnapshot.key!!).child("orders").children) {
 
                                                 val order = userOrderSnapshot.getValue<Order>(Order::class.java)
 
@@ -121,14 +120,14 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                 if (order != null && order.orderId.equals(orderId)) {
 
                                                     if (type == 0) {
-                                                        userRoot.child(userId).child("orders").child(orderKey)
+                                                        userRoot.child(userId!!).child("orders").child(orderKey!!)
                                                                 .child("status").setValue(1)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
 
                                                         Database.add15MinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key)
 
                                                     } else if (type == 1) {
-                                                        userRoot.child(userId).child("orders").child(orderKey)
+                                                        userRoot.child(userId!!).child("orders").child(orderKey!!)
                                                                 .child("status").setValue(3)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
 
@@ -138,7 +137,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                 }
                                             }
 
-                                            sendNotificationToUser(userId, type)
+                                            sendNotificationToUser(userId!!, type)
                                         }
                                     }
                                 }
