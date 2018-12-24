@@ -15,6 +15,7 @@ interface SearchFieldContract {
         fun initListOfFieldDropdown(listOfField: List<String>)
         fun initListOfSportDropdown(listOfSport: List<String>)
         fun showToastMessage(message: String)
+        fun updatePrice(newPrice : String)
     }
 
     interface Presenter : BasePresenter<View> {
@@ -22,5 +23,6 @@ interface SearchFieldContract {
         fun retrieveListOfSportFromFirebase(fieldName: String)
         fun addOrderToFirebase()
         fun sendOrderNotificationToFieldKeeper()
+        fun getPrice()
     }
 }

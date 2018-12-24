@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang.user.home.view
 import android.app.DatePickerDialog
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.annotation.IntegerRes
 import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -17,6 +18,8 @@ import com.example.keviniswara.bookinglapang.databinding.FragmentSearchFieldBind
 import com.example.keviniswara.bookinglapang.databinding.NumberPickerDialogBinding
 import com.example.keviniswara.bookinglapang.user.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.user.home.presenter.SearchFieldPresenter
+import kotlinx.android.synthetic.main.fragment_search_field.*
+import kotlinx.android.synthetic.main.fragment_user_make_game.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -62,6 +65,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         mBinding.listOfField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 mPresenter.retrieveListOfSportFromFirebase(p0!!.getItemAtPosition(p2).toString())
+                onDataChange()
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -69,17 +73,77 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             }
         }
 
-        mBinding.buttonContinue.setOnClickListener(View.OnClickListener {
-            mPresenter.addOrderToFirebase()
-            mPresenter.sendOrderNotificationToFieldKeeper()
-            val ft = fragmentManager!!.beginTransaction()
-            ft.replace(R.id.content, HomeFragment())
-            ft.commit()
-            showToastMessage("Order berhasil disimpan.")
-        })
+        mBinding.listOfSports.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                onDataChange()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
+
+        mBinding.buttonContinue.setOnClickListener {
+            if(isAllFilled()){
+                if(checkValid()){
+                    mPresenter.addOrderToFirebase()
+                    mPresenter.sendOrderNotificationToFieldKeeper()
+                    val ft = fragmentManager!!.beginTransaction()
+                    ft.replace(R.id.content, HomeFragment())
+                    ft.commit()
+                    showToastMessage("Order berhasil disimpan.")
+                }
+            }else{
+                showToastMessage("Ada yang belum terisi.")
+            }
+
+        }
 
         return mBinding.root
     }
+
+    private fun onDataChange(){
+        if(isAllFilled()){
+            if(checkValid()){
+                mPresenter.getPrice()
+            }
+        }
+    }
+
+    private fun checkValid() : Boolean{
+        val timeStart = mBinding.startHour.text.toString().trim().split(".")
+
+        val hourStart = Integer.parseInt(timeStart[0])
+        val minuteStart = Integer.parseInt(timeStart[1])
+
+        val timeEnd = mBinding.finishHour.text.toString().trim().split(".")
+
+        val hourEnd = Integer.parseInt(timeEnd[0])
+        val minuteEnd = Integer.parseInt(timeEnd[1])
+
+        if(hourStart<hourEnd || (hourStart==hourEnd && minuteStart<minuteEnd)){
+            mBinding.finishHour.error = null
+            return true
+        }else{
+            mBinding.finishHour.error = ""
+            showToastMessage("Waktu selesai tidak boleh sebelum waktu mulai")
+            return false
+        }
+    }
+
+    override fun updatePrice(newPrice : String) {
+        mBinding.harga.text = newPrice
+    }
+
+
+
+    private fun isAllFilled(): Boolean {
+        return !(getFieldName() == "" ||
+                getSport() == "" ||
+                getDate() == "" ||
+                mBinding.startHour.text.toString() == "" ||
+                mBinding.finishHour.text.toString() == "")
+    }
+
 
     override fun initPresenter(): SearchFieldContract.Presenter {
         val presenter: SearchFieldPresenter = SearchFieldPresenter()
@@ -91,7 +155,11 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     override fun getSport(): String {
-        return mBinding.listOfSports.selectedItem.toString()
+        try {
+            return mBinding.listOfSports.selectedItem.toString()
+        } catch (e: Exception) {
+            return ""
+        }
     }
 
     override fun getDate(): String {
@@ -110,6 +178,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         val dateFormat = "dd/MM/yy"
         val sdf = SimpleDateFormat(dateFormat, Locale.US)
         mBinding.date.setText(sdf.format(mCalendar.getTime()))
+        onDataChange()
     }
 
     override fun initDatePicker() {
@@ -159,6 +228,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
                 mBinding.finishHour.setText(arrayOfString[numberPicker.value])
             }
             mBottomSheetDialog.dismiss()
+            onDataChange()
         })
         mBottomSheetDialog.show()
     }

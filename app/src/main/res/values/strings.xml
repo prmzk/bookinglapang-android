@@ -24,4 +24,5 @@
     <string name="jenis_olahraga">Jenis Olahraga</string>
     <string name="tempat">Tempat</string>
     <string name="waktu">Waktu</string>
+    <string name="harga">Harga : -</string>
 </resources>

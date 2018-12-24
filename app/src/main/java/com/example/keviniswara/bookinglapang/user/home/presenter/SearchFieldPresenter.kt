@@ -27,6 +27,10 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         mView = null
     }
 
+    override fun getPrice(){
+
+    }
+
     override fun retrieveListOfFieldFromFirebase() {
         var listOfField = mutableListOf<String>()
         fieldReference.addValueEventListener(object : ValueEventListener {
