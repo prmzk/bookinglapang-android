@@ -112,7 +112,7 @@ object Database {
     }
 
     fun updateField(fieldName: String, address: String, contactPerson: String, phoneNumber: String, fieldId: String) {
-        val field:Field = Field(fieldName, emptyList(),address,contactPerson,phoneNumber)
+        val field:Field = Field(fieldName, hashMapOf(),address,contactPerson,phoneNumber)
         root.child("fields").child(fieldName).setValue(field)
 //        root.child("fields").child(fieldId).child("field_id").setValue(fieldName)
 //        root.child("fields").child(fieldId).child("address").setValue(address)
