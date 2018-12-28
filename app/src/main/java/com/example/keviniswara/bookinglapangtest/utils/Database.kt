@@ -7,6 +7,7 @@ import com.example.keviniswara.bookinglapangtest.model.Transaction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.util.*
+import kotlin.collections.HashMap
 
 
 object Database {
@@ -112,12 +113,14 @@ object Database {
     }
 
     fun updateField(fieldName: String, address: String, contactPerson: String, phoneNumber: String, fieldId: String) {
-        val field:Field = Field(fieldName, hashMapOf(),address,contactPerson,phoneNumber)
-        root.child("fields").child(fieldName).setValue(field)
-//        root.child("fields").child(fieldId).child("field_id").setValue(fieldName)
-//        root.child("fields").child(fieldId).child("address").setValue(address)
-//        root.child("fields").child(fieldId).child("contact_person").setValue(contactPerson)
-//        root.child("fields").child(fieldId).child("phone_number").setValue(phoneNumber)
+        var fieldUpdate:MutableMap<String,String> = mutableMapOf()
+
+        fieldUpdate.put("field_id",fieldName)
+        fieldUpdate.put("address",address)
+        fieldUpdate.put("contact_person",contactPerson)
+        fieldUpdate.put("phone_number",phoneNumber)
+
+        root.child("fields").child(fieldName).updateChildren(fieldUpdate.toMap())
     }
 
     fun addNewFindEnemy(findEnemy: FindEnemy) {
