@@ -7,6 +7,7 @@ import com.example.keviniswara.bookinglapangtest.model.User
 import com.example.keviniswara.bookinglapangtest.utils.Database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class SearchFieldPresenter : SearchFieldContract.Presenter {
@@ -16,6 +17,10 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
     private val fieldReference: DatabaseReference = database.getReference("").child("fields")
+
+    private val pricingReference: DatabaseReference = database.getReference("").child("prices_list")
+
+    private val pricingTextReference: DatabaseReference = database.getReference("").child("prices")
 
     private val usersReference: DatabaseReference = database.getReference("").child("users")
 
@@ -28,7 +33,103 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
     }
 
     override fun getPrice(){
+        val fieldid = mView!!.getFieldName()
+        val sportName = mView!!.getSport()
 
+        val date = mView!!.getDate()
+        val day = dateToIntDay(date)
+
+        val beginTime = mView!!.getStartHour().toInt()
+        val endTime = mView!!.getFinishHour().toInt()
+
+        var price:Long = 0
+
+        pricingReference.child(fieldid).child(sportName).addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                for (ds in p0!!.child(day.toString()).children) {
+                    if (ds.key!!.toInt() in beginTime until endTime) {
+                        price += ds.getValue(String::class.java)!!.toInt()
+                    }
+                }
+
+                mView!!.updatePrice(price.toString())
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+                mView!!.updatePrice("Error")
+            }
+
+        })
+
+
+    }
+
+    override fun checkTimeValid() {
+        val fieldid = mView!!.getFieldName()
+        val sportName = mView!!.getSport()
+
+        val date = mView!!.getDate()
+        val day = dateToIntDay(date)
+
+        val beginTime = mView!!.getStartHour().toInt()
+        val endTime = mView!!.getFinishHour().toInt()
+
+        pricingReference.child(fieldid).child(sportName).addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.hasChild(day.toString())){
+                    var valid:Boolean = true
+                    for(hour in beginTime until endTime){
+                        if(!p0.child(day.toString()).hasChild(hour.toString())){
+                            valid = false
+                        }
+                    }
+
+                    if(valid){
+                        getPrice()
+                    }else{
+                        getValidTime()
+                    }
+                }else{
+                    getValidTime()
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+        })
+    }
+
+    override fun getValidTime() {
+        val fieldid = mView!!.getFieldName()
+        val sportName = mView!!.getSport()
+
+        var validTime:String = ""
+
+        pricingTextReference.child(fieldid).child(sportName).addListenerForSingleValueEvent(object: ValueEventListener{
+            override fun onDataChange(p0: DataSnapshot) {
+                validTime = "Waktu yang tersedia\n"
+                for(time in p0.children){
+                    val timeItem = time.getValue(Field.PriceTimeDayRange::class.java)
+                    if(timeItem!=null){
+                        validTime += timeItem.day_range.toString()
+                        validTime += " jam "
+                        validTime += timeItem.hour_range.toString()
+                    }
+
+                    validTime += "\n"
+                }
+
+                validTime += "Harap cek waktu dan tanggal"
+
+                mView!!.updatePrice("-")
+                mView!!.showToastMessage(validTime)
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
     }
 
     override fun retrieveListOfFieldFromFirebase() {
@@ -107,5 +208,12 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
 
             }
         })
+    }
+
+    private fun dateToIntDay(dateString: String) : Int {
+        val date = SimpleDateFormat("dd/MM/yy", Locale.US).parse(dateString)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return calendar.get(Calendar.DAY_OF_WEEK)
     }
 }

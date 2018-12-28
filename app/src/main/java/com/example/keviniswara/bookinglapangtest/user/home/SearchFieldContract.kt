@@ -24,5 +24,7 @@ interface SearchFieldContract {
         fun addOrderToFirebase()
         fun sendOrderNotificationToFieldKeeper()
         fun getPrice()
+        fun checkTimeValid()
+        fun getValidTime()
     }
 }

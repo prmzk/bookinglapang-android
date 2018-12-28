@@ -35,6 +35,8 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     private var defaultStartHour = 0
     private var defaultEndHour = 0
 
+    private var validCheckReason = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_field,
@@ -79,55 +81,60 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         }
 
         mBinding.buttonContinue.setOnClickListener {
-            if(isAllFilled()){
-                if(checkValid()){
-                    mPresenter.addOrderToFirebase()
-                    mPresenter.sendOrderNotificationToFieldKeeper()
-                    val ft = fragmentManager!!.beginTransaction()
-                    ft.replace(R.id.content, HomeFragment())
-                    ft.commit()
-                    showToastMessage("Order berhasil disimpan.")
-                }
-            }else{
-                showToastMessage("Ada yang belum terisi.")
-            }
-
+            validCheckReason = 1
+            checkValid()
         }
 
         return mBinding.root
     }
 
     private fun onDataChange(){
+        validCheckReason = 0
         if(isAllFilled()){
-            if(checkValid()){
-                mPresenter.getPrice()
+            checkValid()
+        }
+
+    }
+
+    private fun checkValid(){
+        if(isAllFilled()){
+            val timeStart = mBinding.startHour.text.toString().trim().split(".")
+
+            val hourStart = Integer.parseInt(timeStart[0])
+            val minuteStart = Integer.parseInt(timeStart[1])
+
+            val timeEnd = mBinding.finishHour.text.toString().trim().split(".")
+
+            val hourEnd = Integer.parseInt(timeEnd[0])
+            val minuteEnd = Integer.parseInt(timeEnd[1])
+
+            if(hourStart<hourEnd || (hourStart==hourEnd && minuteStart<minuteEnd)){
+                mBinding.finishHour.error = null
+            }else{
+                mBinding.finishHour.error = ""
+                showToastMessage("Waktu selesai tidak boleh sebelum waktu mulai")
             }
+
+            mPresenter!!.checkTimeValid()
+        }else{
+            showToastMessage("Ada yang belum terisi.")
         }
     }
 
-    private fun checkValid() : Boolean{
-        val timeStart = mBinding.startHour.text.toString().trim().split(".")
-
-        val hourStart = Integer.parseInt(timeStart[0])
-        val minuteStart = Integer.parseInt(timeStart[1])
-
-        val timeEnd = mBinding.finishHour.text.toString().trim().split(".")
-
-        val hourEnd = Integer.parseInt(timeEnd[0])
-        val minuteEnd = Integer.parseInt(timeEnd[1])
-
-        if(hourStart<hourEnd || (hourStart==hourEnd && minuteStart<minuteEnd)){
-            mBinding.finishHour.error = null
-            return true
-        }else{
-            mBinding.finishHour.error = ""
-            showToastMessage("Waktu selesai tidak boleh sebelum waktu mulai")
-            return false
-        }
+    private fun addOrder(){
+        mPresenter.addOrderToFirebase()
+        mPresenter.sendOrderNotificationToFieldKeeper()
+        val ft = fragmentManager!!.beginTransaction()
+        ft.replace(R.id.content, HomeFragment())
+        ft.commit()
+        showToastMessage("Order berhasil disimpan.")
     }
 
     override fun updatePrice(newPrice : String) {
-        mBinding.harga.text = newPrice
+        mBinding.harga.text = "Harga : "+ newPrice
+        if(validCheckReason == 1){
+            addOrder()
+        }
     }
 
 
