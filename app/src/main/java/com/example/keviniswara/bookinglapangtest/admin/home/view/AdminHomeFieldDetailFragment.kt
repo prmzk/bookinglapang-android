@@ -65,8 +65,10 @@ class AdminHomeFieldDetailFragment: Fragment(), AdminHomeFieldDetailContract.Vie
 
         mBinding.buttonSave.setOnClickListener({
 
-            Database.updateField(getFieldId(), getAddress(), getContactPersonName(),
-                    getHandphone(), getFieldId())
+            Database.updateField(getFieldId(), getAddress(), getContactPersonName(), getHandphone(), getFieldId())
+            var frag = fragmentManager!!.getBackStackEntryAt(0)
+            var len = fragmentManager!!.backStackEntryCount
+            fragmentManager!!.popBackStack()
         })
 
         return mBinding.root

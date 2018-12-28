@@ -95,7 +95,8 @@
                         android:cursorVisible="true"
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text"
-                        android:textCursorDrawable="@null" />
+                        android:textCursorDrawable="@null"
+                        android:inputType="phone"/>
                 </TableRow>
 
                 <TableRow

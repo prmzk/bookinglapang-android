@@ -55,6 +55,7 @@ class AdminHomeSportDetailFragment: Fragment(), AdminHomeSportDetailContract.Vie
 
         mBinding.buttonSave.setOnClickListener({
             mPresenter.savePrice(fieldId)
+            fragmentManager!!.popBackStackImmediate()
         })
 
         return mBinding.root

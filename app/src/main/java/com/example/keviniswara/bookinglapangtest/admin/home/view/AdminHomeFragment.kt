@@ -65,7 +65,7 @@ class AdminHomeFragment: Fragment(), AdminHomeContract.View {
 
     override fun startFieldDetailFragment() {
         val ft = fragmentManager!!.beginTransaction()
-        ft.replace(R.id.content, AdminHomeFieldDetailFragment())
+        ft.replace(R.id.content, AdminHomeFieldDetailFragment()).addToBackStack(AdminHomeFieldDetailFragment().javaClass.simpleName)
         ft.commit()
     }
 
