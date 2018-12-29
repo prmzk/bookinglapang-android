@@ -55,6 +55,31 @@ object Database {
         root.child("server_time").setValue(ServerValue.TIMESTAMP)
     }
 
+    fun addXMinutesDeadline(orderId: String?, userId: String?, orderKey: String?, time:Long) {
+
+        addServerDate()
+
+        val timeRoot: DatabaseReference = database.getReference("server_time")
+        val userRoot: DatabaseReference = database.getReference("users")
+        val orderRoot: DatabaseReference = database.getReference("orders")
+
+        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("ERROR", "failed to get server time")
+            }
+
+            override fun onDataChange(dateSnapshot: DataSnapshot) {
+
+                val dateInMillis: Long = dateSnapshot?.value as Long + time * 6000
+
+                userRoot.child(userId!!).child("orders").child(orderKey!!)
+                        .child("deadline").setValue(dateInMillis)
+
+                orderRoot.child(orderId!!).child("deadline").setValue(dateInMillis)
+            }
+        })
+    }
+
     fun add15MinutesDeadline(orderId: String?, userId: String?, orderKey: String?) {
 
         addServerDate()

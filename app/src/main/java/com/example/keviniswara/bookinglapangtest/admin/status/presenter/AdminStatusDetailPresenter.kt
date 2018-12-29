@@ -159,7 +159,9 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
                                                         mView?.finish()
 
-                                                        Database.addOneDayDeadline(orderSnapshot.key, userId, orderKey)
+                                                        Database.addXMinutesDeadline(orderSnapshot.key,userId,orderKey,1440)
+
+//                                                        Database.addOneDayDeadline(orderSnapshot.key, userId, orderKey)
                                                     }else{
                                                         mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                                     }

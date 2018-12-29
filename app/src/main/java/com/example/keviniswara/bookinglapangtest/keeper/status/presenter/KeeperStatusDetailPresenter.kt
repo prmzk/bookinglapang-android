@@ -124,14 +124,17 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                                 .child("status").setValue(1)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
 
-                                                        Database.add15MinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key)
+                                                        Database.addXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 30)
+
+//                                                        Database.add15MinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key)
 
                                                     } else if (type == 1) {
                                                         userRoot.child(userId!!).child("orders").child(orderKey!!)
                                                                 .child("status").setValue(3)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
 
-                                                        Database.addOneDayDeadline(orderSnapshot.key, userId, userOrderSnapshot.key)
+                                                        Database.addXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 1440)
+//                                                        Database.addOneDayDeadline(orderSnapshot.key, userId, userOrderSnapshot.key)
                                                     }
                                                     mView?.finish()
                                                 }
