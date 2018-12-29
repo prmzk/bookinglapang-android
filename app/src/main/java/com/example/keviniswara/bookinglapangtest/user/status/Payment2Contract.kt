@@ -10,6 +10,8 @@ interface Payment2Contract {
         fun setSport(sportName: String)
         fun setDate(date: String)
         fun getBankName(): String
+        fun setEndTime(endTime: String)
+        fun setBeginTime(beginTime: String)
         fun initListOfBankDropdown(listOfBank: List<String>)
         fun moveToPayment3(orderDetail: Order, bankName: String)
     }

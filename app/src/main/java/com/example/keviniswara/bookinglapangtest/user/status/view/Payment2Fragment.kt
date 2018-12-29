@@ -42,6 +42,8 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
         setField(fieldId)
         setSport(sport)
         setDate(date)
+        setBeginTime(startHour)
+        setEndTime(endHour)
 
         mPresenter.retrieveListOfBankFromFirebase()
 
@@ -66,6 +68,14 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
 
     override fun setDate(date: String) {
         mBinding.date.setText(date)
+    }
+
+    override fun setEndTime(endTime: String) {
+        mBinding.endTime.setText("%02d:00".format(endTime.toInt()))
+    }
+
+    override fun setBeginTime(beginTime: String) {
+        mBinding.startTime.setText("%02d:00".format(beginTime.toInt()))
     }
 
     override fun initListOfBankDropdown(listOfBank: List<String>) {

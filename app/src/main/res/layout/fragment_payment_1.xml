@@ -77,7 +77,8 @@
                     android:cursorVisible="true"
                     android:textCursorDrawable="@null"
                     android:paddingLeft="@dimen/befote_text"
-                    android:paddingRight="@dimen/befote_text" />
+                    android:paddingRight="@dimen/befote_text"
+                    android:inputType="phone"/>
             </TableRow>
         </TableLayout>
         <Button
