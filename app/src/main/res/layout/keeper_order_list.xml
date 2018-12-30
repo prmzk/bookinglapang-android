@@ -74,14 +74,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
+
                 <TextView
+                    android:id="@+id/transfered"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sudah transfer"
                     android:background="@drawable/button_green"
-                    android:visibility="gone"
                     android:padding="3dp"
-                    android:id="@+id/transfered"/>
+                    android:text="@string/order_status_sukses"
+                    android:textColor="@color/white"
+                    android:visibility="visible" />
             </LinearLayout>
         </LinearLayout>
 

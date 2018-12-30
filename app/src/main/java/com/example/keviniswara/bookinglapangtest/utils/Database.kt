@@ -80,55 +80,6 @@ object Database {
         })
     }
 
-    fun add15MinutesDeadline(orderId: String?, userId: String?, orderKey: String?) {
-
-        addServerDate()
-
-        val timeRoot: DatabaseReference = database.getReference("server_time")
-        val userRoot: DatabaseReference = database.getReference("users")
-        val orderRoot: DatabaseReference = database.getReference("orders")
-
-        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d("ERROR", "failed to get server time")
-            }
-
-            override fun onDataChange(dateSnapshot: DataSnapshot) {
-
-                val dateInMillis: Long = dateSnapshot?.value as Long + 900000
-
-                userRoot.child(userId!!).child("orders").child(orderKey!!)
-                        .child("deadline").setValue(dateInMillis)
-
-                orderRoot.child(orderId!!).child("deadline").setValue(dateInMillis)
-            }
-        })
-    }
-
-    fun addOneDayDeadline(orderId: String?, userId: String?, orderKey: String?) {
-
-        addServerDate()
-
-        val timeRoot: DatabaseReference = database.getReference("server_time")
-        val userRoot: DatabaseReference = database.getReference("users")
-        val orderRoot: DatabaseReference = database.getReference("orders")
-
-        timeRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d("ERROR", "failed to get server time")
-            }
-
-            override fun onDataChange(dateSnapshot: DataSnapshot) {
-                val dateInMillis: Long = dateSnapshot?.value as Long + 86400000
-
-                userRoot.child(userId!!).child("orders").child(orderKey!!)
-                        .child("deadline").setValue(dateInMillis)
-
-                orderRoot.child(orderId!!).child("deadline").setValue(dateInMillis)
-            }
-        })
-    }
-
     fun addBank(bank: Bank) {
         root.child("banks").push().setValue(bank)
     }

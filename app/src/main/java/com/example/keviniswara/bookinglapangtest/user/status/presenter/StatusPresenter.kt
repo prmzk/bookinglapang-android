@@ -58,7 +58,7 @@ class StatusPresenter : StatusContract.Presenter{
 
                                 val order = orderSnapshot.getValue<Order>(Order::class.java)
 
-                                if (order != null && order.status != 2) {
+                                if (order != null) {
                                     if (order.status == 0 || order.status != 0 && order.deadline >= dateInMillis) {
                                         orders?.add(order)
                                     }

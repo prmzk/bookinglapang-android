@@ -25,4 +25,8 @@
     <string name="tempat">Tempat</string>
     <string name="waktu">Waktu</string>
     <string name="harga">Harga : -</string>
+    <string name="order_status_sukses">Sukses</string>
+    <string name="order_status_gagal">Gagal</string>
+    <string name="order_status_n_transfer">Belum transfer</string>
+    <string name="order_status_n_verifikasi">Belum verifikasi</string>
 </resources>

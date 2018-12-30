@@ -9,6 +9,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
@@ -54,7 +56,13 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
                         if (order != null && order.orderId.equals(orderId)) {
 
+                            val dateFormat = "dd/MM/yy"
+                            val sdf = SimpleDateFormat(dateFormat, Locale.US)
+
+                            val dateInMillis = sdf.parse(order.date).time + (24 * 1440 * 6000) // Satu hari setelahnya
+
                             orderRoot.child(orderSnapshot.key!!).child("status").setValue(2)
+                            orderRoot.child(orderSnapshot.key!!).child("deadline").setValue(dateInMillis)
 
                             userEmaiFromOrder = order.customerEmail
 
@@ -82,6 +90,10 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                     if (userId != null) {
                                                         userRoot.child(userId).child("orders").child(orderKey!!)
                                                                 .child("status").setValue(2)
+
+                                                        userRoot.child(userId).child("orders").child(orderKey!!)
+                                                                .child("deadline").setValue(dateInMillis)
+
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi booked.")
                                                         mView?.finish()
                                                     }else{
