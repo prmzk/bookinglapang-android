@@ -98,6 +98,9 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     private fun checkValid(){
         if(isAllFilled()){
+            mBinding.finishHour.error = null
+            mBinding.date.error = null
+
             val timeStart = mBinding.startHour.text.toString().trim().split(".")
 
             val hourStart = Integer.parseInt(timeStart[0])
@@ -109,13 +112,22 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             val minuteEnd = Integer.parseInt(timeEnd[1])
 
             if(hourStart<hourEnd || (hourStart==hourEnd && minuteStart<minuteEnd)){
-                mBinding.finishHour.error = null
+                val sdf = SimpleDateFormat("dd/MM/yy", Locale.US)
+                val date = sdf.parse(mBinding.date.text.toString().trim())
+
+                if(System.currentTimeMillis()<(date.time + (hourStart * 3600000))){
+                    mPresenter.checkTimeValid()
+                }else{
+                    mBinding.date.error = ""
+                    showToastMessage("Waktu harus lebih dari sekarang")
+                }
+
             }else{
                 mBinding.finishHour.error = ""
                 showToastMessage("Waktu selesai tidak boleh sebelum waktu mulai")
             }
 
-            mPresenter!!.checkTimeValid()
+
         }else{
             showToastMessage("Ada yang belum terisi.")
         }
