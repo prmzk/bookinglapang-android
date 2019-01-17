@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.keviniswara.bookinglapangtest"
+        applicationId "com.example.keviniswara.bookinglapang"
         minSdkVersion 15
         targetSdkVersion 27
         versionCode 1
