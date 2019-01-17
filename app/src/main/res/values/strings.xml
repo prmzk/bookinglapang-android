@@ -32,4 +32,10 @@
     <string name="order_status_avaiable">ADA</string>
     <string name="order_status_not_avaiable">TIDAK ADA</string>
     <string name="order_status_n_pay">BELUM BAYAR</string>
+    <string name="order_status_final_confirmation">Konfirmasi Final</string>
+    <string name="order_status_waiting_confirmation">Menunggu Konfirmasi</string>
+    <string name="order_action_n_confirm">Tidak bisa</string>
+    <string name="order_action_confirm">Konfirmasi</string>
+    <string name="order_action_n_avaiable">Tidak ada</string>
+    <string name="order_action_avaiable">Ada</string>
 </resources>

@@ -53,7 +53,7 @@ object Database {
         root.child("server_time").setValue(ServerValue.TIMESTAMP)
     }
 
-    fun addXMinutesDeadline(orderId: String?, userId: String?, orderKey: String?, time:Long) {
+    fun setXMinutesDeadline(orderId: String?, userId: String?, orderKey: String?, time:Long) {
 
         addServerDate()
 

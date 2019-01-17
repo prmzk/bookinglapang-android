@@ -105,24 +105,35 @@ class ActiveOrderAdapter(private val orders: MutableList<Order?>?, fragment: Sta
                     mBinding.notTransfer.visibility = View.GONE
                     mBinding.failed.visibility = View.GONE
                     mBinding.transfered.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 1 -> {
                     mBinding.notVerified.visibility = View.GONE
                     mBinding.notTransfer.visibility = View.VISIBLE
                     mBinding.failed.visibility = View.GONE
                     mBinding.transfered.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 2 -> {
                     mBinding.notVerified.visibility = View.GONE
                     mBinding.notTransfer.visibility = View.GONE
                     mBinding.failed.visibility = View.GONE
                     mBinding.transfered.visibility = View.VISIBLE
+                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 3 -> {
                     mBinding.notVerified.visibility = View.GONE
                     mBinding.notTransfer.visibility = View.GONE
                     mBinding.failed.visibility = View.VISIBLE
                     mBinding.transfered.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.GONE
+                }
+                order.status == 4 -> {
+                    mBinding.notVerified.visibility = View.GONE
+                    mBinding.notTransfer.visibility = View.GONE
+                    mBinding.failed.visibility = View.GONE
+                    mBinding.transfered.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.VISIBLE
                 }
             }
         }

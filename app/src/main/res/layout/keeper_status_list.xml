@@ -122,6 +122,15 @@
                     android:textColor="@color/white"
                     android:id="@+id/success"
                     android:visibility="gone"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_status_final_confirmation"
+                    android:background="@drawable/button_grey"
+                    android:padding="3dp"
+                    android:textColor="@color/white"
+                    android:id="@+id/final_confirm"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
 

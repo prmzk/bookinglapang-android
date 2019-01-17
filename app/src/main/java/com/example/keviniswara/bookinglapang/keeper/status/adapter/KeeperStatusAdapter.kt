@@ -75,6 +75,7 @@ class KeeperStatusAdapter(private val orders: MutableList<Order?>?, fragment: Ke
                     mBinding.notPaid.visibility = View.GONE
                     mBinding.failed.visibility = View.GONE
                     mBinding.success.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 1 -> {
                     mBinding.available.visibility = View.GONE
@@ -82,6 +83,7 @@ class KeeperStatusAdapter(private val orders: MutableList<Order?>?, fragment: Ke
                     mBinding.notPaid.visibility = View.VISIBLE
                     mBinding.failed.visibility = View.GONE
                     mBinding.success.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 2 -> {
                     mBinding.available.visibility = View.GONE
@@ -89,6 +91,7 @@ class KeeperStatusAdapter(private val orders: MutableList<Order?>?, fragment: Ke
                     mBinding.notPaid.visibility = View.GONE
                     mBinding.failed.visibility = View.GONE
                     mBinding.success.visibility = View.VISIBLE
+                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 3 -> {
                     mBinding.available.visibility = View.GONE
@@ -96,6 +99,15 @@ class KeeperStatusAdapter(private val orders: MutableList<Order?>?, fragment: Ke
                     mBinding.notPaid.visibility = View.GONE
                     mBinding.failed.visibility = View.VISIBLE
                     mBinding.success.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.GONE
+                }
+                order.status == 4 -> {
+                    mBinding.available.visibility = View.GONE
+                    mBinding.notAvailable.visibility = View.GONE
+                    mBinding.notPaid.visibility = View.GONE
+                    mBinding.failed.visibility = View.GONE
+                    mBinding.success.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.VISIBLE
                 }
             }
         }

@@ -44,11 +44,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                         if (userName != null) mView?.setUserName(userName)
                         if (userPhoneNumber != null) mView?.setUserPhoneNumber(userPhoneNumber)
 
-                        if (status == "0") {
-                            mView?.setButtonVisibility(true)
-                        } else {
-                            mView?.setButtonVisibility(false)
-                        }
+                        mView?.setButtonVisibility(status.toInt())
                     }
                 }
             }
@@ -63,7 +59,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
         mView = null
     }
 
-    // type = 0, status available, type = 1, status not available
+    // type = 0, status available, type = 1, status not available, type = 2, confirm final
     override fun setField(orderId: String, type: Int) {
 
         var userEmaiFromOrder: String
@@ -89,8 +85,10 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
                             if (type == 0) {
                                 orderRoot.child(orderSnapshot.key!!).child("status").setValue(1)
-                            } else if (type == 1) {
+                            } else if (type == 1 || type == 3) {
                                 orderRoot.child(orderSnapshot.key!!).child("status").setValue(3)
+                            } else if (type == 2){
+                                orderRoot.child(orderSnapshot.key!!).child("status").setValue(2)
                             }
 
                             userEmaiFromOrder = order.customerEmail
@@ -124,14 +122,19 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                                 .child("status").setValue(1)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
 
-                                                        Database.addXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 30)
+                                                        Database.setXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 30)
 
-                                                    } else if (type == 1) {
+                                                    } else if (type == 1 || type == 3) {
                                                         userRoot.child(userId!!).child("orders").child(orderKey!!)
                                                                 .child("status").setValue(3)
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
 
-                                                        Database.addXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 1440)
+                                                        Database.setXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 1440)
+                                                    }else if (type == 2) {
+                                                        userRoot.child(userId!!).child("orders").child(orderKey!!)
+                                                                .child("status").setValue(2)
+                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi booked.")
+
                                                     }
                                                     mView?.finish()
                                                 }
@@ -162,6 +165,8 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
         when (type) {
             0 -> message = "Lapangan tersedia"
             1 -> message = "Lapangan tidak tersedia"
+            2 -> message = "Lapangan berhasil dibooked"
+            3 -> message = "Pesanan ditolak"
         }
 
         val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, message)

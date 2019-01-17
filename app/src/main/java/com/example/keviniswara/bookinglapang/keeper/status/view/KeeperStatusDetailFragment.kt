@@ -37,12 +37,20 @@ class KeeperStatusDetailFragment : Fragment(), KeeperStatusDetailContract.View {
 
         mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId)
 
-        mBinding.availableButton.setOnClickListener(View.OnClickListener {
+        mBinding.availableButton.setOnClickListener({
             mPresenter.setField(orderId, 0)
         })
 
-        mBinding.notAvailableButton.setOnClickListener(View.OnClickListener {
+        mBinding.notAvailableButton.setOnClickListener({
             mPresenter.setField(orderId, 1)
+        })
+
+        mBinding.confirmButton.setOnClickListener({
+            mPresenter.setField(orderId,2)
+        })
+
+        mBinding.declineButton.setOnClickListener({
+            mPresenter.setField(orderId,3)
         })
         return mBinding.root
     }
@@ -88,13 +96,18 @@ class KeeperStatusDetailFragment : Fragment(), KeeperStatusDetailContract.View {
         fm?.popBackStack()
     }
 
-    override fun setButtonVisibility(visible: Boolean) {
-        if (visible) {
+    override fun setButtonVisibility(status:Int) {
+        mBinding.availableButton.visibility = View.GONE
+        mBinding.notAvailableButton.visibility = View.GONE
+        mBinding.confirmButton.visibility = View.GONE
+        mBinding.declineButton.visibility = View.GONE
+
+        if (status==0) {
             mBinding.availableButton.visibility = View.VISIBLE
             mBinding.notAvailableButton.visibility = View.VISIBLE
-        } else {
-            mBinding.availableButton.visibility = View.GONE
-            mBinding.notAvailableButton.visibility = View.GONE
+        } else if(status==4){
+            mBinding.confirmButton.visibility = View.VISIBLE
+            mBinding.declineButton.visibility = View.VISIBLE
         }
     }
 }

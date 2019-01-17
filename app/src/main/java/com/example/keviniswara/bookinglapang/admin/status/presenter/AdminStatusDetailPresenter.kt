@@ -61,7 +61,7 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
                             val dateInMillis = sdf.parse(order.date).time + (1440 * 60000) // Satu hari setelahnya
 
-                            orderRoot.child(orderSnapshot.key!!).child("status").setValue(2)
+                            orderRoot.child(orderSnapshot.key!!).child("status").setValue(4)
                             orderRoot.child(orderSnapshot.key!!).child("deadline").setValue(dateInMillis)
 
                             userEmaiFromOrder = order.customerEmail
@@ -89,12 +89,12 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                 if (order != null && order.orderId.equals(orderId)) {
                                                     if (userId != null) {
                                                         userRoot.child(userId).child("orders").child(orderKey!!)
-                                                                .child("status").setValue(2)
+                                                                .child("status").setValue(4)
 
                                                         userRoot.child(userId).child("orders").child(orderKey!!)
                                                                 .child("deadline").setValue(dateInMillis)
 
-                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi booked.")
+                                                        mView?.makeToast("Sukses mengubah status pesanan")
                                                         mView?.finish()
                                                     }else{
                                                         mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
@@ -168,10 +168,10 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                     if (userId != null && orderKey != null) {
                                                         userRoot.child(userId).child("orders").child(orderKey)
                                                                 .child("status").setValue(3)
-                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
+                                                        mView?.makeToast("Menunggu verifikasi terakhir dari keeper")
                                                         mView?.finish()
 
-                                                        Database.addXMinutesDeadline(orderSnapshot.key,userId,orderKey,1440)
+                                                        Database.setXMinutesDeadline(orderSnapshot.key,userId,orderKey,1440)
                                                     }else{
                                                         mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
                                                     }
