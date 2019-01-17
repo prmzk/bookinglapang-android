@@ -63,10 +63,9 @@ class KeeperStatusPresenter : KeeperStatusContract.Presenter {
                                             val order = orderSnapshot.getValue<Order>(Order::class.java)
 
                                             if (order != null && fieldId.equals(order.fieldId)) {
-                                                if (order.status == 0 ||
-                                                        ((order.status == 1 || order.status == 3)
-                                                                && order.deadline >= dateInMillis))
+                                                if (order.status == 0 || order.status != 0 && order.deadline >= dateInMillis) {
                                                     orders?.add(order)
+                                                }
                                             }
                                         }
                                     } else {

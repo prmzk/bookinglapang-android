@@ -29,4 +29,7 @@
     <string name="order_status_gagal">Gagal</string>
     <string name="order_status_n_transfer">Belum transfer</string>
     <string name="order_status_n_verifikasi">Belum verifikasi</string>
+    <string name="order_status_avaiable">ADA</string>
+    <string name="order_status_not_avaiable">TIDAK ADA</string>
+    <string name="order_status_n_pay">BELUM BAYAR</string>
 </resources>

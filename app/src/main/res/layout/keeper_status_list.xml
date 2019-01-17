@@ -74,43 +74,53 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
+
                 <TextView
+                    android:id="@+id/available"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ADA"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
                     android:background="@drawable/button_green"
                     android:padding="3dp"
-                    android:id="@+id/available"
-                    android:textColor="#ffffff"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:visibility="gone"/>
+                    android:text="@string/order_status_avaiable"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TIDAK ADA"
+                    android:text="@string/order_status_not_avaiable"
                     android:background="@drawable/button_red"
                     android:padding="3dp"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:id="@+id/not_available"
                     android:visibility="gone"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BELUM BAYAR"
+                    android:text="@string/order_status_n_pay"
                     android:background="@drawable/button_grey"
                     android:padding="3dp"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:id="@+id/not_paid"
                     android:visibility="gone"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="GAGAL"
+                    android:text="@string/order_status_gagal"
                     android:background="@drawable/button_red"
                     android:padding="3dp"
-                    android:textColor="#ffffff"
+                    android:textColor="@color/white"
                     android:id="@+id/failed"
+                    android:visibility="gone"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_status_sukses"
+                    android:background="@drawable/button_green"
+                    android:padding="3dp"
+                    android:textColor="@color/white"
+                    android:id="@+id/success"
                     android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
