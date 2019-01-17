@@ -1,6 +1,7 @@
 package com.example.keviniswara.bookinglapang.user.status.view
 
 import android.databinding.DataBindingUtil
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -90,28 +91,26 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
     }
 
     override fun initButton(status: String) {
-        when (status) {
+        mBinding.verificationButton.visibility = View.GONE
+        mBinding.verifiedButton.visibility = View.GONE
+        mBinding.paidButton.visibility = View.GONE
+        mBinding.payButton.visibility = View.GONE
+        mBinding.failed.visibility = View.GONE
+        mBinding.booked.visibility = View.GONE
+        mBinding.verificationButton.visibility = View.GONE
+
+        when(status){
             "0" -> {
-                mBinding.verificationButton.visibility = View.VISIBLE
-                mBinding.verifiedButton.visibility = View.GONE
                 mBinding.paidButton.visibility = View.VISIBLE
-                mBinding.payButton.visibility = View.GONE
-                mBinding.failed.visibility = View.GONE
+                mBinding.verificationButton.visibility = View.VISIBLE
             }
             "1" -> {
-                mBinding.verificationButton.visibility = View.GONE
                 mBinding.verifiedButton.visibility = View.VISIBLE
-                mBinding.paidButton.visibility = View.GONE
                 mBinding.payButton.visibility = View.VISIBLE
-                mBinding.failed.visibility = View.GONE
             }
-            "3" -> {
-                mBinding.verificationButton.visibility = View.GONE
-                mBinding.verifiedButton.visibility = View.GONE
-                mBinding.paidButton.visibility = View.GONE
-                mBinding.payButton.visibility = View.GONE
-                mBinding.failed.visibility = View.VISIBLE
-            }
+            "2" -> mBinding.booked.visibility = View.VISIBLE
+            "3" -> mBinding.failed.visibility = View.VISIBLE
+            "4" -> mBinding.waitingConfirmation.visibility = View.VISIBLE
         }
     }
 
