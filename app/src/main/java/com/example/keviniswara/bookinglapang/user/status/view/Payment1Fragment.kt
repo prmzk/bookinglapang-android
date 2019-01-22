@@ -6,13 +6,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentPayment1Binding
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.user.status.Payment1Contract
 import com.example.keviniswara.bookinglapang.user.status.presenter.Payment1Presenter
-import com.example.keviniswara.bookinglapang.utils.VerifyUtils
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 
 class Payment1Fragment: Fragment(), Payment1Contract.View {
 
@@ -60,7 +59,7 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
             verified = false
         }
 
-        if(!VerifyUtils.verifyPhone(mBinding.phoneNumber.text.toString())){
+        if(!TextUtils.verifyPhone(mBinding.phoneNumber.text.toString())){
             mBinding.phoneNumber.error = "Nomor telepon invalid"
             verified = false
         }

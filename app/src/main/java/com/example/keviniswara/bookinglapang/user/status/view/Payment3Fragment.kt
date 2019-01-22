@@ -11,6 +11,7 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentPayment3Binding
 import com.example.keviniswara.bookinglapang.user.status.Payment3Contract
 import com.example.keviniswara.bookinglapang.user.status.presenter.Payment3Presenter
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 
 class Payment3Fragment: Fragment(), Payment3Contract.View {
 
@@ -72,6 +73,6 @@ class Payment3Fragment: Fragment(), Payment3Contract.View {
     }
 
     override fun setTotal(total: String) {
-        mBinding.total.setText(total)
+        mBinding.total.setText(TextUtils.convertToCurrency(total))
     }
 }

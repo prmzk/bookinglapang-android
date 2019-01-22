@@ -4,7 +4,7 @@ import android.util.Log
 import com.example.keviniswara.bookinglapang.login.RegisterContract
 import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.utils.Database
-import com.example.keviniswara.bookinglapang.utils.VerifyUtils
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
@@ -28,12 +28,12 @@ class RegisterPresenter : RegisterContract.Presenter {
             password.isNullOrEmpty() -> nullErrorMessage("Password")
             confirmPassword.isNullOrEmpty() -> nullErrorMessage("Confirm password")
             password != confirmPassword -> confirmPasswordNotMatchErrorMessage()
-            !VerifyUtils.verifyPhone(phoneNumber) -> phoneNumberInvalidErrorMessage()
+            !TextUtils.verifyPhone(phoneNumber) -> phoneNumberInvalidErrorMessage()
         }
 
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty() && !name.isNullOrEmpty() &&
                 !phoneNumber.isNullOrEmpty() && !confirmPassword.isNullOrEmpty() &&
-                password == confirmPassword && VerifyUtils.verifyPhone(phoneNumber)) {
+                password == confirmPassword && TextUtils.verifyPhone(phoneNumber)) {
             mView!!.getAuth().createUserWithEmailAndPassword(email!!, password!!)
                     .addOnCompleteListener({ task ->
                         if (task.isSuccessful) {

@@ -16,6 +16,7 @@ import com.example.keviniswara.bookinglapang.databinding.FragmentSearchFieldBind
 import com.example.keviniswara.bookinglapang.databinding.NumberPickerDialogBinding
 import com.example.keviniswara.bookinglapang.user.home.SearchFieldContract
 import com.example.keviniswara.bookinglapang.user.home.presenter.SearchFieldPresenter
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -143,7 +144,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     override fun updatePrice(newPrice : String) {
-        mBinding.harga.text = "Harga : "+ newPrice
+        mBinding.harga.text = "Harga : "+ TextUtils.convertToCurrency(newPrice)
         if(validCheckReason == 1){
             addOrder()
         }
