@@ -22,9 +22,10 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
-class FirebaseMessagingService : FirebaseMessagingService() {
+class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+        super.onMessageReceived(remoteMessage)
 
         val usersReference: DatabaseReference = database.getReference("").child("users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -46,8 +47,18 @@ class FirebaseMessagingService : FirebaseMessagingService() {
 
         val messageTitle: String = remoteMessage?.notification?.title!!
         val messageBody: String = remoteMessage.notification?.body!!
+        val orderId: String = remoteMessage.data?.get("orderId").toString()
 
-        val mBuilder = NotificationCompat.Builder(this, "notify_001")
+        val mNotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(getString(R.string.channel_id),
+                    "Notification",
+                    NotificationManager.IMPORTANCE_DEFAULT)
+            mNotificationManager.createNotificationChannel(channel)
+        }
+
+        val mBuilder = NotificationCompat.Builder(this, getString(R.string.channel_id))
         var ii: Intent = Intent(this, LoginActivity::class.java)
         if (status == 0) {
             ii = Intent(this, KeeperActivity::class.java)
@@ -56,26 +67,20 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         } else if (status == 2) {
             ii = Intent(this, AdminActivity::class.java)
         }
-        val pendingIntent = PendingIntent.getActivity(this, 0, ii, 0)
+        ii.putExtra("orderId",orderId)
+        val pendingIntent = PendingIntent.getActivity(this, 0, ii, PendingIntent.FLAG_UPDATE_CURRENT)
         val bigText: NotificationCompat.BigTextStyle = NotificationCompat.BigTextStyle()
         bigText.setBigContentTitle(messageTitle)
         bigText.setSummaryText(messageBody)
 
         mBuilder.setContentIntent(pendingIntent)
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher_round)
+        mBuilder.setSmallIcon(R.drawable.logo)
         mBuilder.setContentTitle(messageTitle)
         mBuilder.setContentText(messageBody)
         mBuilder.setPriority(Notification.PRIORITY_MAX)
-        mBuilder.setStyle(bigText);
-
-        val mNotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(getString(R.string.channel_id),
-                    "Notification channel",
-                    NotificationManager.IMPORTANCE_DEFAULT)
-            mNotificationManager.createNotificationChannel(channel)
-        }
+        mBuilder.setStyle(bigText)
+        mBuilder.setChannelId(getString(R.string.channel_id))
+        mBuilder.setAutoCancel(true)
 
         mNotificationManager.notify(0, mBuilder.build())
     }

@@ -16,8 +16,20 @@ object TextUtils {
             return "Error";
         }else {
             try {
-                val num:Int = input.toInt();
-                return String.format("Rp. %,d", num).replace(",",".");
+                val num:Int = input.toInt()
+                return convertToCurrency(num)
+            }catch (e:Exception){
+                return "Error";
+            }
+        }
+    }
+
+    fun convertToCurrency(input: Int?):String{
+        if(input==null){
+            return "Error";
+        }else {
+            try {
+                return String.format("Rp. %,d", input).replace(",",".");
             }catch (e:Exception){
                 return "Error";
             }

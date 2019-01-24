@@ -14,6 +14,10 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.example.keviniswara.bookinglapang.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="Open_user" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
         </activity>
         <activity android:name="com.example.keviniswara.bookinglapang.login.view.LoginActivity">
@@ -21,13 +25,21 @@
         </activity>
         <activity android:name="com.example.keviniswara.bookinglapang.login.view.RegisterActivity">
 
+
         </activity>
         <activity android:name="com.example.keviniswara.bookinglapang.keeper.KeeperActivity"
             android:windowSoftInputMode="adjustPan|stateHidden">
-
+            <intent-filter>
+                <action android:name="Open_keeper" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity android:name="com.example.keviniswara.bookinglapang.admin.AdminActivity"
             android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="Open_admin" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
         </activity>
         <activity android:name="com.example.keviniswara.bookinglapang.SplashActivity" android:theme="@style/SplashTheme">
@@ -37,11 +49,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.keviniswara.bookinglapang.utils.FirebaseMessagingService">
+        <service android:name=".utils.MyFirebaseMessagingService" android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>
