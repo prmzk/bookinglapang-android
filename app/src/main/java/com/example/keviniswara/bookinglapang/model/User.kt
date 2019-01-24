@@ -10,5 +10,7 @@ class User(var name: String,
     constructor() : this("", "", "", -1, null, null, null, "")
 
     class Notification(var from: String = "",
-                       var message: String = "")
+                       var message: String = "",
+                       var orderId:String = "",
+                       var action:String="")
 }

@@ -3,21 +3,28 @@ package com.example.keviniswara.bookinglapang
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.util.TypedValue
+import android.view.View
 import android.widget.FrameLayout
 import com.example.keviniswara.bookinglapang.databinding.ActivityMainBinding
+import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.user.home.view.HomeFragment
 import com.example.keviniswara.bookinglapang.user.order.view.OrderFragment
 import com.example.keviniswara.bookinglapang.user.profile.view.ProfileFragment
+import com.example.keviniswara.bookinglapang.user.status.view.ActiveOrderDetailFragment
 import com.example.keviniswara.bookinglapang.user.status.view.StatusFragment
-import android.util.TypedValue
-import android.support.design.internal.BottomNavigationMenuView
-import android.support.v7.widget.Toolbar
-import android.view.View
 import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
+import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 
 class MainActivity : AppCompatActivity() {
 
@@ -79,8 +86,46 @@ class MainActivity : AppCompatActivity() {
             iconView.setLayoutParams(layoutParams)
         }
 
-        val fragment = HomeFragment()
-        addFragment(fragment)
+        val orderId = intent.getStringExtra("orderId")
+
+        if(orderId!=null){
+            val orderRef : DatabaseReference =  Database.database.getReference("orders")
+
+            orderRef.orderByChild("orderId").equalTo(orderId).addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onCancelled(p0: DatabaseError) {
+                    val fragment = HomeFragment()
+                    addFragment(fragment)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    val orderObj = p0.children.iterator().next().getValue(Order::class.java)
+
+                    val fragment = HomeFragment()
+                    addFragment(fragment)
+
+                    if(orderObj!=null){
+                        val arguments = Bundle()
+                        val fragment = ActiveOrderDetailFragment()
+                        arguments.putString("startHour", orderObj.startHour)
+                        arguments.putString("endHour", orderObj.endHour)
+                        arguments.putString("customerEmail", orderObj.customerEmail)
+                        arguments.putString("status", orderObj.status.toString())
+                        arguments.putString("date", orderObj.date)
+                        arguments.putString("sport", orderObj.sport)
+                        arguments.putString("fieldId", orderObj.fieldId)
+                        arguments.putLong("deadline", orderObj.deadline)
+                        arguments.putString("orderId", orderObj.orderId)
+                        fragment.arguments = arguments
+                        addFragment(fragment)
+                    }
+
+                }
+
+            })
+        }else{
+            val fragment = HomeFragment()
+            addFragment(fragment)
+        }
     }
 
     @SuppressLint("CommitTransaction")

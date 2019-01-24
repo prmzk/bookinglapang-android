@@ -21,6 +21,6 @@ interface KeeperStatusDetailContract {
                             , customerEmail: String, status: String, date: String
                             , fieldId: String)
         fun setField(orderId: String, type: Int)
-        fun sendNotificationToUser(email: String, type: Int)
+        fun sendNotificationToUser(email: String, type: Int,orderId: String)
     }
 }

@@ -38,4 +38,10 @@
     <string name="order_action_confirm">Konfirmasi</string>
     <string name="order_action_n_avaiable">Tidak ada</string>
     <string name="order_action_avaiable">Ada</string>
+    <string name="nama_pemilik_rekening">Nama Pemilik Rekening</string>
+    <string name="nama_pemesan">Nama Pemesan</string>
+    <string name="bank">Bank</string>
+    <string name="jumlah">Jumlah</string>
+    <string name="sudah_transfer">Sudah Transfer</string>
+    <string name="gagal">Gagal</string>
 </resources>

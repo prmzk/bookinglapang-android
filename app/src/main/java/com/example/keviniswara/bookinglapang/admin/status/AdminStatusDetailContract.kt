@@ -10,15 +10,19 @@ interface AdminStatusDetailContract {
         fun setStartHour(startHour: String)
         fun setEndHour(endHour: String)
         fun setDate(date: String)
+        fun setBank(bank: String)
+        fun setRekOwner(name :String)
+        fun setPrice(price: Int)
+        fun setOrderOwner(name:String)
         fun makeToast(text: String)
         fun finish()
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
-                            , fieldId: String)
+                            , fieldId: String, orderId: String, name: String)
         fun alreadyTransfer(orderId: String)
         fun failed(orderId: String)
-        fun sendNotificationToUser(userId: String, type: Int)
+        fun sendNotificationToUser(userId: String, type: Int, orderId: String)
     }
 }

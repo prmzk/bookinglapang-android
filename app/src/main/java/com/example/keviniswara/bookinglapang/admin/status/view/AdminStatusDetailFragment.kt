@@ -12,6 +12,7 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.admin.status.AdminStatusDetailContract
 import com.example.keviniswara.bookinglapang.admin.status.presenter.AdminStatusDetailPresenter
 import com.example.keviniswara.bookinglapang.databinding.FragmentAdminStatusDetailBinding
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 
 class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
 
@@ -34,8 +35,9 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
         val date = arguments!!.getString("date")
         val fieldId = arguments!!.getString("fieldId")
         val orderId = arguments!!.getString("orderId")
+        val customerName = arguments!!.getString("customerName")
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId)
+        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, orderId,customerName)
 
         mBinding.alreadyTransferButton.setOnClickListener(View.OnClickListener {
             mPresenter.alreadyTransfer(orderId)
@@ -69,6 +71,22 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
 
     override fun setDate(date: String) {
         mBinding.date.setText(date)
+    }
+
+    override fun setBank(bank: String) {
+        mBinding.bankDestination.setText(bank)
+    }
+
+    override fun setRekOwner(name: String) {
+        mBinding.rekeningOwner.setText(name)
+    }
+
+    override fun setPrice(price: Int) {
+        mBinding.transferPrice.setText(TextUtils.convertToCurrency(price));
+    }
+
+    override fun setOrderOwner(name: String) {
+        mBinding.orderUserName.setText(name)
     }
 
     override fun makeToast(text: String) {

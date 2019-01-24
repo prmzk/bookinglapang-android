@@ -22,7 +22,7 @@ interface SearchFieldContract {
         fun retrieveListOfFieldFromFirebase()
         fun retrieveListOfSportFromFirebase(fieldName: String)
         fun addOrderToFirebase()
-        fun sendOrderNotificationToFieldKeeper()
+        fun sendOrderNotificationToFieldKeeper(orderId:String)
         fun getPrice()
         fun checkTimeValid()
         fun getValidTime()

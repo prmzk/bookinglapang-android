@@ -136,7 +136,6 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     private fun addOrder(){
         mPresenter.addOrderToFirebase()
-        mPresenter.sendOrderNotificationToFieldKeeper()
         val ft = fragmentManager!!.beginTransaction()
         ft.replace(R.id.content, HomeFragment())
         ft.commit()

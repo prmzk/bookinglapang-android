@@ -41,7 +41,9 @@ object Database {
         root.child("orders").push().setValue(order)
     }
 
-    fun addNotification(uid: String, notification: User.Notification) {
+    fun addNotification(uid: String, notification: User.Notification, orderId:String, action:String) {
+        notification.orderId = orderId
+        notification.action = action
         root.child("users").child(uid).child("notifications").push().setValue(notification)
     }
 

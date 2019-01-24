@@ -31,13 +31,14 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         val startHour = arguments!!.getString("startHour")
         val endHour = arguments!!.getString("endHour")
         val customerEmail = arguments!!.getString("customerEmail")
+        val customerName = arguments!!.getString("customerName")
         val status = arguments!!.getString("status")
         val date = arguments!!.getString("date")
         val fieldId = arguments!!.getString("fieldId")
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
 
-        val order = Order(customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, orderId)
+        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, orderId)
 
         mBinding.buttonPay.setOnClickListener({
             if(checkInput()){
@@ -86,6 +87,7 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         arguments.putString("startHour", orderDetail.startHour)
         arguments.putString("endHour", orderDetail.endHour)
         arguments.putString("customerEmail", orderDetail.customerEmail)
+        arguments.putString("customerName",orderDetail.customerName)
         arguments.putString("status", orderDetail.status.toString())
         arguments.putString("date", orderDetail.date)
         arguments.putString("sport", orderDetail.sport)

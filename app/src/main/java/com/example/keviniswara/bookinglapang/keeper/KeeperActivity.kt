@@ -16,8 +16,15 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.ActivityKeeperBinding
 import com.example.keviniswara.bookinglapang.keeper.order.view.KeeperOrderFragment
 import com.example.keviniswara.bookinglapang.keeper.profile.view.KeeperProfileFragment
+import com.example.keviniswara.bookinglapang.keeper.status.view.KeeperStatusDetailFragment
 import com.example.keviniswara.bookinglapang.keeper.status.view.KeeperStatusFragment
+import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.utils.BottomNavigationViewHelper
+import com.example.keviniswara.bookinglapang.utils.Database
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 
 class KeeperActivity : AppCompatActivity() {
 
@@ -74,8 +81,47 @@ class KeeperActivity : AppCompatActivity() {
             iconView.setLayoutParams(layoutParams)
         }
 
-        val fragment = KeeperOrderFragment()
-        addFragment(fragment)
+
+        val orderId = intent.getStringExtra("orderId")
+
+        if(orderId!=null){
+            val orderRef :DatabaseReference =  Database.database.getReference("orders")
+
+            orderRef.orderByChild("orderId").equalTo(orderId).addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onCancelled(p0: DatabaseError) {
+                    val fragment = KeeperOrderFragment()
+                    addFragment(fragment)
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    val orderObj = p0.children.iterator().next().getValue(Order::class.java)
+
+                    val fragment = KeeperOrderFragment()
+                    addFragment(fragment)
+
+                    if(orderObj!=null){
+                        val arguments = Bundle()
+                        val fragment = KeeperStatusDetailFragment()
+                        arguments.putString("startHour", orderObj.startHour)
+                        arguments.putString("endHour", orderObj.endHour)
+                        arguments.putString("customerEmail", orderObj.customerEmail)
+                        arguments.putString("status", orderObj.status.toString())
+                        arguments.putString("date", orderObj.date)
+                        arguments.putString("sport", orderObj.sport)
+                        arguments.putString("fieldId", orderObj.fieldId)
+                        arguments.putString("orderId", orderObj.orderId)
+                        fragment.arguments = arguments
+                        addFragment(fragment)
+                    }
+
+                }
+
+            })
+        }else{
+            val fragment = KeeperOrderFragment()
+            addFragment(fragment)
+        }
+
     }
 
     @SuppressLint("CommitTransaction")

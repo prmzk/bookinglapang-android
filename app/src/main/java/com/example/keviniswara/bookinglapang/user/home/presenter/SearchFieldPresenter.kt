@@ -185,22 +185,24 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         val startHour = mView!!.getStartHour()
         val finishHour = mView!!.getFinishHour()
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
+        val userName = FirebaseAuth.getInstance().currentUser!!.displayName!!
         val uuid = UUID.randomUUID().toString().replace("-", "")
-        val order = Order(userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0, uuid)
+        val order = Order(userName, userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0, uuid)
         Database.addNewOrder(order)
+        sendOrderNotificationToFieldKeeper(uuid)
     }
 
-    override fun sendOrderNotificationToFieldKeeper() {
+    override fun sendOrderNotificationToFieldKeeper(orderId: String) {
         val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, "New field order")
-        sendNotificationDataToFieldKeeper(mView!!.getFieldName(), notification)
+        sendNotificationDataToFieldKeeper(mView!!.getFieldName(), notification,orderId)
     }
 
-    private fun sendNotificationDataToFieldKeeper(fieldName: String, notification: User.Notification) {
+    private fun sendNotificationDataToFieldKeeper(fieldName: String, notification: User.Notification, orderId:String) {
         usersReference.orderByChild("field").equalTo(fieldName).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 for(ds in dataSnapshot!!.children) {
                     val uid = ds.key
-                    Database.addNotification(uid!!, notification)
+                    Database.addNotification(uid!!, notification, orderId,"Open_keeper")
                 }
             }
 

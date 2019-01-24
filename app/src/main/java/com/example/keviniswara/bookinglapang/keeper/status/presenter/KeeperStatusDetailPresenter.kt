@@ -140,7 +140,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                 }
                                             }
 
-                                            sendNotificationToUser(userId!!, type)
+                                            sendNotificationToUser(userId!!, type,orderId)
                                         }
                                     }
                                 }
@@ -156,7 +156,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
     }
 
     // type = 0, status available, type = 1, status not available
-    override fun sendNotificationToUser(userId: String, type: Int) {
+    override fun sendNotificationToUser(userId: String, type: Int, orderId: String) {
 
         val usersReference: DatabaseReference = Database.database.getReference("users")
 
@@ -171,6 +171,6 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
         val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, message)
 
-        Database.addNotification(userId, notification)
+        Database.addNotification(userId, notification,orderId,"Open_user")
     }
 }
