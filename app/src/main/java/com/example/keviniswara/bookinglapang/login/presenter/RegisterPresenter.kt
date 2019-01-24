@@ -9,6 +9,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+
+
 
 class RegisterPresenter : RegisterContract.Presenter {
 
@@ -41,6 +46,11 @@ class RegisterPresenter : RegisterContract.Presenter {
                             //Add data to database
                             val user = User(name!!, email, phoneNumber!!, 1, null, null, null, tokenId!!)
                             Database.setUsers(user)
+                            val newUser = FirebaseAuth.getInstance().currentUser
+
+                            val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(name).build()
+
+                            newUser!!.updateProfile(profileUpdates)
                             mView!!.startMainActivity()
                         } else {
                             when {
