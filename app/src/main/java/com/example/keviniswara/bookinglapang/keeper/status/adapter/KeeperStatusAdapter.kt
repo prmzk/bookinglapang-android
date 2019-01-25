@@ -68,45 +68,29 @@ class KeeperStatusAdapter(private val orders: MutableList<Order?>?, fragment: Ke
             mBinding.startHour.text = order.startHour + ".00"
             mBinding.fieldId.text = order.fieldId
             mBinding.sport.text = order.sport
+
+            mBinding.available.visibility = View.GONE
+            mBinding.notAvailable.visibility = View.GONE
+            mBinding.notPaid.visibility = View.GONE
+            mBinding.failed.visibility = View.GONE
+            mBinding.success.visibility = View.GONE
+            mBinding.finalConfirm.visibility = View.GONE
+
             when {
                 order.status == 0 -> {
                     mBinding.available.visibility = View.VISIBLE
                     mBinding.notAvailable.visibility = View.VISIBLE
-                    mBinding.notPaid.visibility = View.GONE
-                    mBinding.failed.visibility = View.GONE
-                    mBinding.success.visibility = View.GONE
-                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 1 -> {
-                    mBinding.available.visibility = View.GONE
-                    mBinding.notAvailable.visibility = View.GONE
                     mBinding.notPaid.visibility = View.VISIBLE
-                    mBinding.failed.visibility = View.GONE
-                    mBinding.success.visibility = View.GONE
-                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 2 -> {
-                    mBinding.available.visibility = View.GONE
-                    mBinding.notAvailable.visibility = View.GONE
-                    mBinding.notPaid.visibility = View.GONE
-                    mBinding.failed.visibility = View.GONE
                     mBinding.success.visibility = View.VISIBLE
-                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 3 -> {
-                    mBinding.available.visibility = View.GONE
-                    mBinding.notAvailable.visibility = View.GONE
-                    mBinding.notPaid.visibility = View.GONE
                     mBinding.failed.visibility = View.VISIBLE
-                    mBinding.success.visibility = View.GONE
-                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 order.status == 4 -> {
-                    mBinding.available.visibility = View.GONE
-                    mBinding.notAvailable.visibility = View.GONE
-                    mBinding.notPaid.visibility = View.GONE
-                    mBinding.failed.visibility = View.GONE
-                    mBinding.success.visibility = View.GONE
                     mBinding.finalConfirm.visibility = View.VISIBLE
                 }
             }
