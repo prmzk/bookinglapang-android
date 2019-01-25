@@ -12,11 +12,13 @@ interface Payment2Contract {
         fun getBankName(): String
         fun setEndTime(endTime: String)
         fun setBeginTime(beginTime: String)
+        fun setTotal(total:String)
         fun initListOfBankDropdown(listOfBank: List<String>)
         fun moveToPayment3(orderDetail: Order, bankName: String)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun countTotalPayment(orderId: String, fieldName: String, sport: String, startHour: String, endHour: String, date: String)
         fun retrieveListOfBankFromFirebase()
     }
 }

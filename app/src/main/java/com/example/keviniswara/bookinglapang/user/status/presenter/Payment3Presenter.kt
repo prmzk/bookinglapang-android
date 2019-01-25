@@ -5,8 +5,6 @@ import com.example.keviniswara.bookinglapang.model.Bank
 import com.example.keviniswara.bookinglapang.model.Transaction
 import com.example.keviniswara.bookinglapang.user.status.Payment3Contract
 import com.google.firebase.database.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class Payment3Presenter: Payment3Contract.Presenter {
 
@@ -47,87 +45,20 @@ class Payment3Presenter: Payment3Contract.Presenter {
         })
     }
 
-    override fun countTotalPayment(orderId: String, fieldName: String, sport: String, startHour: String, endHour: String, date: String) {
-        transactionReference.addListenerForSingleValueEvent(object :ValueEventListener{
+    override fun getPayment(orderId: String) {
+        transactionReference.child(orderId).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
 
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                var alreadyComputed = false
-
-                if(p0.hasChild(orderId)){
-                    if(p0.child(orderId).hasChild("payment")){
-                        val trans = p0.child(orderId).getValue(Transaction::class.java)
-
-                        if (trans != null) {
-                            mView!!.setTotal(trans.payment.toString())
-                            alreadyComputed = true
-                        }
-                    }
-
+                val trans = p0.getValue(Transaction::class.java)
+                if (trans != null) {
+                    mView?.setTotal(trans.payment.toString())
                 }
-
-                if(!alreadyComputed){
-                    val day = dateToIntDay(date)
-                    var total = 0
-                    val start = startHour.toInt()
-                    val end = endHour.toInt()
-                    priceReference.child(fieldName).child(sport).child(day.toString()).addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(p0: DataSnapshot) {
-                            for (ds in p0!!.children) {
-                                if (ds.key!!.toInt() in start until end) {
-                                    total += ds.getValue(String::class.java)!!.toInt()
-                                }
-                            }
-
-                            val r = Random()
-                            val randomInt = r.nextInt(999) + 1
-
-                            total += randomInt
-
-                            mView!!.setTotal(total.toString())
-                            addTotalPaymentToTransaction(total.toLong(), orderId)
-                        }
-
-                        override fun onCancelled(p0: DatabaseError) {
-
-                        }
-                    })
-                }
-
-
             }
 
         })
-
-
-    }
-
-    private fun dateToIntDay(dateString: String) : Int {
-        val date = SimpleDateFormat("dd/MM/yy", Locale.US).parse(dateString)
-        val calendar = Calendar.getInstance()
-        calendar.time = date
-        return calendar.get(Calendar.DAY_OF_WEEK)
-    }
-
-    private fun intToDay(day: Int) : String {
-        return when (day) {
-            1 -> "Minggu"
-            2 -> "Senin"
-            3 -> "Selasa"
-            4 -> "Rabu"
-            5 -> "Kamis"
-            6 -> "Jumat"
-            7 -> "Sabtu"
-            else -> {
-                "Minggu"
-            }
-        }
-    }
-
-    private fun addTotalPaymentToTransaction(total: Long, orderId: String) {
-        transactionReference.child(orderId).child("payment").setValue(total)
     }
 
     override fun addBankToTransaction(bank: Bank, orderId: String) {

@@ -12,6 +12,7 @@ import com.example.keviniswara.bookinglapang.databinding.FragmentPayment2Binding
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.user.status.Payment2Contract
 import com.example.keviniswara.bookinglapang.user.status.presenter.Payment2Presenter
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 
 class Payment2Fragment : Fragment(), Payment2Contract.View {
 
@@ -38,6 +39,8 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
 
+        mPresenter.countTotalPayment(orderId, fieldId, sport, startHour, endHour, date)
+
         val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, orderId)
 
         setField(fieldId)
@@ -57,6 +60,10 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
 
     override fun initPresenter(): Payment2Contract.Presenter {
         return Payment2Presenter()
+    }
+
+    override fun setTotal(total: String) {
+        mBinding.totalPrice.setText(TextUtils.convertToCurrency(total))
     }
 
     override fun setField(fieldName: String) {

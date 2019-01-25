@@ -39,7 +39,7 @@ class Payment3Fragment: Fragment(), Payment3Contract.View {
 
         mPresenter.getBankDetail(bankName, orderId)
 
-        mPresenter.countTotalPayment(orderId, fieldId, sport, startHour, endHour, date)
+        mPresenter.getPayment(orderId)
 
         mBinding.buttonPay.setOnClickListener({
             startHomeFragment()

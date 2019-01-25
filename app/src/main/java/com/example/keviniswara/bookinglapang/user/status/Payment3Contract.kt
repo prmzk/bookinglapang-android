@@ -14,7 +14,7 @@ interface Payment3Contract {
     }
     interface Presenter : BasePresenter<View> {
         fun getBankDetail(bankName: String, orderId: String)
-        fun countTotalPayment(orderId: String, fieldName: String, sport: String, startHour: String, endHour: String, date: String)
         fun addBankToTransaction(bank: Bank, orderId: String)
+        fun getPayment(orderId: String)
     }
 }
