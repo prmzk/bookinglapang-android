@@ -7,6 +7,7 @@ import com.example.keviniswara.bookinglapang.admin.AdminActivity
 import com.example.keviniswara.bookinglapang.keeper.KeeperActivity
 import com.example.keviniswara.bookinglapang.login.view.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.*
 
 class SplashActivity : AppCompatActivity() {
@@ -29,8 +30,15 @@ class SplashActivity : AppCompatActivity() {
             usersReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val status = p0?.child("status")?.getValue(Int::class.java)
+                    val name = p0?.child("name").getValue(String::class.java)
 
                     if (status != null) {
+                        val newUser = FirebaseAuth.getInstance().currentUser
+
+                        val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(name).build()
+
+                        newUser!!.updateProfile(profileUpdates)
+
                         moveTo(status)
                     } else {
                         moveTo(-1)

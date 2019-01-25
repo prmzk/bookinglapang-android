@@ -105,6 +105,7 @@ class KeeperActivity : AppCompatActivity() {
                         arguments.putString("startHour", orderObj.startHour)
                         arguments.putString("endHour", orderObj.endHour)
                         arguments.putString("customerEmail", orderObj.customerEmail)
+                        arguments.putString("customerName",orderObj.customerName)
                         arguments.putString("status", orderObj.status.toString())
                         arguments.putString("date", orderObj.date)
                         arguments.putString("sport", orderObj.sport)

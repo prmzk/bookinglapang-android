@@ -72,6 +72,7 @@ class StatusFragment : Fragment(), StatusContract.View {
         arguments.putString("startHour", orderDetail.startHour)
         arguments.putString("endHour", orderDetail.endHour)
         arguments.putString("customerEmail", orderDetail.customerEmail)
+        arguments.putString("customerName",orderDetail.customerName)
         arguments.putString("status", orderDetail.status.toString())
         arguments.putString("date", orderDetail.date)
         arguments.putString("sport", orderDetail.sport)
