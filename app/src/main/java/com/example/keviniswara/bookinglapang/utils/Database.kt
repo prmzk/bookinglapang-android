@@ -48,7 +48,15 @@ object Database {
     }
 
     fun addTransaction(orderId: String, transaction: Transaction) {
-        root.child("transactions").child(orderId).setValue(transaction)
+        var transactionUpdate:MutableMap<String,Any> = mutableMapOf()
+
+        transactionUpdate.put("name",transaction.name)
+        transactionUpdate.put("phoneNumber",transaction.phoneNumber)
+        if(transaction.payment!=0){
+            transactionUpdate.put("payment",transaction.payment)
+        }
+
+        root.child("transactions").child(orderId).updateChildren(transactionUpdate.toMap())
     }
 
     fun addServerDate() {
