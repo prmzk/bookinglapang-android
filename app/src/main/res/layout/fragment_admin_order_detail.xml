@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".user.order.view.OrderFragment">
@@ -165,6 +165,52 @@
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text"/>
                 </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="@string/nama_pemesan"
+                        android:textColor="@color/colorPrimary" />
+
+                    <EditText
+                        android:id="@+id/nama_pemesan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/form_input_background"
+                        android:layout_weight="3"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
+                        android:editable="false"
+                        android:paddingLeft="@dimen/befote_text"
+                        android:paddingRight="@dimen/befote_text"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:text="Nomor Telepon"
+                        android:textColor="@color/colorPrimary" />
+
+                    <EditText
+                        android:id="@+id/no_telp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/form_input_background"
+                        android:layout_weight="3"
+                        android:cursorVisible="true"
+                        android:textCursorDrawable="@null"
+                        android:editable="false"
+                        android:paddingLeft="@dimen/befote_text"
+                        android:paddingRight="@dimen/befote_text"/>
+                </TableRow>
             </TableLayout>
 
             <Button
@@ -172,6 +218,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/button_green"
                 android:minHeight="20dp"
                 android:padding="2dp"
@@ -179,5 +226,5 @@
                 android:textColor="#ffffff" />
         </LinearLayout>
 
-    </FrameLayout>
+    </ScrollView>
 </layout>

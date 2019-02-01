@@ -31,8 +31,9 @@ class KeeperOrderDetailFragment : Fragment(), KeeperOrderDetailContract.View {
         val status = arguments!!.getString("status")
         val date = arguments!!.getString("date")
         val fieldId = arguments!!.getString("fieldId")
+        val orderId = arguments!!.getString("orderId")
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId)
+        mPresenter.initOrderDetail(orderId, sport, startHour, endHour, customerEmail, status, date, fieldId)
 
         return mBinding.root
     }
@@ -59,5 +60,13 @@ class KeeperOrderDetailFragment : Fragment(), KeeperOrderDetailContract.View {
 
     override fun setDate(date: String) {
         mBinding.date.setText(date)
+    }
+
+    override fun setCustName(name: String) {
+        mBinding.namaPemesan.setText(name)
+    }
+
+    override fun setCustNum(number: String) {
+        mBinding.noTelp.setText(number)
     }
 }

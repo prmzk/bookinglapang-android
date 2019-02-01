@@ -89,6 +89,7 @@ class AdminOrderFragment: Fragment(), AdminOrderContract.View {
         arguments.putString("date", orderDetail.date)
         arguments.putString("sport", orderDetail.sport)
         arguments.putString("fieldId", orderDetail.fieldId)
+        arguments.putString("orderId",orderDetail.orderId)
         fragment.arguments = arguments
         val ft = fragmentManager!!.beginTransaction()
         ft.replace(R.id.content, fragment).addToBackStack(fragment

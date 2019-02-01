@@ -3,6 +3,7 @@ package com.example.keviniswara.bookinglapang.admin.order.view
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class AdminOrderDetailFragment : Fragment(), AdminOrderDetailContract.View {
 
         mPresenter.bind(this)
 
+        val orderId = arguments!!.getString("orderId")
         val sport = arguments!!.getString("sport")
         val startHour = arguments!!.getString("startHour")
         val endHour = arguments!!.getString("endHour")
@@ -32,7 +34,7 @@ class AdminOrderDetailFragment : Fragment(), AdminOrderDetailContract.View {
         val date = arguments!!.getString("date")
         val fieldId = arguments!!.getString("fieldId")
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId)
+        mPresenter.initOrderDetail(orderId, sport, startHour, endHour, customerEmail, status, date, fieldId)
 
         return mBinding.root
     }
@@ -59,5 +61,13 @@ class AdminOrderDetailFragment : Fragment(), AdminOrderDetailContract.View {
 
     override fun setDate(date: String) {
         mBinding.date.setText(date)
+    }
+
+    override fun setOrderName(name: String) {
+        mBinding.namaPemesan.setText(name);
+    }
+
+    override fun setOrderNum(num: String) {
+        mBinding.noTelp.setText(num)
     }
 }
