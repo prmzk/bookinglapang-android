@@ -47,6 +47,21 @@ object Database {
         root.child("users").child(uid).child("notifications").push().setValue(notification)
     }
 
+    fun sendNotificationDataToFieldKeeper(fieldName: String, notification: User.Notification, orderId:String) {
+        root.child("users").orderByChild("field").equalTo(fieldName).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(ds in dataSnapshot!!.children) {
+                    val uid = ds.key
+                    Database.addNotification(uid!!, notification, orderId,"Open_keeper")
+                }
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
+    }
+
     fun addTransaction(orderId: String, transaction: Transaction) {
         var transactionUpdate:MutableMap<String,Any> = mutableMapOf()
 

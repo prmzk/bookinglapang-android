@@ -44,4 +44,8 @@
     <string name="jumlah">Jumlah</string>
     <string name="sudah_transfer">Sudah Transfer</string>
     <string name="gagal">Gagal</string>
+    <string name="order_status_waiting_confirm">Menunggu konfirmasi</string>
+    <string name="order_status_booked">Booked</string>
+    <string name="order_action_pay">Bayar</string>
+    <string name="order_status_verified">Sudah Terverifikasi</string>
 </resources>

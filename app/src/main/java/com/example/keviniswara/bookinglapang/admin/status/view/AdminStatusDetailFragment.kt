@@ -1,6 +1,7 @@
 package com.example.keviniswara.bookinglapang.admin.status.view
 
 import android.databinding.DataBindingUtil
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -39,6 +40,8 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
 
         mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, orderId,customerName)
 
+        setButtonVisibility(status)
+
         mBinding.alreadyTransferButton.setOnClickListener(View.OnClickListener {
             mPresenter.alreadyTransfer(orderId)
         })
@@ -47,6 +50,23 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
             mPresenter.failed(orderId)
         })
         return mBinding.root
+    }
+
+    private fun setButtonVisibility(status:String){
+        mBinding.failedButton.visibility = View.GONE
+        mBinding.alreadyTransferButton.visibility = View.GONE
+        mBinding.waitingConfirmation.visibility = View.GONE
+
+        when(status){
+            "1" -> {
+                mBinding.failedButton.visibility = View.VISIBLE
+                mBinding.alreadyTransferButton.visibility = View.VISIBLE
+            }
+            "4" -> {
+                mBinding.waitingConfirmation.visibility = View.VISIBLE
+            }
+        }
+
     }
 
     override fun initPresenter(): AdminStatusDetailPresenter {

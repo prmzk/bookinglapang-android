@@ -194,22 +194,7 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
 
     override fun sendOrderNotificationToFieldKeeper(orderId: String) {
         val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, "New field order")
-        sendNotificationDataToFieldKeeper(mView!!.getFieldName(), notification,orderId)
-    }
-
-    private fun sendNotificationDataToFieldKeeper(fieldName: String, notification: User.Notification, orderId:String) {
-        usersReference.orderByChild("field").equalTo(fieldName).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for(ds in dataSnapshot!!.children) {
-                    val uid = ds.key
-                    Database.addNotification(uid!!, notification, orderId,"Open_keeper")
-                }
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-        })
+        Database.sendNotificationDataToFieldKeeper(mView!!.getFieldName(), notification,orderId)
     }
 
     private fun dateToIntDay(dateString: String) : Int {

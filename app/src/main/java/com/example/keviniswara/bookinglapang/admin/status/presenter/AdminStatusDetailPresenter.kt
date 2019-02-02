@@ -140,6 +140,8 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
                                                 }
                                             }
                                             sendNotificationToUser(userId!!, 0, orderId)
+                                            val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, "Pembayaran dikonfirmasi")
+                                            Database.sendNotificationDataToFieldKeeper(order.fieldId,notification,orderId)
                                         }
                                     }
                                 }

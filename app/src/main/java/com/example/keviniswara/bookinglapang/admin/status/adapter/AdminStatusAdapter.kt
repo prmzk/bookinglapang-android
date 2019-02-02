@@ -75,7 +75,7 @@ class AdminStatusAdapter (private val orders: MutableList<Order?>?, fragment: Ad
 
                         val dateInMillis: Long = dateSnapshot?.value as Long
 
-                        if (order != null && order!!.status == 1 &&  order!!.deadline >= dateInMillis) {
+                        if (order != null && (order!!.status == 1 || order!!.status == 4) &&  order!!.deadline >= dateInMillis) {
                             mFragment.moveToDetail(order!!)
                         } else {
                             mFragment.makeToast("Pesanan sudah kadaluarsa")
@@ -94,6 +94,17 @@ class AdminStatusAdapter (private val orders: MutableList<Order?>?, fragment: Ad
             mBinding.startHour.text = order.startHour + ".00"
             mBinding.fieldId.text = order.fieldId
             mBinding.sport.text = order.sport
+
+            when(order.status){
+                1->{
+                    mBinding.available.visibility = View.VISIBLE
+                    mBinding.finalConfirm.visibility = View.GONE
+                }
+                4->{
+                    mBinding.available.visibility = View.GONE
+                    mBinding.finalConfirm.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
