@@ -53,7 +53,7 @@ class AdminStatusPresenter : AdminStatusContract.Presenter {
 
                                 val order = orderSnapshot.getValue<Order>(Order::class.java)
 
-                                if (order != null && (order.status == 1 || order.status == 4) &&  order.deadline >= dateInMillis) {
+                                if (order != null && (((order.status == 1 || order.status == 4) &&  order.deadline >= dateInMillis) || (order.status == 0))) {
                                     orders?.add(order)
                                 }
                             }

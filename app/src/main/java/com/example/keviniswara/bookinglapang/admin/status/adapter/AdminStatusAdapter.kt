@@ -95,13 +95,19 @@ class AdminStatusAdapter (private val orders: MutableList<Order?>?, fragment: Ad
             mBinding.fieldId.text = order.fieldId
             mBinding.sport.text = order.sport
 
+            mBinding.finalConfirm.visibility = View.GONE
+            mBinding.available.visibility = View.GONE
+
+
             when(order.status){
+                0->{
+                    mBinding.checkAda.visibility = View.VISIBLE
+                    mBinding.checkNAda.visibility = View.VISIBLE
+                }
                 1->{
                     mBinding.available.visibility = View.VISIBLE
-                    mBinding.finalConfirm.visibility = View.GONE
                 }
                 4->{
-                    mBinding.available.visibility = View.GONE
                     mBinding.finalConfirm.visibility = View.VISIBLE
                 }
             }
