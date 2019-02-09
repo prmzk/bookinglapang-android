@@ -74,20 +74,43 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/check_ada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/button_green"
+                    android:padding="3dp"
+                    android:text="@string/order_status_avaiable"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/order_status_not_avaiable"
+                    android:background="@drawable/button_red"
+                    android:padding="3dp"
+                    android:textColor="@color/white"
+                    android:id="@+id/check_n_ada"
+                    android:visibility="gone"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_status_n_verifikasi"
                     android:background="@drawable/button_grey"
                     android:padding="3dp"
-                    android:id="@+id/available"/>
+                    android:id="@+id/available"
+                    android:visibility="gone"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order_status_final_confirmation"
-                    android:background="@drawable/button_grey"
+                    android:background="@drawable/button_yellow"
                     android:padding="3dp"
-                    android:id="@+id/finalConfirm"/>
+                    android:id="@+id/finalConfirm"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
 
