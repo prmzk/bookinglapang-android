@@ -34,6 +34,8 @@ class AdminStatusFragment: Fragment(), AdminStatusContract.View {
         mPresenter.bind(this)
 
         linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
 
         mRecyclerView = mBinding.rvOrder
 

@@ -39,6 +39,8 @@ class StatusFragment : Fragment(), StatusContract.View {
         mPresenter.retrieveOrderList()
 
         linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
 
         mRecyclerView = mBinding.rvStatus
 
