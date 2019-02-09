@@ -172,5 +172,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
         val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, message)
 
         Database.addNotification(userId, notification,orderId,"Open_user")
+
+        Database.sendNotificationDataToAdmin(notification,orderId)
     }
 }

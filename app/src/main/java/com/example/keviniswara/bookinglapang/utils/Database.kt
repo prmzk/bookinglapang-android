@@ -5,7 +5,6 @@ import com.example.keviniswara.bookinglapang.model.*
 import com.example.keviniswara.bookinglapang.model.Transaction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlin.collections.HashMap
 
 
 object Database {
@@ -58,6 +57,21 @@ object Database {
 
             override fun onCancelled(p0: DatabaseError) {
 
+            }
+        })
+    }
+
+    fun sendNotificationDataToAdmin(notification: User.Notification, orderId: String){
+        root.child("users").orderByChild("status").equalTo(2.toDouble()).addListenerForSingleValueEvent(object :ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(ds in dataSnapshot!!.children) {
+                    val uid = ds.key
+                    Database.addNotification(uid!!, notification, orderId,"Open_admin")
+                }
             }
         })
     }

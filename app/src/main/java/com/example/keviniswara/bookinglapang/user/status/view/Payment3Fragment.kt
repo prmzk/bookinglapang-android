@@ -9,9 +9,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentPayment3Binding
+import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.user.status.Payment3Contract
 import com.example.keviniswara.bookinglapang.user.status.presenter.Payment3Presenter
+import com.example.keviniswara.bookinglapang.utils.Database
 import com.example.keviniswara.bookinglapang.utils.TextUtils
+import com.google.firebase.auth.FirebaseAuth
 
 class Payment3Fragment: Fragment(), Payment3Contract.View {
 
@@ -42,6 +45,8 @@ class Payment3Fragment: Fragment(), Payment3Contract.View {
         mPresenter.getPayment(orderId)
 
         mBinding.buttonPay.setOnClickListener({
+            val notif = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, "Pembayaran dikirim user")
+            Database.sendNotificationDataToAdmin(notif,orderId)
             startHomeFragment()
             showToastMessage("Silakan tunggu konfirmasi dari administrator.")
         })

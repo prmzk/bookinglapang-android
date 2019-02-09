@@ -189,12 +189,14 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         val uuid = UUID.randomUUID().toString().replace("-", "")
         val order = Order(userName, userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0, uuid)
         Database.addNewOrder(order)
-        sendOrderNotificationToFieldKeeper(uuid)
+        sendOrderNotification(uuid)
+
     }
 
-    override fun sendOrderNotificationToFieldKeeper(orderId: String) {
+    override fun sendOrderNotification(orderId: String) {
         val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, "New field order")
         Database.sendNotificationDataToFieldKeeper(mView!!.getFieldName(), notification,orderId)
+        Database.sendNotificationDataToAdmin(notification, orderId)
     }
 
     private fun dateToIntDay(dateString: String) : Int {
