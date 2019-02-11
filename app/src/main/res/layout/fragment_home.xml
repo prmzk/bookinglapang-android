@@ -23,11 +23,11 @@
             android:src="@drawable/logo_cari_lapangan" />
 
         <ImageView
-            android:id="@+id/button_cari_lawan"
+            android:id="@+id/button_help"
             android:layout_width="215dp"
             android:layout_height="215dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/logo_cari_lawan" />
+            android:src="@drawable/logo_bantuan" />
 
         <TextView
             android:id="@+id/lalala"
