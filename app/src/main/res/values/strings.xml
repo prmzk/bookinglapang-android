@@ -48,4 +48,6 @@
     <string name="order_status_booked">Booked</string>
     <string name="order_action_pay">Bayar</string>
     <string name="order_status_verified">Sudah Terverifikasi</string>
+    <string name="order_status_deadline_timer_empty">Maksimal pembayaran : … menit</string>
+    <string name="order_status_deadline_fill">Maksimal pembayaran : %d menit</string>
 </resources>

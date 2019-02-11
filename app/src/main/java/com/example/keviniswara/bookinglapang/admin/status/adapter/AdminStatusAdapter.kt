@@ -75,7 +75,7 @@ class AdminStatusAdapter (private val orders: MutableList<Order?>?, fragment: Ad
 
                         val dateInMillis: Long = dateSnapshot?.value as Long
 
-                        if (order != null && (order!!.status == 1 || order!!.status == 4) &&  order!!.deadline >= dateInMillis) {
+                        if (order != null && (((order!!.status == 1 || order!!.status == 4) &&  order!!.deadline >= dateInMillis) || order!!.status==0)) {
                             mFragment.moveToDetail(order!!)
                         } else {
                             mFragment.makeToast("Pesanan sudah kadaluarsa")

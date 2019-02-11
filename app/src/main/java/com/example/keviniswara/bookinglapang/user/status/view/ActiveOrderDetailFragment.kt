@@ -12,12 +12,36 @@ import com.example.keviniswara.bookinglapang.databinding.FragmentActiveOrderDeta
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.user.status.ActiveOrderDetailContract
 import com.example.keviniswara.bookinglapang.user.status.presenter.ActiveOrderDetailPresenter
+import android.os.Handler
+import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_active_order_detail.*
+
 
 class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
 
     private lateinit var mPresenter: ActiveOrderDetailContract.Presenter
 
     private lateinit var mBinding: FragmentActiveOrderDetailBinding
+
+    private var orderDeadline:Long = 0
+
+    private val mHandler = Handler()
+    val mHandlerTask: Runnable = object : Runnable {
+        override fun run() {
+            updateTime()
+            mHandler.postDelayed(this, 1000*60)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mHandler.removeCallbacks(mHandlerTask)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mHandlerTask.run()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -37,6 +61,8 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
         val fieldId = arguments!!.getString("fieldId")
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
+
+        orderDeadline = deadline
 
         val order = Order(customerName,customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, orderId)
 
@@ -108,6 +134,7 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
             "1" -> {
                 mBinding.verifiedButton.visibility = View.VISIBLE
                 mBinding.payButton.visibility = View.VISIBLE
+                mBinding.deadlineText.visibility = View.VISIBLE
             }
             "2" -> mBinding.booked.visibility = View.VISIBLE
             "3" -> mBinding.failed.visibility = View.VISIBLE
@@ -134,5 +161,20 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
         ft?.replace(R.id.content, fragment)?.addToBackStack(fragment
                 .javaClass.simpleName)
         ft?.commit()
+    }
+
+    private fun updateTime(){
+        val currTime = System.currentTimeMillis()
+        if(orderDeadline!=0.toLong()){
+            val diffTime = orderDeadline - currTime
+            if(diffTime<0){
+                Toast.makeText(activity, "Waktu pembayaran habis",Toast.LENGTH_LONG).show()
+                fragmentManager!!.popBackStack()
+            }else{
+                val minutesDiff = diffTime/60000
+                mBinding.deadlineText.setText(String.format(getString(R.string.order_status_deadline_fill),minutesDiff))
+            }
+
+        }
     }
 }
