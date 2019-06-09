@@ -116,9 +116,12 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
                 val sdf = SimpleDateFormat("dd/MM/yy", Locale.US)
                 val date = sdf.parse(mBinding.date.text.toString().trim())
 
-                if(System.currentTimeMillis()<(date.time + (hourStart * 3600000))){
+                if((date.time - System.currentTimeMillis())/(3600*1000*24) > 60){
+                    mBinding.date.error = ""
+                    showToastMessage("Waktu pemesanan maksimal 60 hari ke depan")
+                }else if(System.currentTimeMillis()<(date.time + (hourStart * 3600000))) {
                     mPresenter.checkTimeValid()
-                }else{
+                }else {
                     mBinding.date.error = ""
                     showToastMessage("Waktu harus lebih dari sekarang")
                 }
