@@ -130,6 +130,7 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
         mBinding.failed.visibility = View.GONE
         mBinding.booked.visibility = View.GONE
         mBinding.verificationButton.visibility = View.GONE
+        mBinding.deadlineText.visibility = View.GONE
 
         when(status){
             "0" -> {
