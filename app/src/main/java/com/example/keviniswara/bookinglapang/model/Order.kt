@@ -9,7 +9,8 @@ class Order(var customerName:String,
             var startHour: String,
             var status: Int,
             var deadline: Long,
+            var feedback: String = "",
             var orderId: String) {
     constructor() : this("","", "", "", "", "", "",
-            -1, 0, "")
+            -1, 0, "","")
 }

@@ -38,7 +38,7 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
 
-        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, orderId)
+        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, "", orderId)
 
         mBinding.buttonPay.setOnClickListener({
             if(checkInput()){

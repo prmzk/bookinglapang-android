@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".user.status.view.StatusFragment">
@@ -48,6 +48,7 @@
             </LinearLayout>
 
             <TableLayout
+                android:layout_marginBottom="60dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -214,6 +215,37 @@
 
                 <TableRow
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="15dp"
+                            android:text="Feedback"
+                            android:textColor="@color/colorPrimary" />
+
+                        <EditText
+                            android:importantForAutofill="no"
+                            android:id="@+id/feedback"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="3"
+                            android:background="@drawable/form_input_background"
+                            android:cursorVisible="true"
+                            android:inputType="textMultiLine"
+                            android:paddingLeft="@dimen/befote_text"
+                            android:paddingRight="@dimen/befote_text" />
+                    </LinearLayout>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <Button
@@ -275,6 +307,6 @@
 
         </LinearLayout>
 
-    </FrameLayout>
+    </ScrollView>
 
 </layout>

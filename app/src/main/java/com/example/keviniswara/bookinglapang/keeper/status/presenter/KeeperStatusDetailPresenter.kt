@@ -16,7 +16,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
     val userRoot: DatabaseReference = Database.database.getReference("users")
 
-    override fun initOrderDetail(sport: String, startHour: String, endHour: String, customerEmail: String, status: String, date: String, fieldId: String) {
+    override fun initOrderDetail(sport: String, startHour: String, endHour: String, customerEmail: String, status: String, date: String, fieldId: String, feedback: String) {
 
         userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
@@ -39,6 +39,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                         mView?.setDate(date)
                         mView?.setFieldId(fieldId)
                         mView?.setSport(sport)
+                        mView?.setFeedback(feedback)
                         if (endHour.toInt() < 10) mView?.setEndHour("0$endHour.00") else mView?.setEndHour("$endHour.00")
                         if (startHour.toInt() < 10) mView?.setStartHour("0$startHour.00") else mView?.setStartHour("$startHour.00")
                         if (userName != null) mView?.setUserName(userName)
@@ -60,7 +61,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
     }
 
     // type = 0, status available, type = 1, status not available, type = 2, confirm final
-    override fun setField(orderId: String, type: Int) {
+    override fun setField(orderId: String, type: Int, feedback: String) {
 
         var userEmaiFromOrder: String
 
@@ -85,8 +86,14 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
                             if (type == 0) {
                                 orderRoot.child(orderSnapshot.key!!).child("status").setValue(1)
+                                if(feedback!=""){
+                                    orderRoot.child(orderSnapshot.key!!).child("feedback").setValue(feedback)
+                                }
                             } else if (type == 1 || type == 3) {
                                 orderRoot.child(orderSnapshot.key!!).child("status").setValue(3)
+                                if(feedback!=""){
+                                    orderRoot.child(orderSnapshot.key!!).child("feedback").setValue(feedback)
+                                }
                             } else if (type == 2){
                                 orderRoot.child(orderSnapshot.key!!).child("status").setValue(2)
                             }
@@ -120,6 +127,10 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                     if (type == 0) {
                                                         userRoot.child(userId!!).child("orders").child(orderKey!!)
                                                                 .child("status").setValue(1)
+                                                        if(feedback!=""){
+                                                            userRoot.child(userId!!).child("orders").child(orderKey!!)
+                                                                    .child("feedback").setValue(feedback)
+                                                        }
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
 
                                                         Database.setXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 30)
@@ -127,6 +138,10 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                                                     } else if (type == 1 || type == 3) {
                                                         userRoot.child(userId!!).child("orders").child(orderKey!!)
                                                                 .child("status").setValue(3)
+                                                        if(feedback!=""){
+                                                            userRoot.child(userId!!).child("orders").child(orderKey!!)
+                                                                    .child("feedback").setValue(feedback)
+                                                        }
                                                         mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
 
                                                         Database.setXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 1440)

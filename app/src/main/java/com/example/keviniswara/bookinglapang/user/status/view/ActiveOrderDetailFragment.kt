@@ -64,7 +64,7 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
 
         orderDeadline = deadline
 
-        val order = Order(customerName,customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, orderId)
+        val order = Order(customerName,customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, "", orderId)
 
         initButton(status)
 

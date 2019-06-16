@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,25 +35,34 @@ class KeeperStatusDetailFragment : Fragment(), KeeperStatusDetailContract.View {
         val date = arguments!!.getString("date")
         val fieldId = arguments!!.getString("fieldId")
         val orderId = arguments!!.getString("orderId")
+        val feedback = arguments!!.getString("feedback")
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId)
+        if(status!="0"){
+            mBinding.feedback.keyListener = null;
+        }
+
+        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, feedback)
 
         mBinding.availableButton.setOnClickListener({
-            mPresenter.setField(orderId, 0)
+            mPresenter.setField(orderId, 0, mBinding.feedback.text.toString())
         })
 
         mBinding.notAvailableButton.setOnClickListener({
-            mPresenter.setField(orderId, 1)
+            mPresenter.setField(orderId, 1, mBinding.feedback.text.toString())
         })
 
         mBinding.confirmButton.setOnClickListener({
-            mPresenter.setField(orderId,2)
+            mPresenter.setField(orderId,2,"")
         })
 
         mBinding.declineButton.setOnClickListener({
-            mPresenter.setField(orderId,3)
+            mPresenter.setField(orderId,3,"")
         })
         return mBinding.root
+    }
+
+    override fun setFeedback(feedback: String){
+        mBinding.feedback.setText(feedback)
     }
 
     override fun setFieldId(fieldId: String) {

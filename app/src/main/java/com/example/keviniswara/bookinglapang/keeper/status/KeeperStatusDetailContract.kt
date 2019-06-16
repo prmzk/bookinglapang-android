@@ -5,6 +5,7 @@ import com.example.keviniswara.bookinglapang.BaseView
 
 interface KeeperStatusDetailContract {
     interface View : BaseView<Presenter> {
+        fun setFeedback(feedback: String)
         fun setFieldId(fieldId: String)
         fun setSport(sport: String)
         fun setStartHour(startHour: String)
@@ -19,8 +20,8 @@ interface KeeperStatusDetailContract {
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
-                            , fieldId: String)
-        fun setField(orderId: String, type: Int)
+                            , fieldId: String, feedback: String)
+        fun setField(orderId: String, type: Int, feedback: String)
         fun sendNotificationToUser(email: String, type: Int,orderId: String)
     }
 }
