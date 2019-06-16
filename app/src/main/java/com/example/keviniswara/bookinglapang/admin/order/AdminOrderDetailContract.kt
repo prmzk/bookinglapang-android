@@ -12,6 +12,7 @@ interface AdminOrderDetailContract {
         fun setDate(date: String)
         fun setOrderName(name: String)
         fun setOrderNum(num: String)
+        fun setPrice(price: Int)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(orderId:String, sport: String, startHour: String, endHour: String

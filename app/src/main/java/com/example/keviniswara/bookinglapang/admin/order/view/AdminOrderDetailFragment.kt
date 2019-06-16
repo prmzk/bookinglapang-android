@@ -3,7 +3,6 @@ package com.example.keviniswara.bookinglapang.admin.order.view
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.admin.order.AdminOrderDetailContract
 import com.example.keviniswara.bookinglapang.admin.order.presenter.AdminOrderDetailPresenter
 import com.example.keviniswara.bookinglapang.databinding.FragmentAdminOrderDetailBinding
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 
 class AdminOrderDetailFragment : Fragment(), AdminOrderDetailContract.View {
 
@@ -69,5 +69,9 @@ class AdminOrderDetailFragment : Fragment(), AdminOrderDetailContract.View {
 
     override fun setOrderNum(num: String) {
         mBinding.noTelp.setText(num)
+    }
+
+    override fun setPrice(price: Int) {
+        mBinding.totalPrice.setText(TextUtils.convertToCurrency(price))
     }
 }

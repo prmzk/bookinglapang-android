@@ -12,6 +12,7 @@ interface KeeperOrderDetailContract {
         fun setDate(date: String)
         fun setCustNum(number:String)
         fun setCustName(name:String)
+        fun setPrice(price: Int)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(orderId:String, sport: String, startHour: String, endHour: String

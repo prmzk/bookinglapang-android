@@ -34,6 +34,7 @@ class KeeperOrderDetailPresenter : KeeperOrderDetailContract.Presenter {
                     if (transData != null) {
                         mView?.setCustName(transData.name)
                         mView?.setCustNum(transData.phoneNumber)
+                        mView?.setPrice(transData.payment)
                     }
                 }else{
                     mView?.setCustName("Error, transaction not found")

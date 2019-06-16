@@ -36,6 +36,7 @@ class AdminOrderDetailPresenter : AdminOrderDetailContract.Presenter {
                     if (transData != null) {
                         mView?.setOrderName(transData.name)
                         mView?.setOrderNum(transData.phoneNumber)
+                        mView?.setPrice(transData.payment)
                     }
                 }else{
                     mView?.setOrderName("Error, transaction not found")

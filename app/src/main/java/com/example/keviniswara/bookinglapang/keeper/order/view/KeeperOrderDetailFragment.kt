@@ -10,6 +10,7 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentKeeperOrderDetailBinding
 import com.example.keviniswara.bookinglapang.keeper.order.KeeperOrderDetailContract
 import com.example.keviniswara.bookinglapang.keeper.order.presenter.KeeperOrderDetailPresenter
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 
 class KeeperOrderDetailFragment : Fragment(), KeeperOrderDetailContract.View {
 
@@ -68,5 +69,9 @@ class KeeperOrderDetailFragment : Fragment(), KeeperOrderDetailContract.View {
 
     override fun setCustNum(number: String) {
         mBinding.noTelp.setText(number)
+    }
+
+    override fun setPrice(price: Int) {
+        mBinding.totalPrice.setText(TextUtils.convertToCurrency(price))
     }
 }

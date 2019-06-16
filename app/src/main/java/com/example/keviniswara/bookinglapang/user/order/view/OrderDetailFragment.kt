@@ -10,6 +10,7 @@ import com.example.keviniswara.bookinglapang.R
 import com.example.keviniswara.bookinglapang.databinding.FragmentOrderDetailBinding
 import com.example.keviniswara.bookinglapang.user.order.OrderDetailContract
 import com.example.keviniswara.bookinglapang.user.order.presenter.OrderDetailPresenter
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 
 class OrderDetailFragment : Fragment(), OrderDetailContract.View {
 
@@ -31,8 +32,9 @@ class OrderDetailFragment : Fragment(), OrderDetailContract.View {
         val status = arguments!!.getString("status")
         val date = arguments!!.getString("date")
         val fieldId = arguments!!.getString("fieldId")
+        val orderId = arguments!!.getString("orderId")
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId)
+        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, orderId)
 
         return mBinding.root
     }
@@ -59,5 +61,9 @@ class OrderDetailFragment : Fragment(), OrderDetailContract.View {
 
     override fun setDate(date: String) {
         mBinding.date.setText(date)
+    }
+
+    override fun setPrice(price: Int) {
+        mBinding.totalPrice.setText(TextUtils.convertToCurrency(price))
     }
 }

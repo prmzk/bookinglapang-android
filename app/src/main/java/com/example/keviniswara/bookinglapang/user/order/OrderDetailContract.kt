@@ -10,10 +10,11 @@ interface OrderDetailContract {
         fun setStartHour(startHour: String)
         fun setEndHour(endHour: String)
         fun setDate(date: String)
+        fun setPrice(price: Int)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
-                            , fieldId: String)
+                            , fieldId: String, orderId: String)
     }
 }
