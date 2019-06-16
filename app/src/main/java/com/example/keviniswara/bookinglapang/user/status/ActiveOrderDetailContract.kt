@@ -11,6 +11,7 @@ interface ActiveOrderDetailContract {
         fun setStartHour(startHour: String)
         fun setEndHour(endHour: String)
         fun setDate(date: String)
+        fun setFeedback(feedback: String)
         fun setStatusNotVerified()
         fun setStatusNotPaid()
         fun setStatusCancelled()
@@ -20,6 +21,6 @@ interface ActiveOrderDetailContract {
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
-                            , fieldId: String)
+                            , fieldId: String, feedback: String)
     }
 }

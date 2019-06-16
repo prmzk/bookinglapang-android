@@ -12,6 +12,7 @@ import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.user.status.Payment1Contract
 import com.example.keviniswara.bookinglapang.user.status.presenter.Payment1Presenter
 import com.example.keviniswara.bookinglapang.utils.TextUtils
+import kotlinx.android.synthetic.main.fragment_active_order_detail.*
 
 class Payment1Fragment: Fragment(), Payment1Contract.View {
 
@@ -37,8 +38,10 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         val fieldId = arguments!!.getString("fieldId")
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
+        val feedback = arguments!!.getString("feedback")
 
-        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, "", orderId)
+
+        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId)
 
         mBinding.buttonPay.setOnClickListener({
             if(checkInput()){
@@ -94,6 +97,7 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         arguments.putString("fieldId", orderDetail.fieldId)
         arguments.putLong("deadline", orderDetail.deadline)
         arguments.putString("orderId", orderDetail.orderId)
+        arguments.putString("feedback", orderDetail.feedback)
         fragment.arguments = arguments
         val ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.content, fragment)?.addToBackStack(fragment

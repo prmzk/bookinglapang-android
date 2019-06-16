@@ -81,6 +81,7 @@ class StatusFragment : Fragment(), StatusContract.View {
         arguments.putString("fieldId", orderDetail.fieldId)
         arguments.putLong("deadline", orderDetail.deadline)
         arguments.putString("orderId", orderDetail.orderId)
+        arguments.putString("feedback", orderDetail.feedback)
         fragment.arguments = arguments
         val ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.content, fragment)?.addToBackStack(fragment
