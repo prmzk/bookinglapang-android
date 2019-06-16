@@ -37,10 +37,15 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
         val fieldId = arguments!!.getString("fieldId")
         val orderId = arguments!!.getString("orderId")
         val customerName = arguments!!.getString("customerName")
+        val feedback = arguments!!.getString("feedback")
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, orderId,customerName)
+        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, orderId,customerName, feedback)
 
         setButtonVisibility(status)
+
+        if(status!="0"){
+            mBinding.feedback.keyListener = null;
+        }
 
         mBinding.alreadyTransferButton.setOnClickListener(View.OnClickListener {
             mPresenter.alreadyTransfer(orderId)
@@ -107,6 +112,10 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
 
     override fun setOrderOwner(name: String) {
         mBinding.orderUserName.setText(name)
+    }
+
+    override fun setFeedback(feedback: String) {
+        mBinding.feedback.setText(feedback)
     }
 
     override fun makeToast(text: String) {

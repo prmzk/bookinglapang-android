@@ -18,7 +18,7 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
 
     private var mView: AdminStatusDetailContract.View? = null
 
-    override fun initOrderDetail(sport: String, startHour: String, endHour: String, customerEmail: String, status: String, date: String, fieldId: String, orderId: String, name:String) {
+    override fun initOrderDetail(sport: String, startHour: String, endHour: String, customerEmail: String, status: String, date: String, fieldId: String, orderId: String, name:String, feedback: String) {
 
         if (startHour.toInt() < 10) mView?.setStartHour("0$startHour.00") else mView?.setStartHour("$startHour.00")
         if (endHour.toInt() < 10) mView?.setEndHour("0$endHour.00") else mView?.setEndHour("$endHour.00")
@@ -30,6 +30,8 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
         mView?.setRekOwner("")
         mView?.setBank("")
         mView?.setPrice(0)
+
+        mView?.setFeedback(feedback)
 
 
         val transactionRoot: DatabaseReference = Database.database.getReference("transactions")

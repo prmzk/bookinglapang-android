@@ -71,6 +71,8 @@ class AdminStatusFragment: Fragment(), AdminStatusContract.View {
         arguments.putString("sport", orderDetail.sport)
         arguments.putString("fieldId", orderDetail.fieldId)
         arguments.putString("orderId", orderDetail.orderId)
+        arguments.putString("feedback", orderDetail.feedback)
+
         fragment.arguments = arguments
         val ft = fragmentManager!!.beginTransaction()
         ft.replace(R.id.content, fragment).addToBackStack(fragment
