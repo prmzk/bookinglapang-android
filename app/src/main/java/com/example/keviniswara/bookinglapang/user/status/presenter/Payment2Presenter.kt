@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.keviniswara.bookinglapang.model.Bank
 import com.example.keviniswara.bookinglapang.model.Transaction
 import com.example.keviniswara.bookinglapang.user.status.Payment2Contract
+import com.example.keviniswara.bookinglapang.utils.Database
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -77,13 +78,26 @@ class Payment2Presenter: Payment2Contract.Presenter {
                                 }
                             }
 
-                            val r = Random()
-                            val randomInt = r.nextInt(999) + 1
+                            Database.database.getReference("priceCounter").addListenerForSingleValueEvent(object: ValueEventListener {
+                                override fun onCancelled(p0: DatabaseError) {
 
-                            total += randomInt
+                                }
 
-                            mView!!.setTotal(total.toString())
-                            addTotalPaymentToTransaction(total.toLong(), orderId)
+                                override fun onDataChange(p0: DataSnapshot) {
+                                    val counter = p0.value as Long
+
+                                    total += counter.toInt()
+
+                                    mView!!.setTotal(total.toString())
+
+                                    Database.database.getReference("priceCounter").setValue( counter+1 % 90)
+                                    addTotalPaymentToTransaction(total.toLong(), orderId)
+                                }
+
+                            })
+
+
+
                         }
 
                         override fun onCancelled(p0: DatabaseError) {
