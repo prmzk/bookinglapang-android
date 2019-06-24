@@ -295,6 +295,33 @@
                     android:layout_marginBottom="20dp">
 
                     <Button
+                        android:id="@+id/available_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_green"
+                        android:minHeight="20dp"
+                        android:text="@string/order_action_avaiable"
+                        android:visibility="gone"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                    <Button
+                        android:id="@+id/not_available_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_red"
+                        android:minHeight="20dp"
+                        android:text="@string/order_action_n_avaiable"
+                        android:visibility="gone"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"/>
+
+                    <Button
                         android:id="@+id/already_transfer_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -22,8 +22,7 @@ interface AdminStatusDetailContract {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
                             , fieldId: String, orderId: String, name: String, feedback: String)
-        fun alreadyTransfer(orderId: String)
-        fun failed(orderId: String)
         fun sendNotificationToUser(userId: String, type: Int, orderId: String)
+        fun setField(orderId: String, type: Int, feedback: String)
     }
 }

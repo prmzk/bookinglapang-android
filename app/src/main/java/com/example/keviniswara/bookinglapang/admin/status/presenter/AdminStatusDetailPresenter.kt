@@ -72,170 +72,7 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
         mView = null
     }
 
-    override fun alreadyTransfer(orderId: String) {
-
-        var userEmaiFromOrder: String
-
-        val userRoot: DatabaseReference = Database.database.getReference("users")
-
-        val orderRoot: DatabaseReference = Database.database.getReference("orders")
-
-        orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-
-            override fun onCancelled(p0: DatabaseError) {
-                mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-            }
-
-            override fun onDataChange(orderData: DataSnapshot) {
-
-                if (orderData != null) {
-                    for (orderSnapshot in orderData.children) {
-
-                        val order = orderSnapshot.getValue<Order>(Order::class.java)
-
-                        if (order != null && order.orderId.equals(orderId)) {
-
-                            val dateFormat = "dd/MM/yy"
-                            val sdf = SimpleDateFormat(dateFormat, Locale.US)
-
-                            val dateInMillis = sdf.parse(order.date).time + (1440 * 60000) // Satu hari setelahnya
-
-                            orderRoot.child(orderSnapshot.key!!).child("status").setValue(4)
-                            orderRoot.child(orderSnapshot.key!!).child("deadline").setValue(dateInMillis)
-
-                            userEmaiFromOrder = order.customerEmail
-
-                            userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-
-                                override fun onCancelled(p0: DatabaseError) {
-                                    mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-                                }
-
-                                override fun onDataChange(userData: DataSnapshot) {
-
-                                    for (userSnapshot in userData!!.children) {
-
-                                        val userEmail = userSnapshot.child("email").getValue<String>(String::class.java)
-
-                                        if (userEmail.equals(userEmaiFromOrder)) {
-
-                                            val userId = userSnapshot.key
-                                            for (orderSnapshot in userData.child(userSnapshot.key!!).child("orders").children) {
-
-                                                val order = orderSnapshot.getValue<Order>(Order::class.java)
-                                                val orderKey = orderSnapshot.key
-
-                                                if (order != null && order.orderId.equals(orderId)) {
-                                                    if (userId != null) {
-                                                        userRoot.child(userId).child("orders").child(orderKey!!)
-                                                                .child("status").setValue(4)
-
-                                                        userRoot.child(userId).child("orders").child(orderKey!!)
-                                                                .child("deadline").setValue(dateInMillis)
-
-                                                        mView?.makeToast("Sukses mengubah status pesanan")
-                                                        mView?.finish()
-                                                    }else{
-                                                        mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-                                                    }
-
-                                                }
-                                            }
-                                            sendNotificationToUser(userId!!, 0, orderId)
-                                            val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, "Pembayaran dikonfirmasi")
-                                            Database.sendNotificationDataToFieldKeeper(order.fieldId,notification,orderId)
-                                        }
-                                    }
-                                }
-                            })
-                        }
-                    }
-                } else {
-                    mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-                }
-            }
-
-        })
-    }
-
-    override fun failed(orderId: String) {
-
-        var userEmaiFromOrder: String
-
-        val userRoot: DatabaseReference = Database.database.getReference("users")
-
-        val orderRoot: DatabaseReference = Database.database.getReference("orders")
-
-        orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-
-            override fun onCancelled(p0: DatabaseError) {
-                mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-            }
-
-            override fun onDataChange(orderData: DataSnapshot) {
-
-                if (orderData != null) {
-                    for (orderSnapshot in orderData.children) {
-
-                        val order = orderSnapshot.getValue<Order>(Order::class.java)
-
-                        if (order != null && order.orderId.equals(orderId)) {
-
-                            orderRoot.child(orderSnapshot.key!!).child("status").setValue(3)
-
-                            userEmaiFromOrder = order.customerEmail
-
-                            userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
-
-                                override fun onCancelled(p0: DatabaseError) {
-                                    mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-                                }
-
-                                override fun onDataChange(userData: DataSnapshot) {
-
-                                    for (userSnapshot in userData!!.children) {
-
-                                        val userEmail = userSnapshot.child("email").getValue<String>(String::class.java)
-
-                                        if (userEmail.equals(userEmaiFromOrder)) {
-
-                                            val userId = userSnapshot.key
-                                            for (userOrderSnapshot in userData.child(userSnapshot.key!!).child("orders").children) {
-
-                                                val order = userOrderSnapshot.getValue<Order>(Order::class.java)
-                                                val orderKey = userOrderSnapshot.key
-
-                                                if (order != null && order.orderId.equals(orderId)) {
-                                                    if (userId != null && orderKey != null) {
-                                                        userRoot.child(userId).child("orders").child(orderKey)
-                                                                .child("status").setValue(3)
-                                                        mView?.makeToast("Menunggu verifikasi terakhir dari keeper")
-                                                        mView?.finish()
-
-                                                        Database.setXMinutesDeadline(orderSnapshot.key,userId,orderKey,1440)
-                                                    }else{
-                                                        mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-                                                    }
-
-                                                }
-                                            }
-                                            sendNotificationToUser(userId!!, 1, orderId)
-                                        }
-                                    }
-                                }
-                            })
-                        }
-                    }
-                } else {
-                    mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
-                }
-            }
-
-        })
-    }
-
-
-    // type = 0, already paid, type = 1, not paid
+    // type = 0, already paid, type = 1, not paid, type = 2, available, type = 3, not available
     override fun sendNotificationToUser(userId: String, type: Int, orderId: String) {
 
         val usersReference: DatabaseReference = Database.database.getReference("users")
@@ -243,12 +80,153 @@ class AdminStatusDetailPresenter : AdminStatusDetailContract.Presenter {
         var message: String = ""
 
         when (type) {
-            0 -> message = "Pembayaran sukses"
-            1 -> message = "Pembayaran gagal"
+            0 -> message = "Lapangan tersedia"
+            1 -> message = "Lapangan tidak tersedia"
+            3 -> message = "Pembayaran gagal"
+            4 -> message = "Pembayaran sukses"
         }
 
         val notification = User.Notification(FirebaseAuth.getInstance().currentUser!!.uid, message)
 
         Database.addNotification(userId, notification, orderId,"Open_user")
     }
+
+    override fun setField(orderId: String, type: Int, feedback: String) {
+
+        var userEmaiFromOrder: String
+
+        val userRoot: DatabaseReference = Database.database.getReference("users")
+
+        val orderRoot: DatabaseReference = Database.database.getReference("orders")
+
+        orderRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+
+            override fun onCancelled(p0: DatabaseError) {
+                mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+            }
+
+            override fun onDataChange(orderData: DataSnapshot) {
+
+                if (orderData != null) {
+                    for (orderSnapshot in orderData.children) {
+
+                        val order = orderSnapshot.getValue<Order>(Order::class.java)
+
+                        if (order != null && order.orderId.equals(orderId)) {
+
+                            var dateInMillis: Long = 0
+
+                            if (type == 0) {
+                                orderRoot.child(orderSnapshot.key!!).child("status").setValue(1)
+                                if(feedback!=""){
+                                    orderRoot.child(orderSnapshot.key!!).child("feedback").setValue(feedback)
+                                }
+                            } else if (type == 1) {
+                                orderRoot.child(orderSnapshot.key!!).child("status").setValue(3)
+                                if(feedback!=""){
+                                    orderRoot.child(orderSnapshot.key!!).child("feedback").setValue(feedback)
+                                }
+                            } else if (type == 3) {
+                                orderRoot.child(orderSnapshot.key!!).child("status").setValue(3)
+                            } else if (type == 4) {
+                                val dateFormat = "dd/MM/yy"
+                                val sdf = SimpleDateFormat(dateFormat, Locale.US)
+
+                                dateInMillis = sdf.parse(order.date).time + (1440 * 60000) // Satu hari setelahnya
+
+                                orderRoot.child(orderSnapshot.key!!).child("status").setValue(4)
+                                orderRoot.child(orderSnapshot.key!!).child("deadline").setValue(dateInMillis)
+                            }
+
+                            userEmaiFromOrder = order.customerEmail
+
+                            userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
+
+                                override fun onCancelled(p0: DatabaseError) {
+                                    mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+                                }
+
+                                override fun onDataChange(userData: DataSnapshot) {
+
+                                    for (userSnapshot in userData!!.children) {
+
+                                        val userEmail = userSnapshot.child("email").getValue<String>(String::class.java)
+
+                                        if (userEmail.equals(userEmaiFromOrder)) {
+
+                                            val userId = userSnapshot.key
+
+                                            for (userOrderSnapshot in userData.child(userSnapshot.key!!).child("orders").children) {
+
+                                                val order = userOrderSnapshot.getValue<Order>(Order::class.java)
+
+                                                val orderKey = userOrderSnapshot.key
+
+                                                if (order != null && order.orderId.equals(orderId)) {
+
+                                                    if (type == 3){
+                                                        if (userId != null && orderKey != null) {
+                                                            userRoot.child(userId).child("orders").child(orderKey)
+                                                                    .child("status").setValue(3)
+                                                            mView?.makeToast("Sukses mengubah status pesanan")
+                                                            mView?.finish()
+
+                                                            Database.setXMinutesDeadline(orderSnapshot.key,userId,orderKey,1440)
+                                                        }else{
+                                                            mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+                                                        }
+                                                    } else if (type == 4){
+                                                        if (userId != null) {
+                                                            userRoot.child(userId).child("orders").child(orderKey!!)
+                                                                    .child("status").setValue(4)
+
+                                                            userRoot.child(userId).child("orders").child(orderKey!!)
+                                                                    .child("deadline").setValue(dateInMillis)
+
+                                                            mView?.makeToast("Sukses mengubah status pesanan")
+                                                            mView?.finish()
+                                                        }else{
+                                                            mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+                                                        }
+                                                    } else if (type == 0){
+                                                        userRoot.child(userId!!).child("orders").child(orderKey!!)
+                                                                .child("status").setValue(1)
+                                                        if(feedback!=""){
+                                                            userRoot.child(userId!!).child("orders").child(orderKey!!)
+                                                                    .child("feedback").setValue(feedback)
+                                                        }
+                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi ada.")
+                                                        mView?.finish()
+
+                                                        Database.setXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 30)
+                                                    } else if (type == 1){
+                                                        userRoot.child(userId!!).child("orders").child(orderKey!!)
+                                                                .child("status").setValue(3)
+                                                        if(feedback!=""){
+                                                            userRoot.child(userId!!).child("orders").child(orderKey!!)
+                                                                    .child("feedback").setValue(feedback)
+                                                        }
+                                                        mView?.makeToast("Sukses mengubah status pesanan menjadi gagal.")
+                                                        mView?.finish()
+
+                                                        Database.setXMinutesDeadline(orderSnapshot.key, userId, userOrderSnapshot.key, 1440)
+                                                    }
+                                                }
+                                            }
+
+                                            sendNotificationToUser(userId!!, type,orderId)
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    }
+                } else {
+                    mView?.makeToast("Terjadi kesalahan, silahkan coba lagi.")
+                }
+            }
+
+        })
+    }
+
 }

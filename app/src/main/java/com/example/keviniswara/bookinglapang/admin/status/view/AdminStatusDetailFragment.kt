@@ -48,12 +48,23 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
         }
 
         mBinding.alreadyTransferButton.setOnClickListener(View.OnClickListener {
-            mPresenter.alreadyTransfer(orderId)
+//            mPresenter.alreadyTransfer(orderId)
+            mPresenter.setField(orderId, 4, "")
         })
 
         mBinding.failedButton.setOnClickListener(View.OnClickListener {
-            mPresenter.failed(orderId)
+//            mPresenter.failed(orderId)
+            mPresenter.setField(orderId, 3, "")
         })
+
+        mBinding.availableButton.setOnClickListener(View.OnClickListener {
+            mPresenter.setField(orderId, 0, mBinding.feedback.text.toString())
+        })
+
+        mBinding.notAvailableButton.setOnClickListener(View.OnClickListener {
+            mPresenter.setField(orderId, 1, mBinding.feedback.text.toString())
+        })
+
         return mBinding.root
     }
 
@@ -61,8 +72,14 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
         mBinding.failedButton.visibility = View.GONE
         mBinding.alreadyTransferButton.visibility = View.GONE
         mBinding.waitingConfirmation.visibility = View.GONE
+        mBinding.availableButton.visibility = View.GONE
+        mBinding.notAvailableButton.visibility = View.GONE
 
         when(status){
+            "0" -> {
+                mBinding.availableButton.visibility = View.VISIBLE
+                mBinding.notAvailableButton.visibility = View.VISIBLE
+            }
             "1" -> {
                 mBinding.failedButton.visibility = View.VISIBLE
                 mBinding.alreadyTransferButton.visibility = View.VISIBLE
