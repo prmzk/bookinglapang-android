@@ -1,7 +1,6 @@
 package com.example.keviniswara.bookinglapang.admin.status.view
 
 import android.databinding.DataBindingUtil
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -14,6 +13,9 @@ import com.example.keviniswara.bookinglapang.admin.status.AdminStatusDetailContr
 import com.example.keviniswara.bookinglapang.admin.status.presenter.AdminStatusDetailPresenter
 import com.example.keviniswara.bookinglapang.databinding.FragmentAdminStatusDetailBinding
 import com.example.keviniswara.bookinglapang.utils.TextUtils
+import java.time.Instant
+import java.time.ZoneId
+import java.util.*
 
 class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
 
@@ -38,8 +40,9 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
         val orderId = arguments!!.getString("orderId")
         val customerName = arguments!!.getString("customerName")
         val feedback = arguments!!.getString("feedback")
+        val lastUpdate = arguments!!.getLong("lastUpdate")
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, orderId,customerName, feedback)
+        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, orderId,customerName, feedback, lastUpdate)
 
         setButtonVisibility(status)
 
@@ -133,6 +136,13 @@ class AdminStatusDetailFragment : Fragment(), AdminStatusDetailContract.View {
 
     override fun setFeedback(feedback: String) {
         mBinding.feedback.setText(feedback)
+    }
+
+    override fun setLastUpdate(lastUpdate: Long) {
+        if(lastUpdate > 0){
+            val date = Date(lastUpdate)
+            mBinding.lastUpdate.setText("Last update : "+date.toString())
+        }
     }
 
     override fun makeToast(text: String) {

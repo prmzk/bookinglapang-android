@@ -42,7 +42,7 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
 
         mPresenter.countTotalPayment(orderId, fieldId, sport, startHour, endHour, date)
 
-        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId)
+        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId,0)
 
         setField(fieldId)
         setSport(sport)

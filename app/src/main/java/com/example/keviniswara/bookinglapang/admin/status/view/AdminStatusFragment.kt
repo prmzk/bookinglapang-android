@@ -72,6 +72,7 @@ class AdminStatusFragment: Fragment(), AdminStatusContract.View {
         arguments.putString("fieldId", orderDetail.fieldId)
         arguments.putString("orderId", orderDetail.orderId)
         arguments.putString("feedback", orderDetail.feedback)
+        arguments.putLong("lastUpdate", orderDetail.lastUpdate)
 
         fragment.arguments = arguments
         val ft = fragmentManager!!.beginTransaction()

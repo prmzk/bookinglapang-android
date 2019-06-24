@@ -15,13 +15,14 @@ interface AdminStatusDetailContract {
         fun setPrice(price: Int)
         fun setOrderOwner(name:String)
         fun setFeedback(feedback: String)
+        fun setLastUpdate(lastUpdate: Long)
         fun makeToast(text: String)
         fun finish()
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
-                            , fieldId: String, orderId: String, name: String, feedback: String)
+                            , fieldId: String, orderId: String, name: String, feedback: String, lastUpdate: Long)
         fun sendNotificationToUser(userId: String, type: Int, orderId: String)
         fun setField(orderId: String, type: Int, feedback: String)
     }

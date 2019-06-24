@@ -41,7 +41,7 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         val feedback = arguments!!.getString("feedback")
 
 
-        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId)
+        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId, 0)
 
         mBinding.buttonPay.setOnClickListener({
             if(checkInput()){

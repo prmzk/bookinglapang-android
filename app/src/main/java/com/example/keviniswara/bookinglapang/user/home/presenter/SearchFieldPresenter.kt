@@ -187,7 +187,7 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         val userEmail = FirebaseAuth.getInstance().currentUser!!.email!!
         val userName = FirebaseAuth.getInstance().currentUser!!.displayName!!
         val uuid = UUID.randomUUID().toString().replace("-", "")
-        val order = Order(userName, userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0, "", uuid)
+        val order = Order(userName, userEmail, date, finishHour, fieldName, sportName, startHour, 0, 0, "", uuid,0)
         Database.addNewOrder(order)
         sendOrderNotification(uuid)
 
