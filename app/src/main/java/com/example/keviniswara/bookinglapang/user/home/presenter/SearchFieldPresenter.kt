@@ -22,6 +22,8 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
 
     private val pricingTextReference: DatabaseReference = database.getReference("").child("prices")
 
+    private val holidayReference: DatabaseReference = database.getReference("").child("holidays")
+
     private val usersReference: DatabaseReference = database.getReference("").child("users")
 
     override fun bind(view: SearchFieldContract.View) {
@@ -37,29 +39,45 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
         val sportName = mView!!.getSport()
 
         val date = mView!!.getDate()
-        val day = dateToIntDay(date)
+        var day = dateToIntDay(date)
 
         val beginTime = mView!!.getStartHour().toInt()
         val endTime = mView!!.getFinishHour().toInt()
 
         var price:Long = 0
 
-        pricingReference.child(fieldid).child(sportName).addListenerForSingleValueEvent(object :ValueEventListener{
-            override fun onDataChange(p0: DataSnapshot) {
-                for (ds in p0!!.child(day.toString()).children) {
-                    if (ds.key!!.toInt() in beginTime until endTime) {
-                        price += ds.getValue(String::class.java)!!.toInt()
-                    }
-                }
-
-                mView!!.updatePrice(price.toString())
-            }
-
+        holidayReference.orderByChild("date").equalTo(date).addListenerForSingleValueEvent(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
                 mView!!.updatePrice("Error")
             }
 
+            override fun onDataChange(holidayDate: DataSnapshot) {
+                val isHoliday = holidayDate.exists()
+
+                pricingReference.child(fieldid).child(sportName).addListenerForSingleValueEvent(object :ValueEventListener{
+                    override fun onDataChange(p0: DataSnapshot) {
+                        if(p0.hasChild("holidayDay") && isHoliday){
+                            day = p0.child("holidayDay").getValue(Int::class.java)!!
+                        }
+
+                        for (ds in p0!!.child(day.toString()).children) {
+                            if (ds.key!!.toInt() in beginTime until endTime) {
+                                price += ds.getValue(String::class.java)!!.toInt()
+                            }
+                        }
+
+                        mView!!.updatePrice(price.toString())
+                    }
+
+                    override fun onCancelled(p0: DatabaseError) {
+                        mView!!.updatePrice("Error")
+                    }
+
+                })
+            }
         })
+
+
 
 
     }
