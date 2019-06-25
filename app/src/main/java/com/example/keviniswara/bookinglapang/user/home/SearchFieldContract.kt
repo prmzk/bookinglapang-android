@@ -15,6 +15,7 @@ interface SearchFieldContract {
         fun initListOfFieldDropdown(listOfField: List<String>)
         fun initListOfSportDropdown(listOfSport: List<String>)
         fun showToastMessage(message: String)
+        fun setOrderButtonState(disabled: Boolean)
         fun updatePrice(newPrice : String)
     }
 

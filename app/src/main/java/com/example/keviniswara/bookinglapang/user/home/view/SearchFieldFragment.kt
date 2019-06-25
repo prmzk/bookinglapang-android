@@ -82,6 +82,8 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         }
 
         mBinding.buttonContinue.setOnClickListener {
+            showToastMessage("press")
+            setOrderButtonState(true)
             validCheckReason = 1
             checkValid()
         }
@@ -143,6 +145,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         ft.replace(R.id.content, HomeFragment())
         ft.commit()
         showToastMessage("Order berhasil disimpan.")
+        setOrderButtonState(false)
     }
 
     override fun updatePrice(newPrice : String) {
@@ -197,6 +200,10 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         val sdf = SimpleDateFormat(dateFormat, Locale.US)
         mBinding.date.setText(sdf.format(mCalendar.getTime()))
         onDataChange()
+    }
+
+    override fun setOrderButtonState(disabled: Boolean) {
+        mBinding.buttonContinue.isEnabled = !disabled
     }
 
     override fun initDatePicker() {
