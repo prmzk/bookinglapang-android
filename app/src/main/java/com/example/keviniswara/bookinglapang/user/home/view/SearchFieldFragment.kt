@@ -82,7 +82,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         }
 
         mBinding.buttonContinue.setOnClickListener {
-            showToastMessage("press")
+            showToastMessage("Silahkan tunggu")
             setOrderButtonState(true)
             validCheckReason = 1
             checkValid()
