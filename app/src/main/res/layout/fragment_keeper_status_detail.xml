@@ -243,7 +243,7 @@
                             android:paddingLeft="@dimen/befote_text"
                             android:paddingRight="@dimen/befote_text"
                             android:singleLine="false"
-                            tools:text="sadasdsdad as  asd as da dsa sd as s sad as das dsa dads" />
+                            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tristique, massa quis tincidunt tincidunt, tortor eros tincidunt leo, non scelerisque." />
                     </LinearLayout>
                 </TableRow>
 
