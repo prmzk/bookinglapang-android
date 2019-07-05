@@ -82,8 +82,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         }
 
         mBinding.buttonContinue.setOnClickListener {
-            showToastMessage("Silahkan tunggu")
-            setOrderButtonState(true)
+            setOrderButtonStateDisabled(true)
             validCheckReason = 1
             checkValid()
         }
@@ -101,6 +100,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     private fun checkValid(){
         if(isAllFilled()){
+            showToastMessage("Loading")
             mBinding.finishHour.error = null
             mBinding.date.error = null
 
@@ -121,21 +121,25 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
                 if((date.time - System.currentTimeMillis())/(3600*1000*24) > 60){
                     mBinding.date.error = ""
                     showToastMessage("Waktu pemesanan maksimal 60 hari ke depan")
+                    setOrderButtonStateDisabled(false)
                 }else if(System.currentTimeMillis()<(date.time + (hourStart * 3600000))) {
                     mPresenter.checkTimeValid()
                 }else {
                     mBinding.date.error = ""
                     showToastMessage("Waktu harus lebih dari sekarang")
+                    setOrderButtonStateDisabled(false)
                 }
 
             }else{
                 mBinding.finishHour.error = ""
                 showToastMessage("Waktu selesai tidak boleh sebelum waktu mulai")
+                setOrderButtonStateDisabled(false)
             }
 
 
         }else{
             showToastMessage("Ada yang belum terisi.")
+            setOrderButtonStateDisabled(false)
         }
     }
 
@@ -145,13 +149,16 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         ft.replace(R.id.content, HomeFragment())
         ft.commit()
         showToastMessage("Order berhasil disimpan.")
-        setOrderButtonState(false)
+        setOrderButtonStateDisabled(false)
     }
 
     override fun updatePrice(newPrice : String) {
-        mBinding.harga.text = "Harga : "+ TextUtils.convertToCurrency(newPrice)
-        if(validCheckReason == 1){
+        val priceText = TextUtils.convertToCurrency(newPrice)
+        mBinding.harga.text = "Harga : "+ priceText
+        if(validCheckReason == 1 && priceText !== "Error"){
             addOrder()
+        }else{
+            setOrderButtonStateDisabled(false)
         }
     }
 
@@ -202,7 +209,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         onDataChange()
     }
 
-    override fun setOrderButtonState(disabled: Boolean) {
+    override fun setOrderButtonStateDisabled(disabled: Boolean) {
         mBinding.buttonContinue.isEnabled = !disabled
     }
 
