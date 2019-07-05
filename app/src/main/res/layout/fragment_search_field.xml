@@ -140,7 +140,7 @@
                     android:layout_marginBottom="30dp">
                     <TextView
                         android:id="@+id/harga"
-                        android:layout_weight="1"
+                        android:layout_weight="4"
                         android:text="@string/harga"
                         android:textColor="@color/colorPrimary"/>
                 </TableRow>
