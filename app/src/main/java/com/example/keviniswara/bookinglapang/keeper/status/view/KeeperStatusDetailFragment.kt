@@ -36,12 +36,15 @@ class KeeperStatusDetailFragment : Fragment(), KeeperStatusDetailContract.View {
         val fieldId = arguments!!.getString("fieldId")
         val orderId = arguments!!.getString("orderId")
         val feedback = arguments!!.getString("feedback")
+        val request = arguments!!.getString("request")
 
         if(status!="0"){
-            mBinding.feedback.keyListener = null;
+            mBinding.feedback.keyListener = null
         }
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, feedback)
+        mBinding.request.keyListener = null
+
+        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, feedback, request)
 
         mBinding.availableButton.setOnClickListener({
             mPresenter.setField(orderId, 0, mBinding.feedback.text.toString())
@@ -91,6 +94,10 @@ class KeeperStatusDetailFragment : Fragment(), KeeperStatusDetailContract.View {
 
     override fun setUserName(name: String) {
         mBinding.userName.setText(name)
+    }
+
+    override fun setRequest(request: String) {
+        mBinding.request.setText(request)
     }
 
     override fun initPresenter(): KeeperStatusDetailPresenter {

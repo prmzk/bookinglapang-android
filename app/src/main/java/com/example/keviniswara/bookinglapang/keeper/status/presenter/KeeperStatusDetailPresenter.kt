@@ -16,7 +16,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
 
     val userRoot: DatabaseReference = Database.database.getReference("users")
 
-    override fun initOrderDetail(sport: String, startHour: String, endHour: String, customerEmail: String, status: String, date: String, fieldId: String, feedback: String) {
+    override fun initOrderDetail(sport: String, startHour: String, endHour: String, customerEmail: String, status: String, date: String, fieldId: String, feedback: String, request: String) {
 
         userRoot.addListenerForSingleValueEvent(object : ValueEventListener {
 
@@ -40,6 +40,7 @@ class KeeperStatusDetailPresenter : KeeperStatusDetailContract.Presenter {
                         mView?.setFieldId(fieldId)
                         mView?.setSport(sport)
                         mView?.setFeedback(feedback)
+                        mView?.setRequest(request)
                         if (endHour.toInt() < 10) mView?.setEndHour("0$endHour.00") else mView?.setEndHour("$endHour.00")
                         if (startHour.toInt() < 10) mView?.setStartHour("0$startHour.00") else mView?.setStartHour("$startHour.00")
                         if (userName != null) mView?.setUserName(userName)

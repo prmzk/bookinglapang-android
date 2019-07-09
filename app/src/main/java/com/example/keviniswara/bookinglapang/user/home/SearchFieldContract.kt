@@ -10,6 +10,7 @@ interface SearchFieldContract {
         fun getDate(): String
         fun getStartHour(): String
         fun getFinishHour(): String
+        fun getRequest(): String
         fun initDatePicker()
         fun initNumberPicker(title: String, minValue: Int, maxValue: Int, type: Int, array: Array<String>)
         fun initListOfFieldDropdown(listOfField: List<String>)

@@ -39,9 +39,10 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
         val feedback = arguments!!.getString("feedback")
+        val request = arguments!!.getString("request")
 
 
-        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId, 0)
+        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, request, orderId, 0)
 
         mBinding.buttonPay.setOnClickListener({
             if(checkInput()){
@@ -98,6 +99,7 @@ class Payment1Fragment: Fragment(), Payment1Contract.View {
         arguments.putLong("deadline", orderDetail.deadline)
         arguments.putString("orderId", orderDetail.orderId)
         arguments.putString("feedback", orderDetail.feedback)
+        arguments.putString("request", orderDetail.request)
         fragment.arguments = arguments
         val ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.content, fragment)?.addToBackStack(fragment

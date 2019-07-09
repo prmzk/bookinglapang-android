@@ -10,8 +10,9 @@ class Order(var customerName:String,
             var status: Int,
             var deadline: Long,
             var feedback: String = "",
+            var request: String = "",
             var orderId: String,
             val lastUpdate: Long) {
     constructor() : this("","", "", "", "", "", "",
-            -1, 0, "","", 0)
+            -1, 0, "","","", 0)
 }

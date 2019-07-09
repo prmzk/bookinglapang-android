@@ -62,10 +62,11 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
         val feedback = arguments!!.getString("feedback")
+        val request = arguments!!.getString("request")
 
         orderDeadline = deadline
 
-        val order = Order(customerName,customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId,0)
+        val order = Order(customerName,customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, request,orderId,0)
 
         initButton(status)
 
@@ -73,7 +74,7 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
             moveToPayment(order)
         })
 
-        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, feedback)
+        mPresenter.initOrderDetail(sport, startHour, endHour, customerEmail, status, date, fieldId, feedback, request)
 
         return mBinding.root
     }
@@ -100,6 +101,10 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
 
     override fun setFeedback(feedback: String) {
         mBinding.feedback.setText(feedback)
+    }
+
+    override fun setRequest(request: String) {
+        mBinding.request.setText(request)
     }
 
     override fun setStatusNotVerified() {
@@ -162,6 +167,7 @@ class ActiveOrderDetailFragment: Fragment(), ActiveOrderDetailContract.View {
         arguments.putLong("deadline", orderDetail.deadline)
         arguments.putString("orderId", orderDetail.orderId)
         arguments.putString("feedback", orderDetail.feedback)
+        arguments.putString("request", orderDetail.request)
 
         fragment.arguments = arguments
         val ft = fragmentManager?.beginTransaction()

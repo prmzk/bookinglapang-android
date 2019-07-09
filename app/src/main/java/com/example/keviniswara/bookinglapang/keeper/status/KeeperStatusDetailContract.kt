@@ -14,13 +14,14 @@ interface KeeperStatusDetailContract {
         fun setUserName(name: String)
         fun setUserPhoneNumber(phoneNumber: String)
         fun makeToast(text: String)
+        fun setRequest(request:String)
         fun finish()
         fun setButtonVisibility(status: Int)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
-                            , fieldId: String, feedback: String)
+                            , fieldId: String, feedback: String, request: String)
         fun setField(orderId: String, type: Int, feedback: String)
         fun sendNotificationToUser(email: String, type: Int,orderId: String)
     }

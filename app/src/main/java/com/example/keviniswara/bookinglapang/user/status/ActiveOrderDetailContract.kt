@@ -15,12 +15,13 @@ interface ActiveOrderDetailContract {
         fun setStatusNotVerified()
         fun setStatusNotPaid()
         fun setStatusCancelled()
+        fun setRequest(request: String)
         fun initButton(status: String)
         fun moveToPayment(orderDetail: Order)
     }
     interface Presenter : BasePresenter<View> {
         fun initOrderDetail(sport: String, startHour: String, endHour: String
                             , customerEmail: String, status: String, date: String
-                            , fieldId: String, feedback: String)
+                            , fieldId: String, feedback: String, request: String)
     }
 }

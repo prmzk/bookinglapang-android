@@ -39,10 +39,11 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
         val deadline = arguments!!.getLong("deadline")
         val orderId = arguments!!.getString("orderId")
         val feedback = arguments!!.getString("feedback")
+        val request = arguments!!.getString("request")
 
         mPresenter.countTotalPayment(orderId, fieldId, sport, startHour, endHour, date)
 
-        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, orderId,0)
+        val order = Order(customerName, customerEmail, date, endHour, fieldId, sport, startHour, status.toInt(), deadline, feedback, request, orderId,0)
 
         setField(fieldId)
         setSport(sport)
@@ -112,6 +113,7 @@ class Payment2Fragment : Fragment(), Payment2Contract.View {
         arguments.putString("orderId", orderDetail.orderId)
         arguments.putString("bankName", bankName)
         arguments.putString("feedback", orderDetail.feedback)
+        arguments.putString("request", orderDetail.request)
         fragment.arguments = arguments
         val ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.content, fragment)?.addToBackStack(fragment

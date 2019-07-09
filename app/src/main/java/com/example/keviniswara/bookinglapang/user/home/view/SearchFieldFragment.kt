@@ -194,6 +194,10 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         return mBinding.date.text.toString()
     }
 
+    override fun getRequest(): String {
+        return mBinding.request.text.toString()
+    }
+
     override fun getStartHour(): String {
         return defaultStartHour.toString()
     }
