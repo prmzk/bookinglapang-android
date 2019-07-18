@@ -5,6 +5,7 @@ import com.example.keviniswara.bookinglapang.model.Field
 import com.example.keviniswara.bookinglapang.model.Order
 import com.example.keviniswara.bookinglapang.model.User
 import com.example.keviniswara.bookinglapang.utils.Database
+import com.example.keviniswara.bookinglapang.utils.TextUtils
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
@@ -130,9 +131,14 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
                 for(time in p0.children){
                     val timeItem = time.getValue(Field.PriceTimeDayRange::class.java)
                     if(timeItem!=null){
-                        validTime += timeItem.day_range.toString()
-                        validTime += " jam "
+                        val day = timeItem.day_range.toString()
+                        val dayArr = day.split('-')
+
+                        validTime += if(dayArr.get(0) == dayArr.get(1)) dayArr.get(0) else day
+                        validTime += " / "
                         validTime += timeItem.hour_range.toString()
+                        validTime += " @ "
+                        validTime += TextUtils.convertToCurrency(timeItem.price)
                     }
 
                     validTime += "\n"
