@@ -18,6 +18,7 @@ interface SearchFieldContract {
         fun showToastMessage(message: String)
         fun setOrderButtonStateDisabled(disabled: Boolean)
         fun updatePrice(newPrice : String)
+        fun updateValidTime(time: String)
     }
 
     interface Presenter : BasePresenter<View> {

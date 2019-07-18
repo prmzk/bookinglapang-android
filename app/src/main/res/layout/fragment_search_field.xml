@@ -77,6 +77,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp">
                     <TextView
+                        android:id="@+id/validTime"
+                        android:layout_weight="4"
+                        android:layout_span="2"
+                        android:text="@string/waktu_valid"
+                        android:textColor="@color/colorPrimary"/>
+                </TableRow>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp">
+                    <TextView
                         android:layout_weight="1"
                         android:text="@string/tanggal_main"
                         android:textColor="@color/colorPrimary"/>
@@ -176,6 +187,7 @@
                     <TextView
                         android:id="@+id/harga"
                         android:layout_weight="4"
+                        android:layout_span="2"
                         android:text="@string/harga"
                         android:textColor="@color/colorPrimary"/>
                 </TableRow>
@@ -184,6 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/button_green"
                 android:text="Continue"
                 android:textColor="#ffffff"

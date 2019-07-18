@@ -50,4 +50,5 @@
     <string name="order_status_verified">Sudah Terverifikasi</string>
     <string name="order_status_deadline_timer_empty">Maksimal pembayaran : … menit</string>
     <string name="order_status_deadline_fill">Maksimal pembayaran : %d menit</string>
+    <string name="waktu_valid">Jam operasi : -</string>
 </resources>

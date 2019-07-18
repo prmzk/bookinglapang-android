@@ -64,6 +64,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         mBinding.listOfField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 mPresenter.retrieveListOfSportFromFirebase(p0!!.getItemAtPosition(p2).toString())
+                getValidTime()
                 onDataChange()
             }
 
@@ -74,6 +75,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
         mBinding.listOfSports.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                getValidTime()
                 onDataChange()
             }
 
@@ -92,10 +94,16 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     private fun onDataChange(){
         validCheckReason = 0
-        if(isAllFilled()){
+        if(isAllFilled()) {
             checkValid()
         }
+    }
 
+    private fun getValidTime(){
+        if (getFieldName() !== "" &&
+                getSport() !== "") {
+            mPresenter.getValidTime()
+        }
     }
 
     private fun checkValid(){
@@ -204,6 +212,10 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     override fun getFinishHour(): String {
         return defaultEndHour.toString()
+    }
+
+    override fun updateValidTime(time: String) {
+        mBinding.validTime.text = "Jam Operasi:\n$time"
     }
 
     private fun updateLabel() {

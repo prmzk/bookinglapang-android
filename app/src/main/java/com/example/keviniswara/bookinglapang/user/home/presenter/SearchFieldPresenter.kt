@@ -105,10 +105,10 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
                     if(valid){
                         getPrice()
                     }else{
-                        getValidTime()
+                        mView!!.showToastMessage("Lapangan pada waktu tersebut tidak tersedia")
                     }
                 }else{
-                    getValidTime()
+                    mView!!.showToastMessage("Lapangan pada waktu tersebut tidak tersedia")
                 }
             }
 
@@ -127,7 +127,6 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
 
         pricingTextReference.child(fieldid).child(sportName).addListenerForSingleValueEvent(object: ValueEventListener{
             override fun onDataChange(p0: DataSnapshot) {
-                validTime = "Waktu yang tersedia\n"
                 for(time in p0.children){
                     val timeItem = time.getValue(Field.PriceTimeDayRange::class.java)
                     if(timeItem!=null){
@@ -139,10 +138,7 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
                     validTime += "\n"
                 }
 
-                validTime += "Harap cek waktu dan tanggal"
-
-                mView!!.updatePrice("-")
-                mView!!.showToastMessage(validTime)
+                mView!!.updateValidTime(validTime)
             }
 
             override fun onCancelled(p0: DatabaseError) {

@@ -87,6 +87,7 @@ class Payment2Presenter: Payment2Contract.Presenter {
                                     val counter = p0.value as Long
 
                                     total += counter.toInt()
+                                    total += 5000
 
                                     mView!!.setTotal(total.toString())
 
