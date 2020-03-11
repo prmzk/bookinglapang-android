@@ -51,4 +51,6 @@
     <string name="order_status_deadline_timer_empty">Maksimal pembayaran : … menit</string>
     <string name="order_status_deadline_fill">Maksimal pembayaran : %d menit</string>
     <string name="waktu_valid">Jam operasi : -</string>
+    <string name="dummy_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="book_now">Book Now</string>
 </resources>

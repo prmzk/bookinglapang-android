@@ -23,6 +23,9 @@
 
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
+    <style name="splashProgressBar" parent="Widget.AppCompat.ProgressBar">
+        <item name="colorAccent">@color/appThemeColor</item>
+    </style>
 
     <style name="RectanglePrimaryButton">
         <item name="android:background">@drawable/selector_rectangle_primary_button</item>
@@ -32,6 +35,11 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#BABABA</item>
+        <item name="colorControlActivated">@color/appThemeColor</item>
     </style>
 
 </resources>

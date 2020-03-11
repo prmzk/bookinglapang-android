@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
 
         mBinding.buttonCariLapangan.setOnClickListener({
             val ft = fragmentManager!!.beginTransaction()
-            ft.replace(com.example.keviniswara.bookinglapang.R.id.content, SearchFieldFragment()).addToBackStack(SearchFieldFragment()
+            ft.replace(com.example.keviniswara.bookinglapang.R.id.content, DetailFieldFragment()).addToBackStack(DetailFieldFragment()
                     .javaClass.simpleName)
             ft.commit()
         })

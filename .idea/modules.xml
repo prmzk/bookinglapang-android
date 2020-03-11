@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Bookinglapang.iml" filepath="$PROJECT_DIR$/Bookinglapang.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/bookinglapang-android.iml" filepath="$PROJECT_DIR$/.idea/bookinglapang-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/bookinglapang-dev.iml" filepath="$PROJECT_DIR$/.idea/bookinglapang-dev.iml" />
     </modules>
   </component>
