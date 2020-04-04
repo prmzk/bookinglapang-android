@@ -82,6 +82,17 @@
                         android:layout_span="2"
                         android:text="@string/waktu_valid"
                         android:textColor="@color/colorPrimary"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_grey"
+                        android:text="Price List"
+                        android:textSize="@dimen/text_size_small"
+                        android:textColor="#000000"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="2dp"
+                        android:minHeight="20dp"
+                        android:id="@+id/button_valid_time"/>
                 </TableRow>
                 <TableRow
                     android:layout_width="match_parent"
@@ -144,7 +155,6 @@
                         android:paddingLeft="@dimen/befote_text"
                         android:paddingRight="@dimen/befote_text" />
                 </TableRow>
-
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

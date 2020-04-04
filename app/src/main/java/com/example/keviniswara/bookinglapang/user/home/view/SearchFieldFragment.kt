@@ -1,10 +1,13 @@
 package com.example.keviniswara.bookinglapang.user.home.view
 
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,9 +32,13 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
 
     private lateinit var mCalendar: Calendar
 
+    private lateinit var fieldName: String
+
     private val arrayOfString = arrayOf("00.00", "01.00", "02.00", "03.00", "04.00", "05.00",
             "06.00", "07.00", "08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00",
             "15.00", "16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00", "23.00")
+
+    private var validTimeString = "";
 
     private var defaultStartHour = 0
     private var defaultEndHour = 0
@@ -43,6 +50,8 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_field,
                 container, false)
 
+        fieldName = arguments!!.getString("field_name")
+
         mPresenter = initPresenter()
 
         mPresenter.bind(this)
@@ -51,7 +60,9 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             initDatePicker()
         })
 
-        mPresenter.retrieveListOfFieldFromFirebase()
+        //mPresenter.retrieveListOfFieldFromFirebase()
+
+        mPresenter.retrieveListOfSportFromFirebase(fieldName)
 
         mBinding.startHour.setOnClickListener({
             initNumberPicker("Pilih jam", 0, 23, 0, arrayOfString)
@@ -61,17 +72,8 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             initNumberPicker("Pilih jam", 0, 23, 1, arrayOfString)
         })
 
-        mBinding.listOfField.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                mPresenter.retrieveListOfSportFromFirebase(p0!!.getItemAtPosition(p2).toString())
-                getValidTime()
-                onDataChange()
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
+        var listFieldName = Arrays.asList(fieldName);
+        initListOfFieldDropdown(listFieldName)
 
         mBinding.listOfSports.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -87,6 +89,14 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
             setOrderButtonStateDisabled(true)
             validCheckReason = 1
             checkValid()
+        }
+
+        mBinding.buttonValidTime.setOnClickListener {
+            AlertDialog.Builder(this.context!!)
+                    .setTitle("Jam Operasi")
+                    .setMessage(validTimeString)
+                    .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, which -> dialog.dismiss() })
+                    .show()
         }
 
         return mBinding.root
@@ -187,7 +197,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     override fun getFieldName(): String {
-        return mBinding.listOfField.selectedItem.toString()
+        return fieldName
     }
 
     override fun getSport(): String {
@@ -215,7 +225,7 @@ class SearchFieldFragment : Fragment(), SearchFieldContract.View {
     }
 
     override fun updateValidTime(time: String) {
-        mBinding.validTime.text = "Jam Operasi:\n$time"
+        validTimeString = "$time"
     }
 
     private fun updateLabel() {

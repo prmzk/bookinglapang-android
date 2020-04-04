@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
+
+
     <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"
         android:resource="@mipmap/ic_launcher" />
@@ -32,6 +34,9 @@
 
 
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDV7gyfdQsQ8DDAxNJM0zPkgCrPohzUAW8" />
         <activity android:name="com.example.keviniswara.bookinglapang.keeper.KeeperActivity"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>

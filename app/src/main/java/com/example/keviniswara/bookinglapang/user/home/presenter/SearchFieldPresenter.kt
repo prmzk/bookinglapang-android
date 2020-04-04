@@ -23,6 +23,8 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
 
     private val pricingTextReference: DatabaseReference = database.getReference("").child("prices")
 
+    private val transactionReference: DatabaseReference = database.getReference("").child("transactions")
+
     private val holidayReference: DatabaseReference = database.getReference("").child("holidays")
 
     private val usersReference: DatabaseReference = database.getReference("").child("users")
@@ -119,6 +121,35 @@ class SearchFieldPresenter : SearchFieldContract.Presenter {
 
         })
     }
+
+//    override fun getValidTime() {
+//        val fieldid = mView!!.getFieldName()
+//        val sportName = mView!!.getSport()
+//
+//        var validTime:String = ""
+//
+//        transactionReference.addListenerForSingleValueEvent(object: ValueEventListener{
+//            override fun onDataChange(p0: DataSnapshot) {
+//                for(time in p0.children){
+//                    val price = time.child("payment").getValue(Long::class.java)
+//                    val name = time.child("name").getValue(String::class.java)
+//                    if(price!=null){
+//                        validTime += " Pemesan = "
+//                        validTime += name
+//                        validTime += ", Jumlah Harga = Rp. "
+//                        validTime += price
+//                    }
+//
+//                    validTime += "\n"
+//                }
+//
+//                mView!!.updateValidTime(validTime)
+//            }
+//
+//            override fun onCancelled(p0: DatabaseError) {
+//            }
+//        })
+//    }
 
     override fun getValidTime() {
         val fieldid = mView!!.getFieldName()

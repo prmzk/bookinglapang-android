@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".user.home.view.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:visibility="visible"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F7F7F7"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_restaurant_images"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/pageColorWhite"
+                            android:orientation="vertical"
+                            android:paddingBottom="20dp">
+
+                            <TextView
+                                android:id="@+id/ipTextViewRestaurantName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="17dp"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="Starbucks Coffee"
+                                android:textColor="@color/textColorBlack"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/ipTextViewRestaurantLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="9dp"
+                                android:fontFamily="@font/sf_pro_regular"
+                                android:text="9462 Pine Ave. Mechanicsburg, PA 17050"
+                                android:textSize="@dimen/text_size_small" />
+
+                            <RatingBar
+                                android:id="@+id/ratingBarRestarantDetails"
+                                style="?android:ratingBarStyleSmall"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="15dp"
+                                android:numStars="5"
+                                android:rating="3"
+                                android:theme="@style/RatingBar" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="18dp"
+                                android:text="List Lapangan"
+                                android:textSize="10sp"
+                                tools:ignore="SmallSp" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycler_button_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="9dp"
+                                android:orientation="horizontal"
+                                android:visibility="visible" />
+
+                            <TextView
+                                android:id="@+id/label_select_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="33dp"
+                                android:text="SELECT TIME"
+                                android:textSize="10sp"
+                                android:visibility="gone"
+                                tools:ignore="SmallSp" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycler_button_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="9dp"
+                                android:orientation="horizontal"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/label_no_of_people"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="33dp"
+                                android:text="NUMBER OF GUESTS"
+                                android:textSize="10sp"
+                                android:visibility="gone"
+                                tools:ignore="SmallSp" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recycler_button_people"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="9dp"
+                                android:orientation="horizontal"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/pageColorWhite"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="22dp"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="About"
+                                android:textColor="@color/textColorBlack"
+                                android:textSize="@dimen/text_size_new_medium" />
+
+                            <TextView
+                                android:id="@+id/ipTextViewRestaurantDetailsText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="11dp"
+                                android:lineSpacingExtra="6dp"
+                                android:text="@string/dummy_content" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="38dp"
+                                android:fontFamily="@font/sf_pro_medium"
+                                android:text="Location"
+                                android:textColor="@color/textColorBlack"
+                                android:textSize="@dimen/text_size_new_medium" />
+
+                            <fragment
+                            android:id="@+id/map"
+                            android:name="com.google.android.gms.maps.SupportMapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="162dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginStart="@dimen/restaurant_details_textview_restaurant_details_text_start"
+                            android:layout_marginLeft="@dimen/restaurant_details_textview_restaurant_details_text_start"
+                            android:layout_marginTop="15dp"
+                            tools:context=".ui.restaurants_details.RestaurantsDetailsActivity" />
+
+                            <!--<ImageView-->
+                                <!--android:id="@+id/image_map"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="162dp"-->
+                                <!--android:layout_marginStart="15dp"-->
+                                <!--android:layout_marginTop="15dp"-->
+                                <!--android:layout_marginEnd="15dp"-->
+                                <!--android:scaleType="centerCrop"-->
+                                <!--android:src="@drawable/img_restaurant_no_image" />-->
+
+                        </LinearLayout>
+                        <Button
+                            android:id="@+id/ipButtonBookNow"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="bottom"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/rounded_button_green"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:gravity="center"
+                            android:text="@string/book_now"
+                            android:textColor="@color/textColor"
+                            android:layout_marginTop="20dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </android.support.v4.widget.NestedScrollView>
+
+        </android.support.design.widget.CoordinatorLayout>
+
+
+
+
+    </RelativeLayout>
+</layout>
