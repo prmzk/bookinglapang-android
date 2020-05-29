@@ -90,10 +90,10 @@ class LoginActivity : AppCompatActivity(), LoginContract.View  {
         return this
     }
 
-    override fun onBackPressed() {
-        val intent = Intent(Intent.ACTION_MAIN)
-        intent.addCategory(Intent.CATEGORY_HOME)
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-    }
+//    override fun onBackPressed() {
+//        val intent = Intent(Intent.ACTION_MAIN)
+//        intent.addCategory(Intent.CATEGORY_HOME)
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        startActivity(intent)
+//    }
 }
