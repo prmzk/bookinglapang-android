@@ -1,143 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_marginTop="30dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="30dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Register"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimary"/>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/divider"/>
-        </LinearLayout>
-        <TableLayout
+        android:orientation="vertical">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
-                <TextView
-                    android:layout_weight="1"
-                    android:text="Email"
-                    android:textColor="@color/colorPrimary" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/form_input_background"
-                    android:layout_weight="3"
-                    android:inputType="textEmailAddress"
-                    android:id="@+id/email"
-                    android:paddingLeft="@dimen/befote_text"
-                    android:paddingRight="@dimen/befote_text"/>
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
-                <TextView
-                    android:layout_weight="1"
-                    android:text="Nama"
-                    android:textColor="@color/colorPrimary" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/form_input_background"
-                    android:layout_weight="3"
-                    android:inputType="text"
-                    android:id="@+id/name"
-                    android:paddingLeft="@dimen/befote_text"
-                    android:paddingRight="@dimen/befote_text"/>
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
-                <TextView
-                    android:layout_weight="1"
-                    android:text="No. Telepon"
-                    android:textColor="@color/colorPrimary" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/form_input_background"
-                    android:layout_weight="3"
-                    android:inputType="number"
-                    android:id="@+id/phone_number"
-                    android:paddingLeft="@dimen/befote_text"
-                    android:paddingRight="@dimen/befote_text"/>
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
-                <TextView
-                    android:layout_weight="1"
-                    android:text="Password"
-                    android:textColor="@color/colorPrimary"/>
+            android:layout_height="match_parent">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/form_input_background"
-                    android:layout_weight="3"
-                    android:inputType="textPassword"
-                    android:id="@+id/password"
-                    android:paddingLeft="@dimen/befote_text"
-                    android:paddingRight="@dimen/befote_text"/>
-            </TableRow>
-            <TableRow
+            <ImageView
+                android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp">
-                <TextView
-                    android:layout_weight="1"
-                    android:text="Confirm Password"
-                    android:textColor="@color/colorPrimary"/>
+                android:translationY="200dp"
+                app:srcCompat="@drawable/home_background" />
 
-                <EditText
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/form_input_background"
-                    android:layout_weight="3"
-                    android:inputType="textPassword"
-                    android:id="@+id/confirm_password"
-                    android:paddingLeft="@dimen/befote_text"
-                    android:paddingRight="@dimen/befote_text"/>
-            </TableRow>
-        </TableLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/error_message"
-            android:textColor="#FF0000" />
-        <Button
-            android:id="@+id/button_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_green"
-            android:text="Register"
-            android:textColor="#ffffff"
-            android:layout_gravity="center_horizontal"
-            android:padding="2dp"
-            android:minHeight="20dp">
-        </Button>
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp">
+
+                        <TextView
+                            android:id="@+id/registerText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:paddingTop="45dp"
+                            android:text="Register"
+                            android:textColor="@color/black"
+                            android:textSize="36sp"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/comfortaa_light" />
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp">
+
+                                <EditText
+                                    android:id="@+id/email"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:background="@drawable/form_input_background"
+                                    android:hint="Email"
+                                    android:inputType="textEmailAddress"
+                                    android:padding="10dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp">
+
+                                <EditText
+                                    android:id="@+id/name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:background="@drawable/form_input_background"
+                                    android:hint="Name"
+                                    android:inputType="text"
+                                    android:padding="10dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp">
+
+                                <EditText
+                                    android:id="@+id/phone_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:background="@drawable/form_input_background"
+                                    android:hint="Phone Number"
+                                    android:inputType="number"
+                                    android:padding="10dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp">
+
+                                <EditText
+                                    android:id="@+id/password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:background="@drawable/form_input_background"
+                                    android:hint="Password"
+                                    android:inputType="textPassword"
+                                    android:padding="10dp" />
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="15dp">
+
+                                <EditText
+                                    android:id="@+id/confirm_password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3"
+                                    android:background="@drawable/form_input_background"
+                                    android:hint="Confirm Password"
+                                    android:inputType="textPassword"
+                                    android:padding="10dp" />
+                            </TableRow>
+                        </TableLayout>
+
+                        <TextView
+                            android:id="@+id/error_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="#FF0000" />
+
+                        <Button
+                            android:id="@+id/button_register"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/button_green"
+                            android:minHeight="20dp"
+                            android:padding="15dp"
+                            android:text="Register"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold"></Button>
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="#F8F8F8"
+                            android:gravity="center"
+                            android:text="By signing up, you agree to the Terms of Service and Privacy Policy."
+                            android:textColor="@color/black" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+
     </LinearLayout>
 
 </layout>
