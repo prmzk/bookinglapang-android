@@ -3,20 +3,16 @@ package com.example.keviniswara.bookinglapang.user.profile
 import com.example.keviniswara.bookinglapang.BasePresenter
 import com.example.keviniswara.bookinglapang.BaseView
 
-interface ProfileContract {
+interface EditPasswordContract {
     interface View  : BaseView<Presenter> {
 //        fun getName() : String
 //        fun getPhoneNumber() : String
-//        fun getEmail() : String
-        fun setName(name: String)
-        fun setPhoneNumber(phoneNumber: String)
-        fun setEmail(email: String)
-        fun startLoginActivity()
-        fun hideKeyboard()
+//        fun setName(name: String)
+//        fun setPhoneNumber(phoneNumber: String)
+//        fun hideKeyboard()
     }
     interface Presenter : BasePresenter<View> {
-        fun getProfileFromDatabase()
-        fun logout()
+//        fun getProfileFromDatabase()
 //        fun save()
     }
 }

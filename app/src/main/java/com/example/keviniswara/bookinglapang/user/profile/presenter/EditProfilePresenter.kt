@@ -1,14 +1,13 @@
 package com.example.keviniswara.bookinglapang.user.profile.presenter
 
 import android.util.Log
-import com.example.keviniswara.bookinglapang.user.profile.ProfileContract
-import com.example.keviniswara.bookinglapang.user.profile.view.EditProfileFragment
+import com.example.keviniswara.bookinglapang.user.profile.EditProfileContract
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
-class ProfilePresenter : ProfileContract.Presenter {
+class EditProfilePresenter : EditProfileContract.Presenter {
 
-    private var mView: ProfileContract.View? = null
+    private var mView: EditProfileContract.View? = null
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
@@ -17,7 +16,7 @@ class ProfilePresenter : ProfileContract.Presenter {
     private val usersReference: DatabaseReference = database.getReference("").child("users")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
 
-    override fun bind(view: ProfileContract.View) {
+    override fun bind(view: EditProfileContract.View) {
         mView = view
     }
 
@@ -30,10 +29,8 @@ class ProfilePresenter : ProfileContract.Presenter {
             override fun onDataChange(p0: DataSnapshot) {
                 val name = p0!!.child("name").value.toString()
                 val phoneNumber = p0.child("phoneNumber").value.toString()
-                val email = p0.child("email").value.toString()
                 mView!!.setName(name)
                 mView!!.setPhoneNumber(phoneNumber)
-                mView!!.setEmail(email)
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -42,22 +39,9 @@ class ProfilePresenter : ProfileContract.Presenter {
         })
     }
 
-
-
-    override fun logout() {
-        val tokenUpdate = HashMap<String, Any>()
-        tokenUpdate["tokenId"] = ""
-
-        usersReference.updateChildren(tokenUpdate).addOnCompleteListener({
-            mAuth.signOut()
-            mView!!.startLoginActivity()
-        })
+    override fun save() {
+        usersReference.child("name").setValue(mView!!.getName())
+        usersReference.child("phoneNumber").setValue(mView!!.getPhoneNumber())
+        mView!!.hideKeyboard()
     }
-
-
-//    override fun save() {
-//        usersReference.child("name").setValue(mView!!.getName())
-//        usersReference.child("phoneNumber").setValue(mView!!.getPhoneNumber())
-//        mView!!.hideKeyboard()
-//    }
 }

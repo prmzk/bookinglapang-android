@@ -15,6 +15,7 @@
     <color name="black_effective">#2a2a2a</color>
     <color name="appThemeColor">#009900</color>
     <color name="pageColorWhite">#ffffff</color>
+    <color name="profile">#D0FBD1</color>
 
 
     <color name="error_view_title">#FFFFFF</color>

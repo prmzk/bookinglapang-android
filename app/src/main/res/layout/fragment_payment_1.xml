@@ -72,13 +72,13 @@
                     android:id="@+id/phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/form_input_background"
                     android:layout_weight="3"
+                    android:background="@drawable/form_input_background"
                     android:cursorVisible="true"
-                    android:textCursorDrawable="@null"
+                    android:inputType="phone"
                     android:paddingLeft="@dimen/befote_text"
                     android:paddingRight="@dimen/befote_text"
-                    android:inputType="phone"/>
+                    android:textCursorDrawable="@null" />
             </TableRow>
         </TableLayout>
         <Button

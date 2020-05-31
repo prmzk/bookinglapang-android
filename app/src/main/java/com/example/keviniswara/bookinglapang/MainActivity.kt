@@ -183,4 +183,10 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(fragment.javaClass.getSimpleName())
                 .commit()
     }
+
+    fun replaceFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, fragment, tag).addToBackStack("").commit()
+    }
+
 }
