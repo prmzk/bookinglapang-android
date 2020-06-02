@@ -51,10 +51,12 @@
                         android:background="@drawable/login_btn"
                         android:cursorVisible="true"
                         android:hint="Old Password"
+                        android:inputType="textPassword"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
+                        android:password="false"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@null" />
 
@@ -63,16 +65,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
+                        android:layout_marginTop="15dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="3"
                         android:background="@drawable/login_btn"
                         android:cursorVisible="true"
                         android:hint="New Password"
+                        android:inputType="textPassword"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
+                        android:password="false"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@null" />
 
@@ -87,10 +92,12 @@
                         android:background="@drawable/login_btn"
                         android:cursorVisible="true"
                         android:hint="Confirm New Password"
+                        android:inputType="textPassword"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
+                        android:password="false"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@null" />
 

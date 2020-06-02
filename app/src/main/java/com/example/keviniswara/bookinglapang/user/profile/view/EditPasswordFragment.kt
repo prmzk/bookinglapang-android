@@ -39,16 +39,14 @@ class EditPasswordFragment : Fragment(), EditPasswordContract.View {
 //        mPresenter.getProfileFromDatabase()
 //
         mBinding.buttonSave.setOnClickListener({
-//            mPresenter.save()
-            val fragment = ProfileFragment()
-            val ft = fragmentManager!!.beginTransaction()
-            ft.replace(com.example.keviniswara.bookinglapang.R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
-            ft.commit()
+            mPresenter.passwordAuthentication()
+
         })
 //
         return mBinding.root
     }
-//
+
+    //
     override fun initPresenter(): EditPasswordContract.Presenter {
         return EditPasswordPresenter()
     }
@@ -57,21 +55,40 @@ class EditPasswordFragment : Fragment(), EditPasswordContract.View {
 //        return mBinding.name.text.toString()
 //    }
 //
-//    override fun getPhoneNumber(): String {
-//        return mBinding.phoneNumber.text.toString()
+    override fun getPassword(): String {
+        return mBinding.oldPassword.text.toString()
+    }
+
+    override fun getNewPassword(): String {
+        return mBinding.newPassword.text.toString()
+    }
+
+    override fun getNewPasswordConfirm(): String {
+        return mBinding.newPasswordConfirm.text.toString()
+    }
+
+    override fun moveBack() {
+            val fragment = ProfileFragment()
+            val ft = fragmentManager!!.beginTransaction()
+            ft.replace(com.example.keviniswara.bookinglapang.R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
+            ft.commit()
+    }
+
+//    override fun setTest(test: String) {
+//        mBinding.newPasswordConfirm.setText(test)
 //    }
-//
-//    override fun setName(name: String) {
-//        mBinding.name.setText(name)
+
+//    override fun setPassword(password: String) {
+//        mBinding.oldPassword.setText(password)
 //    }
 //
 //    override fun setPhoneNumber(phoneNumber: String) {
 //        mBinding.phoneNumber.setText(phoneNumber)
 //    }
 //
-//    override fun hideKeyboard() {
-//        val imm: InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
-//    }
+    override fun hideKeyboard() {
+        val imm: InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+    }
 
 }

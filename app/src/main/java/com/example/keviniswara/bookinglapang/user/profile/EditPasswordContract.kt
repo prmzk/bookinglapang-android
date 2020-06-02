@@ -8,10 +8,15 @@ interface EditPasswordContract {
 //        fun getName() : String
 //        fun getPhoneNumber() : String
 //        fun setName(name: String)
+          fun getPassword(): String
+          fun getNewPassword(): String
+          fun getNewPasswordConfirm(): String
+          fun moveBack()
 //        fun setPhoneNumber(phoneNumber: String)
-//        fun hideKeyboard()
+          fun hideKeyboard()
     }
     interface Presenter : BasePresenter<View> {
+          fun passwordAuthentication()
 //        fun getProfileFromDatabase()
 //        fun save()
     }
