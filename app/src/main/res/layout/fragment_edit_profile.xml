@@ -39,24 +39,46 @@
                     android:orientation="vertical"
                     android:padding="15dp">
 
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:paddingLeft="5dp"
+                        android:text="Name"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
                     <EditText
                         android:id="@+id/name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="3"
                         android:background="@drawable/login_btn"
                         android:cursorVisible="true"
-                        android:hint="Name"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@null" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="3"
+                        android:paddingLeft="5dp"
+                        android:text="Phone Number"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/phone_number"
@@ -68,13 +90,20 @@
                         android:layout_weight="3"
                         android:background="@drawable/login_btn"
                         android:cursorVisible="true"
-                        android:hint="Phone Number"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingRight="10dp"
                         android:paddingBottom="5dp"
                         android:textColor="@color/black"
                         android:textCursorDrawable="@null" />
+
+                    <TextView
+                        android:id="@+id/error_message"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:paddingLeft="5dp"
+                        android:textColor="@android:color/holo_red_dark" />
 
                     <Button
                         android:id="@+id/button_save"

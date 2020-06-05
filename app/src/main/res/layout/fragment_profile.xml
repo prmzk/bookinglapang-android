@@ -155,7 +155,7 @@
                         android:background="@drawable/button_green"
                         android:minHeight="20dp"
                         android:padding="2dp"
-                        android:text="UBAH PASSWORD"
+                        android:text="GANTI PASSWORD"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textSize="12sp"

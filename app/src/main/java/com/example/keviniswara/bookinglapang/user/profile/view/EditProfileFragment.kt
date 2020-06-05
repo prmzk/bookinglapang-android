@@ -1,10 +1,12 @@
 package com.example.keviniswara.bookinglapang.user.profile.view
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,10 +39,6 @@ class EditProfileFragment : Fragment(), EditProfileContract.View {
 
         mBinding.buttonSave.setOnClickListener({
             mPresenter.save()
-            val fragment = ProfileFragment()
-            val ft = fragmentManager!!.beginTransaction()
-            ft.replace(com.example.keviniswara.bookinglapang.R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
-            ft.commit()
         })
 
         return mBinding.root
@@ -69,6 +67,30 @@ class EditProfileFragment : Fragment(), EditProfileContract.View {
     override fun hideKeyboard() {
         val imm: InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
+    }
+
+    override fun moveBack() {
+        val fragment = ProfileFragment()
+        val ft = fragmentManager!!.beginTransaction()
+        ft.replace(com.example.keviniswara.bookinglapang.R.id.content, fragment).addToBackStack(fragment.javaClass.simpleName)
+        ft.commit()
+    }
+
+    override fun showSuccessMessage() {
+        AlertDialog.Builder(this.context!!)
+                .setTitle("Berhasil")
+                .setMessage("Profile berhasil diganti.")
+                .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, which ->
+                    run {
+                        dialog.dismiss()
+                        moveBack()
+                    }
+                })
+                .show()
+    }
+
+    override fun setErrorMessage(error: String) {
+        mBinding.errorMessage.setText(error)
     }
 
 }

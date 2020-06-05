@@ -10,6 +10,9 @@ interface EditProfileContract {
         fun setName(name: String)
         fun setPhoneNumber(phoneNumber: String)
         fun hideKeyboard()
+        fun moveBack()
+        fun showSuccessMessage()
+        fun setErrorMessage(error: String)
     }
     interface Presenter : BasePresenter<View> {
         fun getProfileFromDatabase()

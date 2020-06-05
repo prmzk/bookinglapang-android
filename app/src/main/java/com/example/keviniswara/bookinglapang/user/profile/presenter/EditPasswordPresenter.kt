@@ -32,7 +32,7 @@ class EditPasswordPresenter : EditPasswordContract.Presenter {
                 var newPassword = mView?.getNewPassword()
                 var newPasswordConfirm = mView?.getNewPasswordConfirm()
 
-                mView?.hideKeyboard()
+//                mView?.hideKeyboard()
 
                 if(password !=null && password != ""){
                     val mAuth = FirebaseAuth.getInstance()
@@ -44,11 +44,19 @@ class EditPasswordPresenter : EditPasswordContract.Presenter {
                                     if (newPassword != null) {
                                         if(newPassword == newPasswordConfirm){
                                             user!!.updatePassword(newPassword)
-                                                    .addOnCompleteListener({ task -> mView?.moveBack()})
+                                                    .addOnCompleteListener({ task -> mView?.showSuccessMessage()})
+                                        } else {
+                                            mView?.setErrorMessage("Password tidak sama")
                                         }
+                                    } else {
+                                        mView?.setErrorMessage("Password tidak boleh kosong")
                                     }
+                                } else {
+                                    mView?.setErrorMessage("Password lama salah, harap coba lagi")
                                 }
                             })
+                } else {
+                    mView?.setErrorMessage("Tolong masukkan password lama anda")
                 }
             }
 

@@ -1,10 +1,12 @@
 package com.example.keviniswara.bookinglapang.user.profile.view
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,28 +35,22 @@ class EditPasswordFragment : Fragment(), EditPasswordContract.View {
                 container, false)
 
         mPresenter = initPresenter()
-//
+
         mPresenter.bind(this)
-//
-//        mPresenter.getProfileFromDatabase()
-//
+
         mBinding.buttonSave.setOnClickListener({
             mPresenter.passwordAuthentication()
 
         })
-//
+
         return mBinding.root
     }
 
-    //
+
     override fun initPresenter(): EditPasswordContract.Presenter {
         return EditPasswordPresenter()
     }
-//
-//    override fun getName(): String {
-//        return mBinding.name.text.toString()
-//    }
-//
+
     override fun getPassword(): String {
         return mBinding.oldPassword.text.toString()
     }
@@ -74,18 +70,23 @@ class EditPasswordFragment : Fragment(), EditPasswordContract.View {
             ft.commit()
     }
 
-//    override fun setTest(test: String) {
-//        mBinding.newPasswordConfirm.setText(test)
-//    }
+    override fun showSuccessMessage() {
+        AlertDialog.Builder(this.context!!)
+                .setTitle("Berhasil")
+                .setMessage("Password berhasil diganti.")
+                .setPositiveButton("Ok", DialogInterface.OnClickListener { dialog, which ->
+                    run {
+                        dialog.dismiss()
+                        moveBack()
+                    }
+                })
+                .show()
+    }
 
-//    override fun setPassword(password: String) {
-//        mBinding.oldPassword.setText(password)
-//    }
-//
-//    override fun setPhoneNumber(phoneNumber: String) {
-//        mBinding.phoneNumber.setText(phoneNumber)
-//    }
-//
+    override fun setErrorMessage(error: String) {
+        mBinding.errorMessage.setText(error)
+    }
+
     override fun hideKeyboard() {
         val imm: InputMethodManager = activity!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)

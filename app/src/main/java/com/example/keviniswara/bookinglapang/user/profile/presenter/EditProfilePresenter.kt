@@ -40,8 +40,18 @@ class EditProfilePresenter : EditProfileContract.Presenter {
     }
 
     override fun save() {
-        usersReference.child("name").setValue(mView!!.getName())
-        usersReference.child("phoneNumber").setValue(mView!!.getPhoneNumber())
-        mView!!.hideKeyboard()
+        var name = mView?.getName()
+        var phoneNumber = mView?.getPhoneNumber()
+
+        if(name == null || name == "" ){
+            mView?.setErrorMessage("Nama tidak boleh kosong")
+        } else if (phoneNumber == null || phoneNumber == "") {
+            mView?.setErrorMessage("Nomor telepon tidak boleh kosong")
+        } else {
+            usersReference.child("name").setValue(name)
+            usersReference.child("phoneNumber").setValue(phoneNumber)
+            mView?.showSuccessMessage()
+            mView?.hideKeyboard()
+        }
     }
 }
